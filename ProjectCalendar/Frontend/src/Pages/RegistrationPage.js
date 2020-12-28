@@ -7,7 +7,7 @@ const RegistrationPage = () => (
         <div className="login-page">
         <div className="form">
         <FormRegister />
-        <Link to='/' className='adress'><p>Login</p></Link>
+        <Link to='/login' className='adress'><p>Login</p></Link>
         </div>
   </div>
 )
