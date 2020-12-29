@@ -1,23 +1,21 @@
-import React from 'react'
-import { Switch, Route } from 'react-router-dom'
+import React , {useEffect} from 'react'
+import { Switch, Route, BrowserRouter } from 'react-router-dom'
 import Calendar from '../Pages/Calendar'
 import LoginPage from '../Pages/LoginPage'
 import RegistrationPage from '../Pages/RegistrationPage'
 import paths from './paths'
-import { getToken } from '../utils/utils';
-import  SwitchTo  from './SwithTo';
+import ProtectedRoute from './ProtectedRoute';
 
 
 function Main() {
-
+ 
     const { login, registration, calendar } = paths
     return (
-        <main>
+        <main>     
             <Switch>
-                <Route exact path={login} component={LoginPage} />
+                <Route  path={login} component={LoginPage} />
                 <Route path={registration} component={RegistrationPage} />
-                <Route path={calendar} component={Calendar} />
-                <SwitchTo></SwitchTo>
+                <ProtectedRoute path={calendar} component={Calendar} />
             </Switch>
         </main>
     )

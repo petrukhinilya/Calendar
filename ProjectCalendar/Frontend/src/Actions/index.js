@@ -45,7 +45,8 @@ export const verifyUser = (email , password) => async (dispatch) => {
 
     console.log(body)
 
-
+    const { data: { token } } = body
+    saveToken(token)
 
     dispatch({
       type: 'LOGIN_USERS_SUCCESS'

@@ -20,14 +20,13 @@ const FormLogin = () => {
       password: { value: password },
       email: { value: email }
     } } } = event
-    console.log('event', e.target)
+
     dispatch(verifyUser(email, password))
     history.push(paths.calendar)
   }
   const onChange = (event) => {
     const { target: { name, value } } = event
-    console.log('event', event)
-    console.log('Name', name)
+
     switch (name) {
       case 'email':
         setEmail(value)

@@ -50,12 +50,16 @@ module.exports = {
     });
   },
   verify_token: function (req, res, next) {
-
+    const {token} = req.body
+    console.log('Token',token)
     jwt.verify(token, 'secretKey', (err, decoded) => {
       if (err) {
-        res.json({ auth: false, message: "Failed to auth" })
+        console.log('xxx',err)
+      res.status(401).send({ auth: false, message: "Failed to auth" })
       } else {
+        console.log('Accept')
         req.body.id = decoded.id
+        res.status(200).send({ status: "success", message: "TOKEN found!!!", auth : true})
         next()
       }
     })
