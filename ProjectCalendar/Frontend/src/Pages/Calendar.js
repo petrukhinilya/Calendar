@@ -1,8 +1,10 @@
 import React from 'react'
 import Header from '../Components/Header/Header'
-const Calendar = () => (<div>
+import Calendar from '../Components/Calendar'
+const setCalendar = () => (<div>
     <Header/>
+    <Calendar></Calendar>
 
 </div>)
 
-export default Calendar
+export default setCalendar

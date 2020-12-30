@@ -1,12 +1,11 @@
 import React, {useEffect, useState, useMemo} from 'react'
-import { Switch, Route } from 'react-router-dom'
-import Calendar from '../Pages/Calendar'
-import LoginPage from '../Pages/LoginPage'
-import RegistrationPage from '../Pages/RegistrationPage'
+
 import paths from './paths'
 import { useHistory } from "react-router-dom";
 
-import { Redirect } from 'react-router-dom'
+import Loading from '../Components/Loading'
+
+
 
 const verifyToken = async () => {
     try {
@@ -41,7 +40,7 @@ const ProtectedRoute = (props) => {
     const { login, registration, calendar } = paths
     const getRenderData = useMemo(() => {
         if(isAuthenticated === null){
-            return <div>Loading Text</div>
+            return <div><Loading></Loading></div>
         }
         if(isAuthenticated){
             const Component = props.component;

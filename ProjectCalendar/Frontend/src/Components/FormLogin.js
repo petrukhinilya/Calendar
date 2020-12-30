@@ -43,7 +43,7 @@ const FormLogin = () => {
       <input onChange={onChange} type="text" placeholder="E-mail adress" name="email" value={email} />
       <input onChange={onChange} type="password" placeholder="Password" name="password" value={password} />
       <button type="submit">Sign in</button>
-      {/* <NavLink to='/calendar'>Sign in</NavLink> */}
+
     </form>
   </div>)
 }

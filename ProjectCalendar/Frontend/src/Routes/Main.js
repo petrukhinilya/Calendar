@@ -13,6 +13,7 @@ function Main() {
     return (
         <main>     
             <Switch>
+                
                 <Route  path={login} component={LoginPage} />
                 <Route path={registration} component={RegistrationPage} />
                 <ProtectedRoute path={calendar} component={Calendar} />
