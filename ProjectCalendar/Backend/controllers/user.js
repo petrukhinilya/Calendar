@@ -7,7 +7,7 @@ exports.test = function (req, res) {
 };
 
 const createToken = (id) => {
-  return jwt.sign({ id }, 'secretKey', { expiresIn: '1h' });
+  return jwt.sign({ id }, 'secretKey', { expiresIn: '24h' });
 
 }
 
