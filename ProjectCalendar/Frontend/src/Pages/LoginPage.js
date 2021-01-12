@@ -7,13 +7,15 @@ import FormLogin from '../Components/FormLogin'
 
 const Loginpage = () => {
 
-    return (<div className="login-page">
+  return (<div className='wrapper'>
+    <div className="login-page">
       <div className="form">
         <FormLogin />
         <Link to='/registration' className='adress'><p>Registration</p></Link>
-        
+
       </div>
-    </div>)
-  }
+    </div>
+  </div>)
+}
 
 export default Loginpage

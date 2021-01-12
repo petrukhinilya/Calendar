@@ -2,10 +2,11 @@ import React, { useState, useEffect } from 'react'
 import moment from 'moment'
 import './Calendar.css'
 import builtCalendar from './BuiltCalendar'
+import Popup from './Popup';
 const Calendar = () => {
     const [calendar, setCalendar] = useState([])
     const [value, setValue] = useState(moment())
-
+    const [showPopup, setShowPopup] = useState(false)
 
     useEffect(() => {
         setCalendar(builtCalendar(value))
@@ -46,40 +47,61 @@ const Calendar = () => {
         return value.clone().add(1, 'month')
     }
 
+    function viewPopup() {
 
-    return (<div className='calendar'>
-        <div className="calendar-head">
-            <div >
-                <button onClick={()=> setValue(moment())}>Today</button>
-                <button onClick={() => setValue(prevMonth())}>Previous</button>
-                <button onClick={() => setValue(nextMonth())}>Next</button>
-            </div>
-
-            <div>{currMonthName()}  {currYearName()}</div>
-            <div></div>
-        </div>
-        <div className='body'>
-        <div className='day-names'>
-        {
-            ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].map(d=>(
-                <div>{d}</div>
-            ))
+        document.body.querySelector('.calendar').classList.toggle('opacity')
+        if(showPopup) {
+            setShowPopup(true)
+        } 
+        else {
+            setShowPopup(false)
         }
-        </div>
-            {calendar.map((week) => (
-                <div>
-                    {week.map((day) => (
-                        <div className='day' onClick={() => setValue(day)}>
-                            <div
-                                className={dayStyles(day)}
-                            >{day.format('D').toString()}</div>
-                        </div>
-                    ))}
-                </div>
-            ))}
-        </div>
+        
+    }
+    return (
+        <div>
+            <div className='calendar'>
+                <div className="calendar-head">
+                    <div >
+                        <button onClick={() => setValue(moment())}>Today</button>
+                        <button onClick={() => setValue(prevMonth())}>Back</button>
+                        <button onClick={() => setValue(nextMonth())}>Next</button>
+                    </div>
 
-    </div>)
+                    <div>{currMonthName()}  {currYearName()}</div>
+                    <div>
+
+                        <button onClick={() => viewPopup()}>Add Event</button>
+
+                    </div>
+                </div>
+                <div className='body'>
+                    <div className='day-names'>
+                        {
+                            ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(d => (
+                                <div>{d}</div>
+                            ))
+                        }
+                    </div>
+                    <div className='week'>
+                        {calendar.map((week) => (
+                            <div className='day-wrapper'>
+                                {week.map((day) => (
+                                    <div className='day' onClick={() => setValue(day)} >
+                                        <div id='number' className={dayStyles(day)}>{day.format('D').toString()} </div>
+                                    </div>
+                                ))}
+                            </div>
+                        ))}
+                    </div>
+                </div>
+
+            </div>
+            { !showPopup && 
+                <Popup></Popup>
+            }
+            
+        </div>)
 }
 
 export default Calendar
