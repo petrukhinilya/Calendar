@@ -23,9 +23,11 @@ let Users = new Schema({
 
 const saltRounds = 10;
 // hash user password before saving into database
-Users.pre('save', function(next){
+Users.pre('save', function (next) {
     this.password = bcrypt.hashSync(this.password, saltRounds);
     next();
-    });
+});
+
 
 module.exports = mongoose.model('Users', Users);
+

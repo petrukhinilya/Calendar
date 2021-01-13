@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const userModel = require('./routes/user')
+const eventModel = require('./routes/events')
 const app = express();
 
 
@@ -24,6 +25,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
 app.use('/user', userModel);
+app.use('/event',eventModel)
 
 let port = 1133;
 

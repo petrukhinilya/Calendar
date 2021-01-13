@@ -34,6 +34,7 @@ export const addUser = (name, email, password) => async (dispatch) => {
 export const verifyUser = (email , password) => async (dispatch) => {
 
   try {
+
     const response = await fetch('http://localhost:1133/user/authenticate', {
       method: 'POST',
       headers: {
@@ -55,5 +56,25 @@ export const verifyUser = (email , password) => async (dispatch) => {
     console.log(error)
   }
 } 
+
+export const addUserEvent = (token) => async (dispatch) => {
+  try {
+    const token = getToken()
+    const response = await fetch('http://localhost:1133/event/addevent', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8'
+      },
+      body: JSON.stringify({inputStartDate,inputEndDate,inputText,token})
+    })
+    const body = await response.json()
+
+    dispatch({
+      type: 'SEND_EVENT'
+    })
+  } catch (error) {
+    console.log(error)
+  }
+}
 
 

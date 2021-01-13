@@ -14,7 +14,7 @@ const createToken = (id) => {
 
 module.exports = {
   create: function (req, res, next) {
-    console.log("Request", req.body)
+
     userModel.create({ name: req.body.name, email: req.body.email, password: req.body.password }, function (err, result) {
       if (err) {
         console.log("error", err)
@@ -50,16 +50,16 @@ module.exports = {
     });
   },
   verify_token: function (req, res, next) {
-    const {token} = req.body
-    console.log('Token',token)
+    const { token } = req.body
+    console.log('Token', token)
     jwt.verify(token, 'secretKey', (err, decoded) => {
       if (err) {
-        console.log('xxx',err)
-      res.status(401).send({ auth: false, message: "Failed to auth" })
+        console.log('xxx', err)
+        res.status(401).send({ auth: false, message: "Failed to auth" })
       } else {
         console.log('Accept')
         req.body.id = decoded.id
-        res.status(200).send({ status: "success", message: "TOKEN found!!!", auth : true})
+        res.status(200).send({ status: "success", message: "TOKEN found!!!", auth: true })
         next()
       }
     })
@@ -67,19 +67,3 @@ module.exports = {
 }
 
 
-
-// const verifyJWT  = (req , res , next) => {
-//   const token = createToken(userToken._id)
-//   if(!token){
-//     res.status(401).send({ status: "error", message: "Invalid password!!!", data: null })
-//   }else{
-//     jwt.verify(token,'secretKey',(err,decoded)=>{
-//       if(err){
-//         res.json({auth:false,message:"Failed to auth"})
-//       }else{
-//         req.userToken = decoded.id
-//         next()
-//       }
-//     })
-//   }
-// }

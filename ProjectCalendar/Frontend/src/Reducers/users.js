@@ -19,11 +19,6 @@ const users = (state=initialState,action) => {
         return {
             ...state
         }
-        // case 'LOGIN_USERS_ERROR':
-        // return {
-        //     ...state,
-        //     error:action.payload.error
-        // }
         default :
         return {
             ...state

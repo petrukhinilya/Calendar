@@ -47,19 +47,21 @@ const Calendar = () => {
         return value.clone().add(1, 'month')
     }
 
-    function viewPopup() {
+    // function viewPopup() {
 
-        document.body.querySelector('.calendar').classList.toggle('opacity')
-        if(showPopup) {
-            setShowPopup(true)
-        } 
-        else {
-            setShowPopup(false)
-        }
+    //     document.body.querySelector('.calendar').classList.toggle('opacity')
+    //     if(showPopup) {
+    //         setShowPopup(true)
+            
+    //     } 
+    //     // else {
+    //     //     setShowPopup(false)
+    //     // }
         
-    }
+    // }
     return (
         <div>
+            
             <div className='calendar'>
                 <div className="calendar-head">
                     <div >
@@ -71,7 +73,7 @@ const Calendar = () => {
                     <div>{currMonthName()}  {currYearName()}</div>
                     <div>
 
-                        <button onClick={() => viewPopup()}>Add Event</button>
+                        <button onClick={() => setShowPopup(true)}>Add Event</button>
 
                     </div>
                 </div>
@@ -97,10 +99,9 @@ const Calendar = () => {
                 </div>
 
             </div>
-            { !showPopup && 
-                <Popup></Popup>
-            }
-            
+            { showPopup && 
+                <Popup onClick = {()=>setShowPopup(false)}></Popup>
+            }         
         </div>)
 }
 
