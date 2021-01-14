@@ -9,7 +9,10 @@ const Popup = ({ onClick }) => {
         let inputStartDate = document.body.querySelector('.input1').value
         let inputEndDate = document.body.querySelector('.input2').value
         let inputText = document.body.querySelector('.text').value
+        console.log(inputStartDate)
+        console.log(inputEndDate)
         console.log(inputText)
+
         dispatch(addUserEvent(inputStartDate,inputEndDate,inputText))
     }
     return (
