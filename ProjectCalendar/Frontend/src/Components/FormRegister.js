@@ -1,9 +1,7 @@
-import React from 'react'
+import React ,
+{ useState} from 'react'
 import './Registration.css'
-import { useState, useEffect } from "react";
-import { NavLink } from 'react-router-dom'
 import { useHistory } from "react-router-dom";
-
 import { useDispatch } from 'react-redux'
 import { addUser } from '../Actions';
 import paths from '../Routes/paths'
@@ -18,26 +16,23 @@ const FormRegister = (props) => {
 
     const onSubmit = (e) => {
         e.preventDefault()
-        console.log('event', e.target)
+
         const { target: { children: {
             password: { value: password },
             confirmPassword: { value: confirmPassword },
             name : {value : name},
             email : {value :email} 
         } } } = event
-        console.log(password)
-        console.log(confirmPassword)
+
         if (password === confirmPassword) {
-            console.log('Equal')
             dispatch(addUser(name , email , password))
             history.push(paths.calendar)
         }
-
     }
+
     const onChange = (event) => {
         const { target: { name, value } } = event
-        console.log('event', event)
-        console.log('Name', name)
+
         switch (name) {
             case 'name':
                 setName(value)
@@ -55,6 +50,7 @@ const FormRegister = (props) => {
                 break
         }
     }
+    
     return (<div>
         <form onSubmit={onSubmit}>
             <input onChange={onChange} type="text" placeholder="Name" name="name" value={name} />
@@ -62,8 +58,6 @@ const FormRegister = (props) => {
             <input onChange={onChange} type="password" placeholder="Password" name="password" value={password} />
             <input onChange={onChange} type="password" placeholder="Confirm password" name="confirmPassword" value={confirmPassword} />
             <button type='submit' >Sign up </button>
-            {/* onClick={()=>dispatch({type:'ADD_USER'})} */}
-            {/* <NavLink to='/'> </NavLink> */}
         </form>
     </div>)
 }
