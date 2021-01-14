@@ -12,7 +12,7 @@ const Popup = ({ onClick }) => {
         console.log(inputStartDate)
         console.log(inputEndDate)
         console.log(inputText)
-
+       
         dispatch(addUserEvent(inputStartDate,inputEndDate,inputText))
     }
     return (

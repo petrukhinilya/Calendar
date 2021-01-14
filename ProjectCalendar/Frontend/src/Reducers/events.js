@@ -1,22 +1,25 @@
 const initialEvents = {
-    startDate:'',
+    startDate: '',
     endDate: '',
-    data:[]
+    data: ''
 }
 
-const events = (state=initialEvents,action) => {
+const events = (state = initialEvents, action) => {
     console.log(action.type)
-    switch(action.type){
+    switch (action.type) {
         case 'SEND_EVENT':
-        console.log(action.payload.name)
-        return {
-            ...state,
-        }
-        default :
-        return {
-            ...state
-        }
+            console.log(action.payload.startDate)
+            return {
+                ...state,
+                // startDate: action.payload.startDate,
+                // endDate: action.payload.endDate,
+                // date: action.payload.date
+            }
+        default:
+            return {
+                ...state
+            }
     }
 }
 
-export default events ; 
+export default events; 

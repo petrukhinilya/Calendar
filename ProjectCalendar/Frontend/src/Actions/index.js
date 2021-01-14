@@ -70,7 +70,8 @@ export const addUserEvent = (inputStartDate,inputEndDate,inputText) => async (di
     const body = await response.json()
 
     dispatch({
-      type: 'SEND_EVENT'
+      type: 'SEND_EVENT',
+      payload
     })
   } catch (error) {
     console.log(error)
