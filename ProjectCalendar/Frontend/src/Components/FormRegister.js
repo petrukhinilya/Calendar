@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux'
 import { addUser } from '../Actions';
 import paths from '../Routes/paths'
 
-const FormRegister = (props) => {
+const FormRegister = () => {
     const history = useHistory();
     const dispatch = useDispatch()
     const [name, setName] = useState('')
@@ -20,8 +20,8 @@ const FormRegister = (props) => {
         const { target: { children: {
             password: { value: password },
             confirmPassword: { value: confirmPassword },
-            name : {value : name},
-            email : {value :email} 
+            name : { value : name},
+            email : { value : email },
         } } } = event
 
         if (password === confirmPassword) {
@@ -57,7 +57,7 @@ const FormRegister = (props) => {
             <input onChange={onChange} type="text" placeholder="E-mail address" name="email" value={email} />
             <input onChange={onChange} type="password" placeholder="Password" name="password" value={password} />
             <input onChange={onChange} type="password" placeholder="Confirm password" name="confirmPassword" value={confirmPassword} />
-            <button type='submit' >Sign up </button>
+            <button type='submit'>Sign up </button>
         </form>
     </div>)
 }

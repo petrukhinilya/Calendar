@@ -15,6 +15,7 @@ const Popup = ({ onClick }) => {
        
         dispatch(addUserEvent(inputStartDate,inputEndDate,inputText))
     }
+    
     return (
         <div className='main'>
             <div className='wrapper-popup' onClick={onClick}>

@@ -7,7 +7,6 @@ import { useDispatch } from 'react-redux'
 import { verifyUser } from '../Actions';
 
 const FormLogin = () => {
-
   const history = useHistory();
   const dispatch = useDispatch();
   const [email, setEmail] = useState('');
@@ -18,7 +17,7 @@ const FormLogin = () => {
 
     const { target: { children: {
       password: { value: password },
-      email: { value: email }
+      email: { value: email },
     } } } = event
 
     dispatch(verifyUser(email, password))
