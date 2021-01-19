@@ -11,7 +11,7 @@ export const addUser = (name, email, password) => async (dispatch) => {
       body: JSON.stringify({ name, email, password })
     })
     const body = await response.json()
-  
+
     const { data: { token } } = body
     saveToken(token)
 
@@ -31,7 +31,7 @@ export const addUser = (name, email, password) => async (dispatch) => {
 
 }
 
-export const verifyUser = (email , password) => async (dispatch) => {
+export const verifyUser = (email, password) => async (dispatch) => {
 
   try {
 
@@ -40,7 +40,7 @@ export const verifyUser = (email , password) => async (dispatch) => {
       headers: {
         'Content-Type': 'application/json;charset=utf-8'
       },
-      body: JSON.stringify({email, password })
+      body: JSON.stringify({ email, password })
     })
     const body = await response.json()
 
@@ -55,9 +55,9 @@ export const verifyUser = (email , password) => async (dispatch) => {
   } catch (error) {
     console.log(error)
   }
-} 
+}
 
-export const addUserEvent = (startDate,endDate,event) => async (dispatch) => {
+export const addUserEvent = (startDate, endDate, event) => async (dispatch) => {
   try {
 
     const start = new Date(startDate).getTime()
@@ -71,7 +71,7 @@ export const addUserEvent = (startDate,endDate,event) => async (dispatch) => {
       headers: {
         'Content-Type': 'application/json;charset=utf-8'
       },
-      body: JSON.stringify({inputStartDate,inputEndDate,event})
+      body: JSON.stringify({ inputStartDate, inputEndDate, event })
     })
     const body = await response.json()
     console.log(body)
@@ -82,5 +82,7 @@ export const addUserEvent = (startDate,endDate,event) => async (dispatch) => {
     console.log(error)
   }
 }
+
+
 
 
