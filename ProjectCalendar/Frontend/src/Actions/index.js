@@ -57,21 +57,26 @@ export const verifyUser = (email , password) => async (dispatch) => {
   }
 } 
 
-export const addUserEvent = (inputStartDate,inputEndDate,inputText) => async (dispatch) => {
+export const addUserEvent = (startDate,endDate,event) => async (dispatch) => {
   try {
+
+    const start = new Date(startDate).getTime()
+    const end = new Date(endDate).getTime()
+    let inputStartDate = Number(start)
+    let inputEndDate = Number(end)
+    console.log(inputEndDate)
     const token = getToken()
     const response = await fetch('http://localhost:1133/event/addevent', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json;charset=utf-8'
       },
-      body: JSON.stringify({inputStartDate,inputEndDate,inputText,token})
+      body: JSON.stringify({inputStartDate,inputEndDate,event})
     })
     const body = await response.json()
-
+    console.log(body)
     dispatch({
       type: 'SEND_EVENT',
-      payload
     })
   } catch (error) {
     console.log(error)

@@ -1,5 +1,4 @@
-import React ,
-{ useState} from 'react'
+import React ,{ useState } from 'react'
 import './Registration.css'
 import { useHistory } from "react-router-dom";
 import { useDispatch } from 'react-redux'
@@ -25,7 +24,7 @@ const FormRegister = () => {
         } } } = event
 
         if (password === confirmPassword) {
-            dispatch(addUser(name , email , password))
+            dispatch(addUser(name, email ,password))
             history.push(paths.calendar)
         }
     }
@@ -51,7 +50,8 @@ const FormRegister = () => {
         }
     }
     
-    return (<div>
+    return (
+    <div>
         <form onSubmit={onSubmit}>
             <input onChange={onChange} type="text" placeholder="Name" name="name" value={name} />
             <input onChange={onChange} type="text" placeholder="E-mail address" name="email" value={email} />

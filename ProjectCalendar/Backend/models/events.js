@@ -16,7 +16,6 @@ let Events = new Schema({
     },
     created_by:{
         type: String,
-        required:true
     }
 })
 
