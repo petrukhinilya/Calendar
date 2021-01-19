@@ -1,64 +1,64 @@
-import React, { useState, useEffect } from 'react'
-import moment from 'moment'
-import './Calendar.css'
-import builtCalendar from './BuiltCalendar'
+import React, { useState, useEffect } from 'react';
+import moment from 'moment';
+import './Calendar.css';
+import builtCalendar from './BuiltCalendar';
 import Popup from './Popup';
 
 const Calendar = () => {
-    const [calendar, setCalendar] = useState([])
-    const [value, setValue] = useState(moment())
-    const [showPopup, setShowPopup] = useState(false)
+    const [calendar, setCalendar] = useState([]);
+    const [value, setValue] = useState(moment());
+    const [showPopup, setShowPopup] = useState(false);
 
     useEffect(() => {
-        setCalendar(builtCalendar(value))
+        setCalendar(builtCalendar(value));
     }, [value])
 
     const isSelected = (day) => {
-        return value.isSame(day, 'day')
+        return value.isSame(day, 'day');
     }
     
     const beforeToday = (day) => {
-        const mounthPrev = value.clone().startOf('month').startOf('day')
+        const mounthPrev = value.clone().startOf('month').startOf('day');
 
-        return day.isBefore(mounthPrev, 'day')
+        return day.isBefore(mounthPrev, 'day');
     }
     
     const nextToday = (day) => {
-        const mounthNext = value.clone().endOf('month').endOf('day')
+        const mounthNext = value.clone().endOf('month').endOf('day');
 
-        return day.isAfter(mounthNext, 'day')
+        return day.isAfter(mounthNext, 'day');
     }
 
     const isToday = (day) => {
-        return day.isSame(new Date(), 'day')
+        return day.isSame(new Date(), 'day');
     }
 
     const dayStyles = (day) => {
-        if (beforeToday(day)) return 'before'
+        if (beforeToday(day)) return 'before';
 
-        if (nextToday(day)) return 'before'
+        if (nextToday(day)) return 'before';
 
-        if (isSelected(day)) return 'selected'
+        if (isSelected(day)) return 'selected';
 
-        if (isToday(day)) return 'today'
+        if (isToday(day)) return 'today';
 
-        return ''
+        return '';
     }
 
     const currMonthName = () => {
-        return value.format('MMMM')
+        return value.format('MMMM');
     }
 
     const currYearName = () => {
-        return value.format('YYYY')
+        return value.format('YYYY');
     }
 
     const prevMonth = () => {
-        return value.clone().subtract(1, 'month')
+        return value.clone().subtract(1, 'month');
     }
 
     const nextMonth = () => {
-        return value.clone().add(1, 'month')
+        return value.clone().add(1, 'month');
     }
 
     return (

@@ -24,17 +24,20 @@ const Popup = ({ onClick }) => {
     }
 
     const onChange = (event) => {
-        const { target: { name, value } } = event
+        const {
+            target: {
+                name, value }
+        } = event
 
         switch (name) {
             case 'startDate':
-                setStartDate(value)
+                setStartDate(value);
                 break
             case 'endDate':
-                setEndDate(value)
+                setEndDate(value);
                 break
             case 'text':
-                setText(value)
+                setText(value);
                 break
             default:
                 break

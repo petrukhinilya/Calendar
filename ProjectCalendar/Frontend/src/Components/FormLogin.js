@@ -1,8 +1,8 @@
-import React, { useState } from "react"
-import './Login.css'
-import paths from '../Routes/paths'
+import React, { useState } from "react";
+import './Login.css';
+import paths from '../Routes/paths';
 import { useHistory } from "react-router-dom";
-import { useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux';
 import { verifyUser } from '../Actions';
 
 const FormLogin = () => {
@@ -12,26 +12,37 @@ const FormLogin = () => {
   const [password, setPassword] = useState('');
 
   const onLogin = (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
-    const { target: { children: {
-      password: { value: password },
-      email: { value: email },
-    } } } = e
+    const {
+      target: {
+        children: {
+          password: {
+            value: password
+          },
+          email: {
+            value: email
+          },
+        }
+      }
+    } = e;
 
-    dispatch(verifyUser(email, password))
-    history.push(paths.calendar)
+    dispatch(verifyUser(email, password));
+    history.push(paths.calendar);
   }
 
   const onChange = (event) => {
-    const { target: { name, value } } = event
+    const {
+      target: {
+        name, value }
+    } = event;
 
     switch (name) {
       case 'email':
-        setEmail(value)
+        setEmail(value);
         break
       case 'password':
-        setPassword(value)
+        setPassword(value);
         break
       default:
         break
@@ -48,4 +59,4 @@ const FormLogin = () => {
     </div>)
 }
 
-export default FormLogin
+export default FormLogin;
