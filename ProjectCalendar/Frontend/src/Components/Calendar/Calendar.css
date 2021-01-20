@@ -1,0 +1,67 @@
+body{
+background-color: white;
+}
+
+.calendar{
+    margin: 7px;
+    font-size: 1rem;
+    border: 1px solid black;
+}
+
+.calendar-head{
+    background-color: white;
+    display: flex;
+    justify-content: space-between;
+    margin:10px 0;
+}
+
+.calendar-head button {
+    padding: 5px;
+}
+
+.day-names{
+    display: flex;
+    justify-content: space-around;
+    background-color: white;
+    border: 1px solid grey;
+}
+
+.day-wrapper{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.day{
+    height: 100px;
+    width: calc(100%/7); 
+    background-color: aliceblue;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    text-align: end;
+    border: 1px solid black;
+}
+
+#number{
+    cursor: pointer;
+}
+
+.selected{
+    background-color: orchid; 
+}
+
+.before {
+
+    background-color: grey;
+}
+
+.today{
+    background-color: red;
+}
+
+.opacity{
+    opacity: 50%;
+}
+
+
+
