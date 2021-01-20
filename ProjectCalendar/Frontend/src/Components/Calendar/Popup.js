@@ -1,26 +1,33 @@
-import React,
-{ useState } from 'react'
-import './Popup.css'
-import { useDispatch } from 'react-redux'
-import { addUserEvent } from '../../Actions';
+import React, { useState } from 'react';
+import './Popup.css';
+import { useDispatch } from 'react-redux';
+import { addUserEvent, getUserEvent } from '../../Actions';
 const Popup = ({ onClick }) => {
 
     const dispatch = useDispatch()
 
-    const [startDate, setStartDate] = useState('')
-    const [endDate, setEndDate] = useState('')
-    const [text, setText] = useState('')
+    const [startDate, setStartDate] = useState('');
+    const [endDate, setEndDate] = useState('');
+    const [text, setText] = useState('');
 
     const sendEvent = (e) => {
         e.preventDefault()
 
-        const { target: { children: {
-            startDate: { value: startDate },
-            endDate: { value: endDate },
-            text: { value: text },
-        } } } = e
+        const {
+            target: {
+                children: {
+                    startDate: {
+                        value: startDate },
+                    endDate: {
+                        value: endDate },
+                    text: {
+                        value: text },
+                }
+            }
+        } = e
 
         dispatch(addUserEvent(startDate, endDate, text))
+        dispatch(getUserEvent())
     }
 
     const onChange = (event) => {

@@ -5,35 +5,35 @@ import builtCalendar from './BuiltCalendar';
 import Popup from './Popup';
 
 const Calendar = () => {
-    const [calendar, setCalendar] = useState([]);
-    const [value, setValue] = useState(moment());
-    const [showPopup, setShowPopup] = useState(false);
+  const [calendar, setCalendar] = useState([]);
+  const [value, setValue] = useState(moment());
+  const [showPopup, setShowPopup] = useState(false);
 
-    useEffect(() => {
+  useEffect(() => {
         setCalendar(builtCalendar(value));
-    }, [value])
+  }, [value])
 
-    const isSelected = (day) => {
+  const isSelected = (day) => {
         return value.isSame(day, 'day');
-    }
-    
-    const beforeToday = (day) => {
+  }
+
+  const beforeToday = (day) => {
         const mounthPrev = value.clone().startOf('month').startOf('day');
 
         return day.isBefore(mounthPrev, 'day');
-    }
-    
-    const nextToday = (day) => {
+  }
+
+  const nextToday = (day) => {
         const mounthNext = value.clone().endOf('month').endOf('day');
 
         return day.isAfter(mounthNext, 'day');
-    }
+  }
 
-    const isToday = (day) => {
+  const isToday = (day) => {
         return day.isSame(new Date(), 'day');
-    }
+  }
 
-    const dayStyles = (day) => {
+  const dayStyles = (day) => {
         if (beforeToday(day)) return 'before';
 
         if (nextToday(day)) return 'before';
@@ -43,26 +43,26 @@ const Calendar = () => {
         if (isToday(day)) return 'today';
 
         return '';
-    }
+  }
 
-    const currMonthName = () => {
+  const currMonthName = () => {
         return value.format('MMMM');
-    }
+  }
 
-    const currYearName = () => {
+  const currYearName = () => {
         return value.format('YYYY');
-    }
+  }
 
-    const prevMonth = () => {
+  const prevMonth = () => {
         return value.clone().subtract(1, 'month');
-    }
+  }
 
-    const nextMonth = () => {
+  const nextMonth = () => {
         return value.clone().add(1, 'month');
-    }
+  }
 
-    return (
-        <div>     
+  return (
+        <div>
             <div className='calendar'>
                 <div className="calendar-head">
                     <div >
@@ -97,8 +97,9 @@ const Calendar = () => {
                     </div>
                 </div>
             </div>
-            { showPopup && <Popup onClick = {() => setShowPopup(false)}/>}         
-        </div>)
+            {showPopup && <Popup onClick={() => setShowPopup(false)} />}
+        </div>
+  )
 }
 
 export default Calendar;

@@ -2,10 +2,8 @@ const initialState = {
     name: '',
 }
 const users = (state=initialState,action) => {
-    console.log(action.type)
     switch(action.type){
         case 'ADD_USERS_SUCCESS':
-        console.log(action.payload.name)
         return {
             ...state,
             name: action.payload.name

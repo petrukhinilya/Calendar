@@ -74,7 +74,7 @@ export const addUserEvent = (startDate, endDate, event) => async (dispatch) => {
       body: JSON.stringify({ inputStartDate, inputEndDate, event })
     })
     const body = await response.json()
-    console.log(body)
+
     dispatch({
       type: 'SEND_EVENT',
     })
@@ -84,5 +84,26 @@ export const addUserEvent = (startDate, endDate, event) => async (dispatch) => {
 }
 
 
+export const getUserEvent = () => async (dispatch) => {
+  try {
+    const response = await fetch('http://localhost:1133/event/getevents', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8'
+      }
+    })
 
+    const events = await response.json()
+    
+    // const body2 = await body.filter(x=>x.event)
+    
+
+    dispatch({
+      type: 'GET_EVENTS',
+      payload: {events}
+    })
+  } catch (e) {
+    console.log(e)
+  }
+}
 

@@ -39,9 +39,7 @@ const FormRegister = () => {
 
     const onChange = (event) => {
         const {
-            target: {
-                name, value }
-        } = event;
+            target: { name, value } } = event;
 
         switch (name) {
             case 'name':
@@ -70,7 +68,8 @@ const FormRegister = () => {
                 <input onChange={onChange} type="password" placeholder="Confirm password" name="confirmPassword" value={confirmPassword} />
                 <button type='submit'>Sign up </button>
             </form>
-        </div>)
+        </div>
+    )
 }
 
 export default FormRegister;
