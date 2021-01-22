@@ -19,11 +19,13 @@ const Calendar = () => {
     
     const beforeToday = (day) => {
         const mounthPrev = value.clone().startOf('month').startOf('day')
+
         return day.isBefore(mounthPrev, 'day')
     }
     
     const nextToday = (day) => {
         const mounthNext = value.clone().endOf('month').endOf('day')
+
         return day.isAfter(mounthNext, 'day')
     }
 
@@ -33,9 +35,13 @@ const Calendar = () => {
 
     const dayStyles = (day) => {
         if (beforeToday(day)) return 'before'
+
         if (nextToday(day)) return 'before'
+
         if (isSelected(day)) return 'selected'
+
         if (isToday(day)) return 'today'
+
         return ''
     }
 
@@ -64,12 +70,9 @@ const Calendar = () => {
                         <button onClick={() => setValue(prevMonth())}>Back</button>
                         <button onClick={() => setValue(nextMonth())}>Next</button>
                     </div>
-
                     <div>{currMonthName()}  {currYearName()}</div>
                     <div>
-
                         <button onClick={() => setShowPopup(true)}>Add Event</button>
-
                     </div>
                 </div>
                 <div className='body'>
@@ -87,7 +90,8 @@ const Calendar = () => {
                                     <div className='day' onClick={() => setValue(day)} >
                                         <div id='number' className={dayStyles(day)}>{day.format('D').toString()} </div>
                                     </div>
-                                ))}
+                                ))
+                                }
                             </div>
                         ))}
                     </div>
