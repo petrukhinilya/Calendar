@@ -5,63 +5,63 @@ import builtCalendar from './BuiltCalendar'
 import Popup from './Popup';
 
 const Calendar = () => {
-    const [calendar, setCalendar] = useState([])
-    const [value, setValue] = useState(moment())
-    const [showPopup, setShowPopup] = useState(false)
+  const [calendar, setCalendar] = useState([])
+  const [value, setValue] = useState(moment())
+  const [showPopup, setShowPopup] = useState(false)
 
-    useEffect(() => {
-        setCalendar(builtCalendar(value))
-    }, [value])
+  useEffect(() => {
+    setCalendar(builtCalendar(value))
+  }, [value])
 
-    const isSelected = (day) => {
-        return value.isSame(day, 'day')
-    }
+  const isSelected = (day) => {
+    return value.isSame(day, 'day')
+  }
     
-    const beforeToday = (day) => {
-        const mounthPrev = value.clone().startOf('month').startOf('day')
+  const beforeToday = (day) => {
+    const mounthPrev = value.clone().startOf('month').startOf('day')
 
-        return day.isBefore(mounthPrev, 'day')
-    }
+    return day.isBefore(mounthPrev, 'day')
+  }
     
-    const nextToday = (day) => {
-        const mounthNext = value.clone().endOf('month').endOf('day')
+  const nextToday = (day) => {
+    const mounthNext = value.clone().endOf('month').endOf('day')
 
-        return day.isAfter(mounthNext, 'day')
-    }
+    return day.isAfter(mounthNext, 'day')
+  }
 
-    const isToday = (day) => {
-        return day.isSame(new Date(), 'day')
-    }
+  const isToday = (day) => {
+    return day.isSame(new Date(), 'day')
+  }
 
-    const dayStyles = (day) => {
-        if (beforeToday(day)) return 'before'
+  const dayStyles = (day) => {
+    if (beforeToday(day)) return 'before'
 
-        if (nextToday(day)) return 'before'
+    if (nextToday(day)) return 'before'
 
-        if (isSelected(day)) return 'selected'
+    if (isSelected(day)) return 'selected'
 
-        if (isToday(day)) return 'today'
+    if (isToday(day)) return 'today'
 
-        return ''
-    }
+    return ''
+  }
 
-    const currMonthName = () => {
-        return value.format('MMMM')
-    }
+  const currMonthName = () => {
+    return value.format('MMMM')
+  }
 
-    const currYearName = () => {
-        return value.format('YYYY')
-    }
+  const currYearName = () => {
+    return value.format('YYYY')
+  }
 
-    const prevMonth = () => {
-        return value.clone().subtract(1, 'month')
-    }
+  const prevMonth = () => {
+    return value.clone().subtract(1, 'month')
+  }
 
-    const nextMonth = () => {
-        return value.clone().add(1, 'month')
-    }
+  const nextMonth = () => {
+    return value.clone().add(1, 'month')
+  }
 
-    return (
+  return (
         <div>     
             <div className='calendar'>
                 <div className="calendar-head">
@@ -98,7 +98,8 @@ const Calendar = () => {
                 </div>
             </div>
             { showPopup && <Popup onClick = {() => setShowPopup(false)}/>}         
-        </div>)
+        </div>
+    )
 }
 
 export default Calendar

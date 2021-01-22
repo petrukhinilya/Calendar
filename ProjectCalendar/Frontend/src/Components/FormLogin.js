@@ -45,7 +45,8 @@ const FormLogin = () => {
         <input onChange={onChange} type="password" placeholder="Password" name="password" value={password} />
         <button type="submit">Sign in</button>
       </form>
-    </div>)
+    </div>
+    )
 }
 
 export default FormLogin
