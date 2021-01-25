@@ -20,23 +20,23 @@ const FormRegister = () => {
     e.preventDefault();
 
     const {
-        target: {
-            children: {
-                    password: {
-                        value: password 
-                    },
-                    confirmPassword: {
-                        value: confirmPassword 
-                    },
-                    name: {
-                        value: name 
-                    },
-                    email: {
-                        value: email 
-                    },
-                }
-            }
-        } = e;
+      target: {
+        children: {
+          password: {
+            value: password 
+          },
+          confirmPassword: {
+            value: confirmPassword 
+          },
+          name: {
+            value: name 
+          },
+          email: {
+            value: email 
+            },
+          }
+        }
+      } = e;
 
     if (password === confirmPassword) {
         dispatch(addUser(name, email, password));
