@@ -1,8 +1,8 @@
-import React, { useState } from "react"
-import './Login.css'
-import paths from '../Routes/paths'
+import React, { useState } from "react";
+import './Login.css';
+import paths from '../Routes/paths';
 import { useHistory } from "react-router-dom";
-import { useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux';
 import { verifyUser } from '../Actions';
 
 const FormLogin = () => {
@@ -14,10 +14,16 @@ const FormLogin = () => {
   const onLogin = (e) => {
     e.preventDefault()
 
-    const { target: { children: {
-      password: { value: password },
-      email: { value: email },
-    } } } = e
+    const {
+      target: {
+        children: {
+          password: {
+            value: password },
+          email: {
+            value: email },
+        }
+      }
+    } = e
 
     dispatch(verifyUser(email, password))
     history.push(paths.calendar)
@@ -46,7 +52,7 @@ const FormLogin = () => {
         <button type="submit">Sign in</button>
       </form>
     </div>
-    )
+  )
 }
 
 export default FormLogin

@@ -1,20 +1,20 @@
-import React, { useState } from 'react'
-import './Registration.css'
+import React, { useState } from 'react';
+import './Registration.css';
 import { useHistory } from "react-router-dom";
-import { useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux';
 import { addUser } from '../Actions';
-import paths from '../Routes/paths'
+import paths from '../Routes/paths';
 
 const FormRegister = () => {
   const history = useHistory();
-  const dispatch = useDispatch()
-  const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [confirmPassword, setConfirmPassword] = useState('')
+  const dispatch = useDispatch();
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
 
   const onSubmit = (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
     const {
         target: {
@@ -29,29 +29,29 @@ const FormRegister = () => {
                     value: email },
                 }
             }
-        } = e
+        } = e;
 
     if (password === confirmPassword) {
-        dispatch(addUser(name, email, password))
-        history.push(paths.calendar)
+        dispatch(addUser(name, email, password));
+        history.push(paths.calendar);
     }
   }
 
   const onChange = (event) => {
-    const { target: { name, value } } = event
+    const { target: { name, value } } = event;
 
     switch (name) {
         case 'name':
-            setName(value)
+            setName(value);
             break
         case 'email':
-            setEmail(value)
+            setEmail(value);
             break
         case 'password':
-            setPassword(value)
+            setPassword(value);
             break
         case 'confirmPassword':
-            setConfirmPassword(value)
+            setConfirmPassword(value);
             break
         default:
             break
@@ -71,4 +71,4 @@ const FormRegister = () => {
         )
 }
 
-export default FormRegister
+export default FormRegister;
