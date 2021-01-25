@@ -1,9 +1,12 @@
-import React, { useState } from "react"
-import './Login.css'
-import paths from '../Routes/paths'
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-import { useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux';
+
+import paths from '../Routes/paths';
+
 import { verifyUser } from '../Actions';
+
+import './Login.css';
 
 const FormLogin = () => {
   const history = useHistory();
@@ -12,29 +15,37 @@ const FormLogin = () => {
   const [password, setPassword] = useState('');
 
   const onLogin = (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
-    const { target: { children: {
-      password: { value: password },
-      email: { value: email },
-    } } } = e
+    const {
+      target: {
+        children: {
+          password: {
+            value: password 
+          },
+          email: {
+            value: email 
+          },
+        }
+      }
+    } = e;
 
-    dispatch(verifyUser(email, password))
-    history.push(paths.calendar)
+    dispatch(verifyUser(email, password));
+    history.push(paths.calendar);
   }
 
   const onChange = (event) => {
-    const { target: { name, value } } = event
+    const { target: { name, value } } = event;
 
     switch (name) {
       case 'email':
-        setEmail(value)
-        break
+        setEmail(value);
+        break;
       case 'password':
-        setPassword(value)
-        break
+        setPassword(value);
+        break;
       default:
-        break
+        break;
     }
   }
 
@@ -45,7 +56,8 @@ const FormLogin = () => {
         <input onChange={onChange} type="password" placeholder="Password" name="password" value={password} />
         <button type="submit">Sign in</button>
       </form>
-    </div>)
+    </div>
+  )
 }
 
-export default FormLogin
+export default FormLogin;
