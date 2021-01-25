@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import moment from 'moment';
-import './Calendar.css';
+
 import builtCalendar from './BuiltCalendar';
 import Popup from './Popup';
+
+import './Calendar.css';
 
 const Calendar = () => {
   const [calendar, setCalendar] = useState([]);
@@ -11,7 +13,7 @@ const Calendar = () => {
 
   useEffect(() => {
     setCalendar(builtCalendar(value))
-  }, [value])
+  }, [value]);
 
   const isSelected = (day) => {
     return value.isSame(day, 'day');

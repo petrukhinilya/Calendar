@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
-import './Registration.css';
 import { useHistory } from "react-router-dom";
 import { useDispatch } from 'react-redux';
+
 import { addUser } from '../Actions';
+
 import paths from '../Routes/paths';
+
+import './Registration.css';
 
 const FormRegister = () => {
   const history = useHistory();
@@ -19,14 +22,18 @@ const FormRegister = () => {
     const {
         target: {
             children: {
-                password: {
-                    value: password },
-                confirmPassword: {
-                    value: confirmPassword },
-                name: {
-                    value: name },
-                email: {
-                    value: email },
+                    password: {
+                        value: password 
+                    },
+                    confirmPassword: {
+                        value: confirmPassword 
+                    },
+                    name: {
+                        value: name 
+                    },
+                    email: {
+                        value: email 
+                    },
                 }
             }
         } = e;
@@ -43,18 +50,18 @@ const FormRegister = () => {
     switch (name) {
         case 'name':
             setName(value);
-            break
+            break;
         case 'email':
             setEmail(value);
-            break
+            break;
         case 'password':
             setPassword(value);
-            break
+            break;
         case 'confirmPassword':
             setConfirmPassword(value);
-            break
+            break;
         default:
-            break
+            break;
         }
     }
 
@@ -68,7 +75,7 @@ const FormRegister = () => {
                 <button type='submit'>Sign up </button>
             </form>
         </div>
-        )
+    )
 }
 
 export default FormRegister;
