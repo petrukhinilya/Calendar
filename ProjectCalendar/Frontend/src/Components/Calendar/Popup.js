@@ -1,43 +1,53 @@
-import React,
-{ useState } from 'react'
-import './Popup.css'
-import { useDispatch } from 'react-redux'
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+
 import { addUserEvent } from '../../Actions';
+
+import './Popup.css';
+
 const Popup = ({ onClick }) => {
-
-    const dispatch = useDispatch()
-
-    const [startDate, setStartDate] = useState('')
-    const [endDate, setEndDate] = useState('')
-    const [text, setText] = useState('')
+    const dispatch = useDispatch();
+    const [startDate, setStartDate] = useState('');
+    const [endDate, setEndDate] = useState('');
+    const [text, setText] = useState('');
 
     const sendEvent = (e) => {
-        e.preventDefault()
+        e.preventDefault();
 
-        const { target: { children: {
-            startDate: { value: startDate },
-            endDate: { value: endDate },
-            text: { value: text },
-        } } } = e
+        const {
+            target: {
+                children: {
+                    startDate: {
+                        value: startDate
+                    },
+                    endDate: {
+                        value: endDate
+                    },
+                    text: {
+                        value: text
+                    },
+                }
+            }
+        } = e;
 
-        dispatch(addUserEvent(startDate, endDate, text))
+        dispatch(addUserEvent(startDate, endDate, text));
     }
 
     const onChange = (event) => {
-        const { target: { name, value } } = event
+        const { target: { name, value } } = event;
 
         switch (name) {
             case 'startDate':
-                setStartDate(value)
-                break
+                setStartDate(value);
+                break;
             case 'endDate':
-                setEndDate(value)
-                break
+                setEndDate(value);
+                break;
             case 'text':
-                setText(value)
-                break
+                setText(value);
+                break;
             default:
-                break
+                break;
         }
     }
 
@@ -58,4 +68,4 @@ const Popup = ({ onClick }) => {
     )
 }
 
-export default Popup
+export default Popup;
