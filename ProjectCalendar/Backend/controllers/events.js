@@ -19,7 +19,7 @@ module.exports = {
                 console.log(err)
                 return next(err)
             }
-            // const arr = events.map(x => x.startDate)
+            
             res.status(200).send(events)
         })
     }

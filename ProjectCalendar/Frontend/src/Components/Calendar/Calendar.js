@@ -101,8 +101,7 @@ const Calendar = () => {
             {calendar.map((week) => (
               <div className='day-wrapper'>
                 {week.map((day) => {
-                const arr = createCalendar(day , a , dayStyles , setValue)
-                return arr
+                return createCalendar(day , a , dayStyles , setValue)  
                 })
                 }
               </div>

@@ -16,6 +16,11 @@ const events = (state = initialEvents, action) => {
                 ...state,
                 events: action.payload.events
             }
+        case 'GET_EVENTS_ERROR':
+            return {
+                ...state,
+                error: action.payload.error
+            }
         default:
             return {
                 ...state
