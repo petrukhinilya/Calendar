@@ -1,13 +1,13 @@
 import moment from 'moment';
 
-export default function createCalendar(day, a, dayStyles, setValue) {
-  const arrOfEvents = [];
+export default function createCalendar(day, getallEvents, dayStyles, setValue) {
+  const allEvents = [];
 
-  for (let i = 0; i < a.length; i++) {
+  for (let i = 0; i < getallEvents.length; i++) {
     let dayStart = day.format('DD MMM YYYY');
-    let dayStartEvent = moment(a[i].startDate).format('DD MMM YYYY');
+    let dayStartEvent = moment(getallEvents[i].startDate).format('DD MMM YYYY');
     if (dayStart === dayStartEvent) {
-      arrOfEvents.push(a[i])
+        allEvents.push(getallEvents[i])
     }
   }
 
@@ -17,7 +17,7 @@ export default function createCalendar(day, a, dayStyles, setValue) {
             <div className={dayStyles(day)}>{day.format('D').toString()}
             </div>
             <div>
-              {arrOfEvents.map((event) => {
+              {allEvents.map((event) => {
                   return (
                     <div className='highlight'>{event.event}</div>
                   )

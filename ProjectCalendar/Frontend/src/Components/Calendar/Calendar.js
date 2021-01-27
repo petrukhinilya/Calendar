@@ -17,7 +17,7 @@ const Calendar = () => {
   const [showPopup, setShowPopup] = useState(false);
   // const [events, setEvents] = useState([]);
 
-  const arrOfEvents = useSelector(state => state.events.events);
+  const getallEvents = useSelector(state => state.events.events);
 
   useEffect(async () => {
     await setCalendar(builtCalendar(value))
@@ -101,7 +101,7 @@ const Calendar = () => {
             {calendar.map((week) => (
               <div className='day-wrapper'>
                 {week.map((day) => {
-                    return createCalendar(day, arrOfEvents, dayStyles, setValue)  
+                    return createCalendar(day, getallEvents, dayStyles, setValue)  
                   })
                 }
               </div>
