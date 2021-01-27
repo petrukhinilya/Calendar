@@ -67,7 +67,5 @@ const Popup = ({ onClick }) => {
         </div>
       </div>
     )
-    
 }
-
 export default Popup;
