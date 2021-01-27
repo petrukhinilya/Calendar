@@ -77,9 +77,34 @@ export const addUserEvent = (startDate,endDate,event) => async (dispatch) => {
     console.log(body)
     dispatch({
       type: 'SEND_EVENT',
+      startDate,
+      endDate,
+      event: {body}
     })
   } catch (error) {
     console.log(error)
+  }
+}
+
+export const getUserEvent = () => async (dispatch, useState) => {
+  try {
+    const response = await fetch('http://localhost:1133/event/getevents', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8'
+      }
+    })
+
+    const events = await response.json()
+
+
+    console.log(events)
+    dispatch({
+      type: 'GET_EVENTS',
+      payload: {events}
+    })
+  } catch (e) {
+    console.log(e)
   }
 }
 

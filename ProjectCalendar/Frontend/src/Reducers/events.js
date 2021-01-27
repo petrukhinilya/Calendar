@@ -1,7 +1,7 @@
 const initialEvents = {
     startDate: '',
     endDate: '',
-    event: ''
+    events: []
 }
 
 const events = (state = initialEvents, action) => {
@@ -10,7 +10,11 @@ const events = (state = initialEvents, action) => {
         case 'SEND_EVENT':
             return {
                 ...state,
-
+            }
+        case 'GET_EVENTS':
+            return {
+                ...state,
+                events: action.payload.events
             }
         default:
             return {

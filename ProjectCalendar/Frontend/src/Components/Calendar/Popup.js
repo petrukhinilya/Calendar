@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { addUserEvent } from '../../Actions';
+import { addUserEvent, getUserEvent } from '../../Actions';
 
 import './Popup.css';
 
@@ -31,6 +31,7 @@ const Popup = ({ onClick }) => {
         } = e;
 
         dispatch(addUserEvent(startDate, endDate, text));
+        dispatch(getUserEvent());
     }
 
     const onChange = (event) => {
