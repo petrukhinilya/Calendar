@@ -1,30 +1,42 @@
 import React, { useState, useEffect } from 'react';
 import moment from 'moment';
+import { useDispatch, useSelector } from 'react-redux';
 
 import builtCalendar from './BuiltCalendar';
 import Popup from './Popup';
+import createCalendar from './CreateCalendar';
+
+import { getUserEvent } from '../../Actions';
 
 import './Calendar.css';
 
 const Calendar = () => {
+  const dispatch = useDispatch();
   const [calendar, setCalendar] = useState([]);
   const [value, setValue] = useState(moment());
   const [showPopup, setShowPopup] = useState(false);
+  // const [events, setEvents] = useState([]);
+
+  const allEvents = useSelector(state => state.events.events);
+
+  useEffect(async () => {
+    await setCalendar(builtCalendar(value))
+  }, [value]);
 
   useEffect(() => {
-    setCalendar(builtCalendar(value))
-  }, [value]);
+    dispatch(getUserEvent())
+  }, [])
 
   const isSelected = (day) => {
     return value.isSame(day, 'day');
   }
-    
+
   const beforeToday = (day) => {
     const mounthPrev = value.clone().startOf('month').startOf('day');
 
     return day.isBefore(mounthPrev, 'day');
   }
-    
+
   const nextToday = (day) => {
     const mounthNext = value.clone().endOf('month').endOf('day');
 
@@ -64,44 +76,42 @@ const Calendar = () => {
   }
 
   return (
-        <div>     
-            <div className='calendar'>
-                <div className="calendar-head">
-                    <div >
-                        <button onClick={() => setValue(moment())}>Today</button>
-                        <button onClick={() => setValue(prevMonth())}>Back</button>
-                        <button onClick={() => setValue(nextMonth())}>Next</button>
-                    </div>
-                    <div>{currMonthName()}  {currYearName()}</div>
-                    <div>
-                        <button onClick={() => setShowPopup(true)}>Add Event</button>
-                    </div>
-                </div>
-                <div className='body'>
-                    <div className='day-names'>
-                        {
-                            ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(d => (
-                                <div>{d}</div>
-                            ))
-                        }
-                    </div>
-                    <div className='week'>
-                        {calendar.map((week) => (
-                            <div className='day-wrapper'>
-                                {week.map((day) => (
-                                    <div className='day' onClick={() => setValue(day)} >
-                                        <div id='number' className={dayStyles(day)}>{day.format('D').toString()} </div>
-                                    </div>
-                                ))
-                                }
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </div>
-            { showPopup && <Popup onClick = {() => setShowPopup(false)}/>}         
+    <div>
+      <div className='calendar'>
+        <div className="calendar-head">
+          <div>
+            <button onClick={() => setValue(moment())}>Today</button>
+            <button onClick={() => setValue(prevMonth())}>Back</button>
+            <button onClick={() => setValue(nextMonth())}>Next</button>
+          </div>
+          <div>{currMonthName()}  {currYearName()}</div>
+          <div>
+            <button onClick={() => setShowPopup(true)}>Add Event</button>
+          </div>
         </div>
-    )
+        <div className='body'>
+          <div className='day-names'>
+            {
+              ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(d => (
+                <div>{d}</div>
+              ))
+            }
+          </div>
+          <div className='week'>
+            {calendar.map((week) => (
+              <div className='day-wrapper'>
+                {week.map((day) => {
+                    return createCalendar(day, allEvents, dayStyles, setValue)  
+                  })
+                }
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+      {showPopup && <Popup onClick={() => setShowPopup(false)} />}
+    </div>
+  )
 }
 
-export default Calendar
+export default Calendar;

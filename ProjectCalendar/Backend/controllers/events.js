@@ -14,11 +14,12 @@ module.exports = {
     },
     get_events: function (req, res, next) {
         eventsModel.find({}, function (err, events) {
-            console.log('4')
+
             if (err) {
                 console.log(err)
                 return next(err)
             }
+            
             res.status(200).send(events)
         })
     }
