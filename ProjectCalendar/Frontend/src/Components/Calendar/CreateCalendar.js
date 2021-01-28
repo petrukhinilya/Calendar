@@ -6,25 +6,28 @@ export default function createCalendar(day, getallEvents, dayStyles, setValue) {
   for (let i = 0; i < getallEvents.length; i++) {
     let dayStart = day.format('DD MMM YYYY');
     let dayStartEvent = moment(getallEvents[i].startDate).format('DD MMM YYYY');
-    if (dayStart === dayStartEvent) {
-        allEvents.push(getallEvents[i])
+    let dayEndEvent = moment(getallEvents[i].endDate).format('DD MMM YYYY');
+
+    if (dayStart >= dayStartEvent && dayStart <= dayEndEvent) {
+      allEvents.push(getallEvents[i]);
     }
   }
 
   return (
-        <div className='day' onClick={() => setValue(day)} >
-          <div id='number'>
-            <div className={dayStyles(day)}>{day.format('D').toString()}
-            </div>
-            <div>
-              {allEvents.map((event) => {
-                  return (
-                    <div className='highlight'>{event.event}</div>
-                  )
-                })
-              }
-            </div>
-          </div>
+    <div className='day' onClick={() => setValue(day)} >
+      <div id='number'>
+        <div className={dayStyles(day)}>{day.format('D').toString()}
         </div>
-      )
+        <div>
+          {allEvents.map((event) => {
+            // console.log(event)
+            return (
+              <div className='highlight'>{event.event}</div>
+            )
+          })
+          }
+        </div>
+      </div>
+    </div>
+  )
 }
