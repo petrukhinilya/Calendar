@@ -16,17 +16,13 @@ export default function createCalendar(day, getallEvents, dayStyles, setValue) {
   return (
     <div className='day' onClick={() => setValue(day)} >
       <div id='number'>
-        <div className={dayStyles(day)}>{day.format('D').toString()}
-        </div>
-        <div>
+        <div className={dayStyles(day)}>{day.format('D').toString()}</div>
           {allEvents.map((event) => {
-            // console.log(event)
             return (
               <div className='highlight'>{event.event}</div>
-            )
-          })
+              )
+            })
           }
-        </div>
       </div>
     </div>
   )
