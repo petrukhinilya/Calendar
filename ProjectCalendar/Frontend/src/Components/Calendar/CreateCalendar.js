@@ -23,16 +23,15 @@ export default function createCalendar(day, getallEvents, dayStyles, setValue, d
         <div>
           {allEvents.map((event) => {
             const deleteEvents = () => {
-
             deleteEvent(event._id)
             }
             return (
               <div className='highlight'>
                 {event.event}
-                <button className='del' onClick={deleteEvents} data-remove={event._id}>Del</button>
+                <button className='del' onClick={deleteEvents}>Del</button>
               </div>
-            )
-          })
+              )
+            })
           }
         </div>
       </div>

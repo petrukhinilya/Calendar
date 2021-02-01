@@ -15,8 +15,6 @@ const Calendar = () => {
   const [calendar, setCalendar] = useState([]);
   const [value, setValue] = useState(moment());
   const [showPopup, setShowPopup] = useState(false);
-  // const [events, setEvents] = useState([]);
-
   const allEvents = useSelector(state => state.events.events);
 
   useEffect(async () => {
@@ -76,9 +74,7 @@ const Calendar = () => {
   }
 
   const deleteEvent = (id) => {
-    console.log('exxx')
-    dispatch(deleteUserEvent(id))
-    console.log('exxx')
+    dispatch(deleteUserEvent(id));
   }
 
   return (

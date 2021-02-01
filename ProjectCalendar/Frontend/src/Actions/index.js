@@ -95,7 +95,7 @@ export const getUserEvent = () => async (dispatch) => {
       }
     })
 
-    const events = await response.json()
+    const events = await response.json();
 
     dispatch({
       type: 'GET_EVENTS',
@@ -110,7 +110,7 @@ export const getUserEvent = () => async (dispatch) => {
   }
 }
 
-export const deleteUserEvent = (id) => async (dispatch, getState) => {
+export const deleteUserEvent = (id) => async (dispatch) => {
   try {
     const response = await fetch(`http://localhost:1133/event/${id}/deleteevent`, {
       method: 'DELETE',
@@ -120,14 +120,14 @@ export const deleteUserEvent = (id) => async (dispatch, getState) => {
       body:JSON.stringify({id})
     })
 
-    const events = await response.json()
+    const events = await response.json();
 
     dispatch({
       type: 'DELETE_EVENTS',
       payload: { events }
     })
   } catch (error) {
-    console.log(error)
+    console.log(error);
     dispatch({
       type: 'DELETE_EVENTS_ERROR',
       payload: { error }
