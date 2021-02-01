@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import builtCalendar from './BuiltCalendar';
 import Popup from './Popup';
 import createCalendar from './CreateCalendar';
+import ChangePopup from './ChangePopup';
 
 import { getUserEvent, deleteUserEvent, updateUserEvent } from '../../Actions';
 
@@ -16,6 +17,8 @@ const Calendar = () => {
   const [value, setValue] = useState(moment());
   const [showPopup, setShowPopup] = useState(false);
   const allEvents = useSelector(state => state.events.events);
+  const [changePopup, setChangePopup] = useState(false);
+  const [event, setEvent] = useState('');
 
   useEffect(async () => {
     await setCalendar(builtCalendar(value))
@@ -77,9 +80,9 @@ const Calendar = () => {
     dispatch(deleteUserEvent(id));
   }
 
-  const updateEvent = (id) => {
-    dispatch(updateUserEvent(id));
-  }
+  // const updateEvent = (id) => {
+  //   dispatch(updateUserEvent(id));
+  // }
 
   return (
     <div>
@@ -107,7 +110,7 @@ const Calendar = () => {
             {calendar.map((week) => (
               <div className='day-wrapper'>
                 {week.map((day) => {
-                  return createCalendar(day, allEvents, dayStyles, setValue, deleteEvent, updateEvent)
+                  return createCalendar(day, allEvents, dayStyles, setValue, deleteEvent, setChangePopup, setEvent)
                  })
                 }
               </div>
@@ -116,6 +119,7 @@ const Calendar = () => {
         </div>
       </div>
       {showPopup && <Popup onClick={() => setShowPopup(false)} />}
+      {changePopup && <ChangePopup onClick={() => setChangePopup(false)} event = {event}/>}
     </div>
   )
 }

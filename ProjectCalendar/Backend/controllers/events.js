@@ -30,7 +30,13 @@ module.exports = {
         })
     },
     update_event: function (req, res, next) {
-        eventsModel.updateOne({_id: req.params.id },function (err) {
+        console.log(req.body)
+        eventsModel.updateOne({_id: req.params.id },{
+            startDate: req.body.startDate,
+            endDate: req.body.endDate,
+            event: req.body.event
+        },
+            function (err) {
             if (err) return next(err);
             res.status(200).send({ text: 'Update successfully!' });
         })

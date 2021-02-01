@@ -1,6 +1,6 @@
 import moment from 'moment';
 
-export default function createCalendar(day, getallEvents, dayStyles, setValue, deleteEvent, updateEvent) {
+export default function createCalendar(day, getallEvents, dayStyles, setValue, deleteEvent, setChangePopup, setEvent) {
   const allEvents = [];
 
   for (let i = 0; i < getallEvents.length; i++) {
@@ -21,11 +21,16 @@ export default function createCalendar(day, getallEvents, dayStyles, setValue, d
         <div>
           {allEvents.map((event) => {
             const deleteEvents = () => {
-            deleteEvent(event._id);
+              deleteEvent(event._id);
+            }
+
+            const updateEvents = () => {
+              setEvent(event)
+              setChangePopup(true)
             }
             return (
               <div className='highlight'>
-                <div>{event.event}</div>
+                <div className = 'event' onClick={updateEvents}>{event.event}</div>
                 <button className='del' onClick={deleteEvents}>Del</button>
               </div>
               )

@@ -60,10 +60,10 @@ export const verifyUser = (email, password) => async (dispatch) => {
 export const addUserEvent = (startDate, endDate, event) => async (dispatch) => {
   try {
 
-    const start = new Date(startDate).getTime()
-    const end = new Date(endDate).getTime()
-    let inputStartDate = Number(start)
-    let inputEndDate = Number(end)
+    const start = new Date(startDate).getTime();
+    const end = new Date(endDate).getTime();
+    let inputStartDate = Number(start);
+    let inputEndDate = Number(end);
     console.log(inputEndDate)
     const token = getToken()
     const response = await fetch('http://localhost:1133/event/addevent', {
@@ -135,14 +135,22 @@ export const deleteUserEvent = (id) => async (dispatch) => {
   }
 }
 
-export const updateUserEvent = (id) => async (dispatch) => {
+export const updateUserEvent = (id, startDate, endDate, event) => async (dispatch) => {
   try {
+    // const start = Number(startDate);
+    // const end = new Date(endDate).getTime();
+    console.log(startDate)
+    console.log(endDate)
+    let inputStartDate = Number(new Date(startDate).getTime());
+    let inputEndDate = Number(new Date(endDate).getTime());
+    console.log(inputStartDate)
+    console.log(inputEndDate)
     const response = await fetch(`http://localhost:1133/event/${id}/updateevent`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json;charset=utf-8'
       },
-      body:JSON.stringify({id})
+      body:JSON.stringify({id, inputStartDate, inputEndDate, event})
     })
 
     const events = await response.json();
