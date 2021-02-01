@@ -1,19 +1,17 @@
 import moment from 'moment';
 
-export default function createCalendar(day, getallEvents, dayStyles, setValue, deleteEvent) {
+export default function createCalendar(day, getallEvents, dayStyles, setValue, deleteEvent, updateEvent) {
   const allEvents = [];
 
   for (let i = 0; i < getallEvents.length; i++) {
-    let dayStart = day.format('DD MMM YYYY');
-    let dayStartEvent = moment(getallEvents[i].startDate).format('DD MMM YYYY');
-    let dayEndEvent = moment(getallEvents[i].endDate).format('DD MMM YYYY');
+    let dayStart = day.format('MM DDD YYYY');
+    let dayStartEvent = moment(getallEvents[i].startDate).format('MM DDD YYYY');
+    let dayEndEvent = moment(getallEvents[i].endDate).format('MM DDD YYYY');
 
     if (dayStart >= dayStartEvent && dayStart <= dayEndEvent) {
       allEvents.push(getallEvents[i]);
     }
   }
-
-
 
   return (
     <div className='day' onClick={() => setValue(day)} >
@@ -23,11 +21,11 @@ export default function createCalendar(day, getallEvents, dayStyles, setValue, d
         <div>
           {allEvents.map((event) => {
             const deleteEvents = () => {
-            deleteEvent(event._id)
+            deleteEvent(event._id);
             }
             return (
               <div className='highlight'>
-                {event.event}
+                <div>{event.event}</div>
                 <button className='del' onClick={deleteEvents}>Del</button>
               </div>
               )

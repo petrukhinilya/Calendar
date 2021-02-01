@@ -135,4 +135,29 @@ export const deleteUserEvent = (id) => async (dispatch) => {
   }
 }
 
+export const updateUserEvent = (id) => async (dispatch) => {
+  try {
+    const response = await fetch(`http://localhost:1133/event/${id}/updateevent`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8'
+      },
+      body:JSON.stringify({id})
+    })
+
+    const events = await response.json();
+
+    dispatch({
+      type: 'UPDATE_EVENTS',
+      payload: { events }
+    })
+  } catch (error) {
+    console.log(error);
+    dispatch({
+      type: 'UPDATE_EVENTS_ERROR',
+      payload: { error }
+    })
+  }
+}
+
 

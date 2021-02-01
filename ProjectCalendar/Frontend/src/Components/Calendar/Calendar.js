@@ -6,7 +6,7 @@ import builtCalendar from './BuiltCalendar';
 import Popup from './Popup';
 import createCalendar from './CreateCalendar';
 
-import { getUserEvent, deleteUserEvent } from '../../Actions';
+import { getUserEvent, deleteUserEvent, updateUserEvent } from '../../Actions';
 
 import './Calendar.css';
 
@@ -77,6 +77,10 @@ const Calendar = () => {
     dispatch(deleteUserEvent(id));
   }
 
+  const updateEvent = (id) => {
+    dispatch(updateUserEvent(id));
+  }
+
   return (
     <div>
       <div className='calendar'>
@@ -103,8 +107,8 @@ const Calendar = () => {
             {calendar.map((week) => (
               <div className='day-wrapper'>
                 {week.map((day) => {
-                  return createCalendar(day, allEvents, dayStyles, setValue, deleteEvent)
-                })
+                  return createCalendar(day, allEvents, dayStyles, setValue, deleteEvent, updateEvent)
+                 })
                 }
               </div>
             ))}

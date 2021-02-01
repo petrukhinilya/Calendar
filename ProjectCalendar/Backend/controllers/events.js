@@ -19,14 +19,20 @@ module.exports = {
                 console.log(err)
                 return next(err)
             }
-            
+
             res.status(200).send(events)
         })
     },
     delete_event: function (req, res, next) {
-        eventsModel.deleteOne({_id:req.params.id},function (err) {
+        eventsModel.deleteOne({ _id: req.params.id }, function (err) {
             if (err) return next(err);
-            res.status(200).send({text:'Deleted successfully!'});
+            res.status(200).send({ text: 'Deleted successfully!' });
         })
-    }
+    },
+    update_event: function (req, res, next) {
+        eventsModel.updateOne({_id: req.params.id },function (err) {
+            if (err) return next(err);
+            res.status(200).send({ text: 'Update successfully!' });
+        })
+     }
 }
