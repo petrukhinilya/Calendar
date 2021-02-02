@@ -16,18 +16,17 @@ export default function createCalendar(day, getallEvents, dayStyles, setValue, d
   return (
     <div className='day' onClick={() => setValue(day)} >
       <div id='number'>
-        <div className={dayStyles(day)}>{day.format('D').toString()}
-        </div>
+        <div className={dayStyles(day)}>{day.format('D').toString()}</div>
         <div>
           {allEvents.map((event) => {
-            const deleteEvents = () => {
-              deleteEvent(event._id);
-            }
+              const deleteEvents = () => {
+                deleteEvent(event._id);
+              }
+              const updateEvents = () => {
+                setEvent(event);
+                setChangePopup(true);
+              }
 
-            const updateEvents = () => {
-              setEvent(event)
-              setChangePopup(true)
-            }
             return (
               <div className='highlight'>
                 <div className = 'event' onClick={updateEvents}>{event.event}</div>

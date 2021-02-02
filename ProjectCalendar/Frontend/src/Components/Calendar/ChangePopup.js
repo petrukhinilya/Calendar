@@ -9,8 +9,6 @@ import './Popup.css';
 const ChangePopup = ({ onClick, event }) => {
   const eventTimeStart = moment(event.startDate).format('YYYY-MM-DD');
   const eventTimeEnd = moment(event.endDate).format('YYYY-MM-DD');
-  console.log(eventTimeStart)
-  console.log(eventTimeEnd)
   const dispatch = useDispatch();
   const [startDate, setStartDate] = useState(eventTimeStart);
   const [endDate, setEndDate] = useState(eventTimeEnd);
@@ -34,7 +32,7 @@ const ChangePopup = ({ onClick, event }) => {
         }
       }
     } = e;
-    console.log(event)
+
     dispatch(updateUserEvent(event._id, startDate, endDate, text));
     dispatch(getUserEvent());
   }

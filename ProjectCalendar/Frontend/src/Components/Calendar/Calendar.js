@@ -80,10 +80,6 @@ const Calendar = () => {
     dispatch(deleteUserEvent(id));
   }
 
-  // const updateEvent = (id) => {
-  //   dispatch(updateUserEvent(id));
-  // }
-
   return (
     <div>
       <div className='calendar'>
