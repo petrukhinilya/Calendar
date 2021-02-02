@@ -24,8 +24,8 @@ const jwt = require('jsonwebtoken');
 // myLogger,
 //  event_controller.create_event);
 
-router.post('/addevent', event_controller.create_event);
-router.get('/getevents',event_controller.get_events);
-router.delete('/:id/deleteevent',event_controller.delete_event);
+router.post('/add', event_controller.create_event);
+router.get('/get',event_controller.get_events);
+router.delete('/:id/delete',event_controller.delete_event);
 
 module.exports = router;

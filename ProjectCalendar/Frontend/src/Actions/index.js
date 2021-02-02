@@ -66,7 +66,7 @@ export const addUserEvent = (startDate, endDate, event) => async (dispatch) => {
     let inputEndDate = Number(end)
     console.log(inputEndDate)
     const token = getToken()
-    const response = await fetch('http://localhost:1133/event/addevent', {
+    const response = await fetch('http://localhost:1133/event/add', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json;charset=utf-8'
@@ -88,7 +88,7 @@ export const addUserEvent = (startDate, endDate, event) => async (dispatch) => {
 
 export const getUserEvent = () => async (dispatch) => {
   try {
-    const response = await fetch('http://localhost:1133/event/getevents', {
+    const response = await fetch('http://localhost:1133/event/get', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json;charset=utf-8'
@@ -112,7 +112,7 @@ export const getUserEvent = () => async (dispatch) => {
 
 export const deleteUserEvent = (id) => async (dispatch) => {
   try {
-    const response = await fetch(`http://localhost:1133/event/${id}/deleteevent`, {
+    const response = await fetch(`http://localhost:1133/event/${id}/delete`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json;charset=utf-8'
