@@ -14,16 +14,15 @@ export default function createCalendar(day, getallEvents, dayStyles, setValue, d
   }
 
   return (
-    <div className='day' onClick={() => setValue(day)} >
+    <div className='day' onClick={() => setValue(day)}>
       <div id='number'>
         <div className={dayStyles(day)}>{day.format('D').toString()}</div>
         <div>
           {allEvents.map((event) => {
-
             return (
               <div className='highlight'>
-                <div className = 'event' >{event.event}</div>
-                <button className='del' >Del</button>
+                <div className = 'event'>{event.event}</div>
+                <button className='del'>Del</button>
               </div>
               )
             })
