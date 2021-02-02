@@ -22,13 +22,13 @@ const ChangePopup = ({ onClick, event }) => {
         children: {
           startDate: {
             value: startDate
-            },
-            endDate: {
+          },
+          endDate: {
                 value: endDate
-            },
-            text: {
-                value: text
-            },
+          },
+          text: {
+              value: text
+          },
         }
       }
     } = e;
@@ -50,22 +50,21 @@ const ChangePopup = ({ onClick, event }) => {
       case 'text':
         setText(value);
         break;
-    default:
+      default:
         break;
     }
   }
 
   return (
       <div className='main'>
-          <div className='wrapper-popup' onClick={onClick}>
-          </div>
+        <div className='wrapper-popup' onClick={onClick}></div>
         <div>
           <form className="popup" onSubmit={updateEvent}>
-            <input type='date' className='input1' onChange={onChange} value={startDate} name="startDate"></input>
-            <input type='date' className='input2' onChange={onChange} value={endDate} name="endDate"></input>
-            <input type='text' className='text' placeholder='Add event to date' onChange={onChange} value={text} name="text"></input>
+            <input type='date' className='input1' onChange={onChange} value={startDate} name="startDate"/>
+            <input type='date' className='input2' onChange={onChange} value={endDate} name="endDate"/>
+            <input type='text' className='text' placeholder='Add event to date' onChange={onChange} value={text} name="text"/>
             <button type='submit' className='add-btn'>Change this event</button>
-            <input type='reset' onClick={onClick} className='reset'></input>
+            <input type='reset' onClick={onClick} className='reset'/>
           </form>
         </div>
       </div>
