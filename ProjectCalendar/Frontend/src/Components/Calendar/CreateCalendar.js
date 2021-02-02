@@ -24,9 +24,8 @@ export default function createCalendar(day, getallEvents, dayStyles, setValue, d
                 <div className = 'event'>{event.event}</div>
                 <button className='del'>Del</button>
               </div>
-              )
-            })
-          }
+            )
+          })}
         </div>
       </div>
     </div>
