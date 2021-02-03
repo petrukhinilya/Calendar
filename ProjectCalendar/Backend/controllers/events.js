@@ -1,8 +1,10 @@
-const eventsModel = require('../models/events')
+const Events = require('../models/events')
 
 module.exports = {
     create_event: function (req, res, next) {
-        eventsModel.create({ startDate: req.body.inputStartDate, endDate: req.body.inputEndDate, event: req.body.event, created_by: req.body.created_by }, function (err, result) {
+        const { inputStartDate, inputEndDate, event, created_by } = req.body;
+
+        Events.create({ startDate: inputStartDate, endDate: inputEndDate, event, created_by }, function (err, result) {
             if (err) {
                 console.log("error", err)
                 next(err);
@@ -12,7 +14,7 @@ module.exports = {
         });
     },
     get_events: function (req, res, next) {
-        eventsModel.find({}, function (err, events) {
+        Events.find({}, function (err, events) {
 
             if (err) {
                 console.log(err)
@@ -23,19 +25,19 @@ module.exports = {
         })
     },
     delete_event: function (req, res, next) {
-        eventsModel.deleteOne({ _id: req.params.id }, function (err) {
+        Events.deleteOne({ _id: req.params.id }, function (err) {
             if (err) return next(err);
             res.status(200).send({ text: 'Deleted successfully!' });
         })
     },
     update_event: function (req, res, next) {
-        eventsModel.updateOne({ _id: req.params.id }, {
-            startDate: req.body.inputStartDate,
-            endDate: req.body.inputEndDate,
-            event: req.body.event
-        }, function (err) {
-            if (err) return next(err);
-            res.status(200).send({ text: 'Update successfully!' });
-        })
+        const { inputStartDate, inputEndDate, event, created_by } = req.body;
+        Events.updateOne({ _id: req.params.id }, { startDate: inputStartDate, endDate: inputEndDate, event, created_by },
+            function (err) {
+                if (err) return next(err);
+                res.status(200).send({ text: 'Update successfully!' });
+            }
+        )
     }
 }
+

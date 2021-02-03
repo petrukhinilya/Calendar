@@ -24,10 +24,10 @@ const ChangePopup = ({ onClick, event }) => {
             value: startDate
           },
           endDate: {
-                value: endDate
+            value: endDate
           },
           text: {
-              value: text
+            value: text
           },
         }
       }
@@ -57,14 +57,14 @@ const ChangePopup = ({ onClick, event }) => {
 
   return (
       <div className='main'>
-        <div className='wrapper-popup' onClick={onClick}></div>
+        <div className='wrapper-popup' onClick={onClick} />
         <div>
           <form className="popup" onSubmit={updateEvent}>
-            <input type='date' className='input1' onChange={onChange} value={startDate} name="startDate"/>
-            <input type='date' className='input2' onChange={onChange} value={endDate} name="endDate"/>
-            <input type='text' className='text' placeholder='Add event to date' onChange={onChange} value={text} name="text"/>
+            <input type='date' className='input1' onChange={onChange} value={startDate} name="startDate" />
+            <input type='date' className='input2' onChange={onChange} value={endDate} name="endDate" />
+            <input type='text' className='text' placeholder='Add event to date' onChange={onChange} value={text} name="text" />
             <button type='submit' className='add-btn'>Change this event</button>
-            <input type='reset' onClick={onClick} className='reset'/>
+            <input type='reset' onClick={onClick} className='reset' />
           </form>
         </div>
       </div>

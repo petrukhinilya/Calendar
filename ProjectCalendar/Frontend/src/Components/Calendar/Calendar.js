@@ -4,8 +4,9 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import builtCalendar from './BuiltCalendar';
 import Popup from './Popup';
-import createCalendar from './CreateCalendar';
 import ChangePopup from './ChangePopup';
+import CalendarDay from './CalendarDay';
+
 
 import { getUserEvent, deleteUserEvent, updateUserEvent } from '../../Actions';
 
@@ -78,6 +79,11 @@ const Calendar = () => {
 
   const deleteEvent = (id) => {
     dispatch(deleteUserEvent(id));
+    dispatch(getUserEvent());
+  }
+  const updateEvent = (id) => {
+    dispatch(updateUserEvent(id))
+    dispatch(getUserEvent());
   }
 
   return (
@@ -106,9 +112,18 @@ const Calendar = () => {
             {calendar.map((week) => (
               <div className='day-wrapper'>
                 {week.map((day) => {
-                  return createCalendar(day, allEvents, dayStyles, setValue, deleteEvent, setChangePopup, setEvent)
-                 })
-                }
+                  return (
+                    <CalendarDay
+                      day={day}
+                      allEvents={allEvents}
+                      dayStyles={dayStyles}
+                      setValue={setValue}
+                      deleteEvent={deleteEvent}
+                      setChangePopup={setChangePopup}
+                      setEvent={setEvent}
+                    />
+                  )
+                })}
               </div>
             ))}
           </div>
