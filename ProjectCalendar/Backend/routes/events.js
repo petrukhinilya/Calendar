@@ -1,7 +1,7 @@
 const express = require('express');
 const event_controller = require('../controllers/events');
 const router = express.Router();
-const jwt = require('jsonwebtoken')
+const jwt = require('jsonwebtoken');
 
 // let myLogger = function (req, res, next) {
 //     const { token } = req.body
@@ -24,7 +24,8 @@ const jwt = require('jsonwebtoken')
 // myLogger,
 //  event_controller.create_event);
 
-router.post('/addevent', event_controller.create_event)
-router.get('/getevents',event_controller.get_events)
+router.post('/add', event_controller.create_event);
+router.get('/get',event_controller.get_events);
+router.delete('/:id/delete',event_controller.delete_event);
 
 module.exports = router;

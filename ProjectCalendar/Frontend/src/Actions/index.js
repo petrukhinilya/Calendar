@@ -66,7 +66,7 @@ export const addUserEvent = (startDate, endDate, event) => async (dispatch) => {
     let inputEndDate = Number(end)
     console.log(inputEndDate)
     const token = getToken()
-    const response = await fetch('http://localhost:1133/event/addevent', {
+    const response = await fetch('http://localhost:1133/event/add', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json;charset=utf-8'
@@ -88,14 +88,14 @@ export const addUserEvent = (startDate, endDate, event) => async (dispatch) => {
 
 export const getUserEvent = () => async (dispatch) => {
   try {
-    const response = await fetch('http://localhost:1133/event/getevents', {
+    const response = await fetch('http://localhost:1133/event/get', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json;charset=utf-8'
       }
     })
 
-    const events = await response.json()
+    const events = await response.json();
 
     dispatch({
       type: 'GET_EVENTS',
@@ -105,6 +105,31 @@ export const getUserEvent = () => async (dispatch) => {
     console.log(error)
     dispatch({
       type: 'GET_EVENTS_ERROR',
+      payload: { error }
+    })
+  }
+}
+
+export const deleteUserEvent = (id) => async (dispatch) => {
+  try {
+    const response = await fetch(`http://localhost:1133/event/${id}/delete`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8'
+      },
+      body:JSON.stringify({id})
+    })
+
+    const events = await response.json();
+
+    dispatch({
+      type: 'DELETE_EVENTS',
+      payload: { events }
+    })
+  } catch (error) {
+    console.log(error);
+    dispatch({
+      type: 'DELETE_EVENTS_ERROR',
       payload: { error }
     })
   }

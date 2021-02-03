@@ -21,6 +21,16 @@ const events = (state = initialEvents, action) => {
                 ...state,
                 error: action.payload.error
             }
+        case 'DELETE_EVENTS':
+            return {
+                ...state,
+                events: action.payload.events
+            }
+        case 'DELETE_EVENTS_ERROR':
+        return {
+            ...state,
+            error: action.payload.error
+        }
         default:
             return {
                 ...state

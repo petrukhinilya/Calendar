@@ -4,9 +4,9 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import builtCalendar from './BuiltCalendar';
 import Popup from './Popup';
-import createCalendar from './CreateCalendar';
+import CalendarDay from './CalendarDay';
 
-import { getUserEvent } from '../../Actions';
+import { getUserEvent, deleteUserEvent } from '../../Actions';
 
 import './Calendar.css';
 
@@ -15,8 +15,6 @@ const Calendar = () => {
   const [calendar, setCalendar] = useState([]);
   const [value, setValue] = useState(moment());
   const [showPopup, setShowPopup] = useState(false);
-  // const [events, setEvents] = useState([]);
-
   const allEvents = useSelector(state => state.events.events);
 
   useEffect(async () => {
@@ -75,6 +73,11 @@ const Calendar = () => {
     return value.clone().add(1, 'month');
   }
 
+  const deleteEvent = (id) => {
+    dispatch(deleteUserEvent(id));
+    dispatch(getUserEvent());
+  }
+
   return (
     <div>
       <div className='calendar'>
@@ -101,9 +104,16 @@ const Calendar = () => {
             {calendar.map((week) => (
               <div className='day-wrapper'>
                 {week.map((day) => {
-                    return createCalendar(day, allEvents, dayStyles, setValue)  
-                  })
-                }
+                  return (
+                    <CalendarDay
+                      day={day}
+                      allEvents={allEvents}
+                      dayStyles={dayStyles}
+                      setValue={setValue}
+                      deleteEvent={deleteEvent}
+                    />
+                  )
+                })}
               </div>
             ))}
           </div>
