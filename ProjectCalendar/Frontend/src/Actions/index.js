@@ -61,8 +61,8 @@ export const addUserEvent = (startDate, endDate, event) => async (dispatch) => {
   try {
     const start = new Date(startDate).getTime();
     const end = new Date(endDate).getTime();
-    let inputStartDate = Number(start);
-    let inputEndDate = Number(end);
+    const inputStartDate = Number(start);
+    const inputEndDate = Number(end);
 
     const token = getToken()
     const response = await fetch('http://localhost:1133/event/add', {
@@ -136,8 +136,8 @@ export const deleteUserEvent = (id) => async (dispatch) => {
 
 export const updateUserEvent = (id, startDate, endDate, event) => async (dispatch) => {
   try {
-    let inputStartDate = Number(new Date(startDate).getTime());
-    let inputEndDate = Number(new Date(endDate).getTime());
+    const inputStartDate = Number(new Date(startDate).getTime());
+    const inputEndDate = Number(new Date(endDate).getTime());
 
     const response = await fetch(`http://localhost:1133/event/${id}/update`, {
       method: 'PUT',

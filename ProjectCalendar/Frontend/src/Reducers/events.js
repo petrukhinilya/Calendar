@@ -41,7 +41,6 @@ const events = (state = initialEvents, action) => {
                 ...state,
                 error: action.payload.error
             }
-
         default:
             return {
                 ...state

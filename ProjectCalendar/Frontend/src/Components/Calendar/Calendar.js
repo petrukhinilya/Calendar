@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import builtCalendar from './BuiltCalendar';
 import Popup from './Popup';
-import ChangePopup from './ChangePopup';
+import DayPopup from './DayPopup';
 import CalendarDay from './CalendarDay';
 
 
@@ -18,7 +18,7 @@ const Calendar = () => {
   const [value, setValue] = useState(moment());
   const [showPopup, setShowPopup] = useState(false);
   const allEvents = useSelector(state => state.events.events);
-  const [changePopup, setChangePopup] = useState(false);
+  const [dayPopup, setDayPopup] = useState(false);
   const [event, setEvent] = useState('');
 
   useEffect(async () => {
@@ -119,7 +119,7 @@ const Calendar = () => {
                       dayStyles={dayStyles}
                       setValue={setValue}
                       deleteEvent={deleteEvent}
-                      setChangePopup={setChangePopup}
+                      setDayPopup={setDayPopup}
                       setEvent={setEvent}
                     />
                   )
@@ -130,7 +130,7 @@ const Calendar = () => {
         </div>
       </div>
       {showPopup && <Popup onClick={() => setShowPopup(false)} />}
-      {changePopup && <ChangePopup onClick={() => setChangePopup(false)} event = {event}/>}
+      {dayPopup && <DayPopup onClick={() => setDayPopup(false)} event = {event}/>}
     </div>
   )
 }
