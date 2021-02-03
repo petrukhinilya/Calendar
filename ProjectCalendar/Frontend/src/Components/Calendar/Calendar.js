@@ -4,8 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import builtCalendar from './BuiltCalendar';
 import Popup from './Popup';
-import createCalendar from './CreateCalendar';
-import CalendarFormation from './CalendarFormation';
+import CalendarDay from './CalendarDay';
 
 import { getUserEvent, deleteUserEvent } from '../../Actions';
 
@@ -105,10 +104,14 @@ const Calendar = () => {
             {calendar.map((week) => (
               <div className='day-wrapper'>
                 {week.map((day) => {
-                  // return createCalendar(day, allEvents, dayStyles, setValue, deleteEvent)
                   return (
-                  <CalendarFormation day={day} allEvents={allEvents} dayStyles={dayStyles}
-                    setValue={setValue} deleteEvent = {deleteEvent}/>
+                    <CalendarDay
+                      day={day}
+                      allEvents={allEvents}
+                      dayStyles={dayStyles}
+                      setValue={setValue}
+                      deleteEvent={deleteEvent}
+                    />
                   )
                 })}
               </div>

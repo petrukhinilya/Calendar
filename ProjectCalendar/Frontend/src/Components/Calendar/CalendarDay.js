@@ -1,6 +1,6 @@
 import moment from 'moment';
 
-const CalendarFormation = ({day, allEvents, dayStyles, setValue, deleteEvent, setChangePopup, setEvent}) => {
+const CalendarDay = ({day, allEvents, dayStyles, setValue, deleteEvent, setChangePopup, setEvent}) => {
   const events = [];
   
   for (let i = 0; i < allEvents.length; i++) {
@@ -13,10 +13,6 @@ const CalendarFormation = ({day, allEvents, dayStyles, setValue, deleteEvent, se
     }
   }
 
-  const deleteEvents = (event) => {
-    deleteEvent(event._id)
-  }
-
   return (
     <div className='day' onClick={() => setValue(day)} >
       <div id='number'>
@@ -27,7 +23,7 @@ const CalendarFormation = ({day, allEvents, dayStyles, setValue, deleteEvent, se
             return (
               <div className='highlight'>
                 <div className = 'event'>{event.event}</div>
-                <button className='del' onClick={() => deleteEvents(event)}>Del</button>
+                <button className='del' onClick={() => deleteEvent(event._id)}>Del</button>
               </div>
             )
           })}
@@ -37,4 +33,4 @@ const CalendarFormation = ({day, allEvents, dayStyles, setValue, deleteEvent, se
   )
 }
 
-export default CalendarFormation;
+export default CalendarDay;

@@ -2,9 +2,9 @@ const Events = require('../models/events')
 
 module.exports = {
     create_event: function (req, res, next) {
-        const { body: { inputStartDate, inputEndDate, event, created_by } } = req;
+        const { inputStartDate, inputEndDate, event, created_by } = req.body;
 
-        Events.create({ startDate: inputStartDate, endDate: inputEndDate, event: event, created_by: created_by }, function (err, result) {
+        Events.create({ startDate: inputStartDate, endDate: inputEndDate, event, created_by }, function (err, result) {
             if (err) {
                 console.log("error", err)
                 next(err);
