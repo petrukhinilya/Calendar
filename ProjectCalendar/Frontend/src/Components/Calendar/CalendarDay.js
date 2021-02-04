@@ -1,6 +1,6 @@
 import moment from 'moment';
 
-const CalendarDay = ({day, allEvents, dayStyles, setValue, deleteEvent, setDayPopup, setEvent}) => {
+const CalendarDay = ({day, allEvents, dayStyles, setValue, deleteEvent, setShowDayPopup, setEvent}) => {
   const events = [];
   
   for (let i = 0; i < allEvents.length; i++) {
@@ -15,19 +15,18 @@ const CalendarDay = ({day, allEvents, dayStyles, setValue, deleteEvent, setDayPo
   
   const updateEvents = (event) => {
     setEvent(event);
-    setDayPopup(true);
+    setShowDayPopup(true);
   }
 
   return (
     <div className='day' onClick={() => setValue(day)} >
       <div id='number'>
-        <div className={dayStyles(day)}>{day.format('D').toString()}
-        </div>
+        <div className={dayStyles(day)}>{day.format('D').toString()}</div>
         <div>
           {events.map((event) => {
             return (
               <div className='highlight'>
-                <div className = 'event' onClick={() => updateEvents(event)}>{event.event}</div>
+                <div className='event' onClick={() => updateEvents(event)}>{event.event}</div>
                 <button className='del' onClick={() => deleteEvent(event._id)}>Del</button>
               </div>
             )

@@ -18,7 +18,7 @@ const Calendar = () => {
   const [value, setValue] = useState(moment());
   const [showPopup, setShowPopup] = useState(false);
   const allEvents = useSelector(state => state.events.events);
-  const [dayPopup, setDayPopup] = useState(false);
+  const [showDayPopup, setShowDayPopup] = useState(false);
   const [event, setEvent] = useState('');
 
   useEffect(async () => {
@@ -81,10 +81,6 @@ const Calendar = () => {
     dispatch(deleteUserEvent(id));
     dispatch(getUserEvent());
   }
-  const updateEvent = (id) => {
-    dispatch(updateUserEvent(id))
-    dispatch(getUserEvent());
-  }
 
   return (
     <div>
@@ -119,7 +115,7 @@ const Calendar = () => {
                       dayStyles={dayStyles}
                       setValue={setValue}
                       deleteEvent={deleteEvent}
-                      setDayPopup={setDayPopup}
+                      setShowDayPopup={setShowDayPopup}
                       setEvent={setEvent}
                     />
                   )
@@ -130,7 +126,7 @@ const Calendar = () => {
         </div>
       </div>
       {showPopup && <Popup onClick={() => setShowPopup(false)} />}
-      {dayPopup && <DayPopup onClick={() => setDayPopup(false)} event = {event}/>}
+      {showDayPopup && <DayPopup onClick={() => setShowDayPopup(false)} event = {event}/>}
     </div>
   )
 }
