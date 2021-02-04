@@ -1,17 +1,27 @@
-const Events = require('../models/events')
+const Events = require('../models/events');
+const jwt = require('jsonwebtoken');
 
 module.exports = {
     create_event: function (req, res, next) {
+        const { token } = req.body
         const { inputStartDate, inputEndDate, event, created_by } = req.body;
+        console.log('123123', JSON.stringify(req.body, null, 2))
 
-        Events.create({ startDate: inputStartDate, endDate: inputEndDate, event, created_by }, function (err, result) {
+        jwt.verify(token, 'secretKey', (err, decoded) => {
             if (err) {
-                console.log("error", err)
-                next(err);
+                console.log('xxx', err)
+                res.status(401).send({ auth: false, message: "Failed to auth" })
             } else {
-                res.status(200).send({ status: "success", message: "Event added successfully!!!", data: { result } });
+                Events.create({ startDate: inputStartDate, endDate: inputEndDate, event, created_by }, function (err, result) {
+                    if (err) {
+                        console.log("error", err)
+                        next(err);
+                    } else {
+                        res.status(200).send({ status: "success", message: "Event added successfully!!!", data: { result } });
+                    }
+                })
             }
-        });
+        })
     },
     get_events: function (req, res, next) {
         Events.find({}, function (err, events) {

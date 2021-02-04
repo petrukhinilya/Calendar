@@ -70,7 +70,7 @@ export const addUserEvent = (startDate, endDate, event) => async (dispatch) => {
       headers: {
         'Content-Type': 'application/json;charset=utf-8'
       },
-      body: JSON.stringify({ inputStartDate, inputEndDate, event })
+      body: JSON.stringify({ inputStartDate, inputEndDate, event, token })
     })
     const body = await response.json()
     console.log(body)
