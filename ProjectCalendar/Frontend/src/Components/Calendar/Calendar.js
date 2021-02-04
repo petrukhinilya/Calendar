@@ -4,9 +4,11 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import builtCalendar from './BuiltCalendar';
 import Popup from './Popup';
+import DayPopup from './DayPopup';
 import CalendarDay from './CalendarDay';
 
-import { getUserEvent, deleteUserEvent } from '../../Actions';
+
+import { getUserEvent, deleteUserEvent, updateUserEvent } from '../../Actions';
 
 import './Calendar.css';
 
@@ -16,6 +18,8 @@ const Calendar = () => {
   const [value, setValue] = useState(moment());
   const [showPopup, setShowPopup] = useState(false);
   const allEvents = useSelector(state => state.events.events);
+  const [showDayPopup, setShowDayPopup] = useState(false);
+  const [event, setEvent] = useState('');
 
   useEffect(async () => {
     await setCalendar(builtCalendar(value))
@@ -111,6 +115,8 @@ const Calendar = () => {
                       dayStyles={dayStyles}
                       setValue={setValue}
                       deleteEvent={deleteEvent}
+                      setShowDayPopup={setShowDayPopup}
+                      setEvent={setEvent}
                     />
                   )
                 })}
@@ -120,6 +126,7 @@ const Calendar = () => {
         </div>
       </div>
       {showPopup && <Popup onClick={() => setShowPopup(false)} />}
+      {showDayPopup && <DayPopup onClick={() => setShowDayPopup(false)} event = {event}/>}
     </div>
   )
 }

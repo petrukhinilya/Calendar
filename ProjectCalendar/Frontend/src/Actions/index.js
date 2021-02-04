@@ -59,12 +59,11 @@ export const verifyUser = (email, password) => async (dispatch) => {
 
 export const addUserEvent = (startDate, endDate, event) => async (dispatch) => {
   try {
+    const start = new Date(startDate).getTime();
+    const end = new Date(endDate).getTime();
+    const inputStartDate = Number(start);
+    const inputEndDate = Number(end);
 
-    const start = new Date(startDate).getTime()
-    const end = new Date(endDate).getTime()
-    let inputStartDate = Number(start)
-    let inputEndDate = Number(end)
-    console.log(inputEndDate)
     const token = getToken()
     const response = await fetch('http://localhost:1133/event/add', {
       method: 'POST',
@@ -130,6 +129,34 @@ export const deleteUserEvent = (id) => async (dispatch) => {
     console.log(error);
     dispatch({
       type: 'DELETE_EVENTS_ERROR',
+      payload: { error }
+    })
+  }
+}
+
+export const updateUserEvent = (id, startDate, endDate, event) => async (dispatch) => {
+  try {
+    const inputStartDate = Number(new Date(startDate).getTime());
+    const inputEndDate = Number(new Date(endDate).getTime());
+
+    const response = await fetch(`http://localhost:1133/event/${id}/update`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8'
+      },
+      body:JSON.stringify({id, inputStartDate, inputEndDate, event})
+    })
+
+    const events = await response.json();
+
+    dispatch({
+      type: 'UPDATE_EVENTS',
+      payload: { events }
+    })
+  } catch (error) {
+    console.log(error);
+    dispatch({
+      type: 'UPDATE_EVENTS_ERROR',
       payload: { error }
     })
   }
