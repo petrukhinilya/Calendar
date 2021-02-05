@@ -58,12 +58,9 @@ export const verifyUser = (email, password) => async (dispatch) => {
 }
 
 export const addUserEvent = (startDate, endDate, event) => async (dispatch) => {
-
   try {
-    const start = new Date(startDate).getTime();
-    const end = new Date(endDate).getTime();
-    const inputStartDate = Number(start);
-    const inputEndDate = Number(end);
+    const inputStartDate = Number(new Date(startDate).getTime());
+    const inputEndDate = Number(new Date(endDate).getTime());
 
     const token = getToken()
     const response = await fetch('http://localhost:1133/event/add', {

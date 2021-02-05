@@ -19,7 +19,6 @@ const tokenVerify = (req, res, next) => {
     } else {
         res.status(403).send({ success: false, message: "No Token Provided." })
     }
-
 };
 
 const queryVerify = (req, res, next) => {
@@ -40,9 +39,9 @@ const queryVerify = (req, res, next) => {
 
 };
 
-router.post('/add',tokenVerify, event_controller.create_event);
-router.get('/get',queryVerify, event_controller.get_events);
-router.delete('/:id/delete',tokenVerify, event_controller.delete_event);
-router.put('/:id/update',tokenVerify, event_controller.update_event);
+router.post('/add', tokenVerify, event_controller.create_event);
+router.get('/get', queryVerify, event_controller.get_events);
+router.delete('/:id/delete', tokenVerify, event_controller.delete_event);
+router.put('/:id/update', tokenVerify, event_controller.update_event);
 
 module.exports = router;

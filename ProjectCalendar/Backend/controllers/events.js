@@ -3,7 +3,6 @@ const jwt = require('jsonwebtoken');
 
 module.exports = {
     create_event: function (req, res, next) {
-        const { token } = req.body
         const { startDate, endDate, event, created_by } = req.body;
         
         Events.create({ startDate, endDate, event, created_by }, function (err, result) {
