@@ -4,22 +4,14 @@ const jwt = require('jsonwebtoken');
 module.exports = {
     create_event: function (req, res, next) {
         const { token } = req.body
-        const { inputStartDate, inputEndDate, event, created_by } = req.body;
-        console.log('123123', JSON.stringify(req.body, null, 2))
-
-        jwt.verify(token, 'secretKey', (err, decoded) => {
+        const { startDate, endDate, event, created_by } = req.body;
+        
+        Events.create({ startDate, endDate, event, created_by }, function (err, result) {
             if (err) {
-                console.log('xxx', err)
-                res.status(401).send({ auth: false, message: "Failed to auth" })
+                console.log("error", err)
+                next(err);
             } else {
-                Events.create({ startDate: inputStartDate, endDate: inputEndDate, event, created_by }, function (err, result) {
-                    if (err) {
-                        console.log("error", err)
-                        next(err);
-                    } else {
-                        res.status(200).send({ status: "success", message: "Event added successfully!!!", data: { result } });
-                    }
-                })
+                res.status(200).send({ status: "success", message: "Event added successfully!!!", data: { result } });
             }
         })
     },
