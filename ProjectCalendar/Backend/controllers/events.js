@@ -32,8 +32,8 @@ module.exports = {
         })
     },
     update_event: function (req, res, next) {
-        const { inputStartDate, inputEndDate, event, created_by } = req.body;
-        Events.updateOne({ _id: req.params.id }, { startDate: inputStartDate, endDate: inputEndDate, event, created_by },
+        const { startDate, endDate, event, created_by } = req.body;
+        Events.updateOne({ _id: req.params.id }, { startDate, endDate, event, created_by },
             function (err) {
                 if (err) return next(err);
                 res.status(200).send({ text: 'Update successfully!' });
