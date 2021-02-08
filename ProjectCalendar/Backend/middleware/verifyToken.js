@@ -10,7 +10,6 @@ module.exports = {
                     console.log(err)
                     res.status(401).send({ auth: false, message: "Failed to auth" })
                 } else {
-                    req.body.id = decoded.id
                     next()
                 }
             })
