@@ -1,10 +1,9 @@
 const Events = require('../models/events');
-const jwt = require('jsonwebtoken');
 
 module.exports = {
     create_event: function (req, res, next) {
-        const { startDate, endDate, event, created_by } = req.body;
-        
+        const { startDate, endDate, event, id:created_by } = req.body;
+
         Events.create({ startDate, endDate, event, created_by }, function (err, result) {
             if (err) {
                 console.log("error", err)
@@ -15,8 +14,7 @@ module.exports = {
         })
     },
     get_events: function (req, res, next) {
-        Events.find({}, function (err, events) {
-
+        Events.find({created_by:req.body.id}, function (err, events) {
             if (err) {
                 console.log(err)
                 return next(err)
@@ -32,7 +30,7 @@ module.exports = {
         })
     },
     update_event: function (req, res, next) {
-        const { startDate, endDate, event, created_by } = req.body;
+        const { startDate, endDate, event, id:created_by } = req.body;
         Events.updateOne({ _id: req.params.id }, { startDate, endDate, event, created_by },
             function (err) {
                 if (err) return next(err);
