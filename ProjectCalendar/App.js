@@ -32,7 +32,7 @@ app.use('/event',eventModel)
 const port = process.env.PORT || 8000;
 
 app.get("*", (req, res) => {
-    res.sendFile(__dirname + '/Frontend' + "/build" + '/index.html');
+    express.static(__dirname + '/Frontend' + "/build" + '/index.html');
 });
 
 app.listen(port, () => {
