@@ -13,7 +13,7 @@ mongoose.Promise = global.Promise;
 let db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
-app.use(express.static("index.html"))
+app.use(express.static(__dirname + '/Frontend' + '/public'))
 
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
@@ -29,10 +29,10 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use('/user', userModel);
 app.use('/event',eventModel)
 
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 8000;
 
 app.get("*", (req, res) => {
-    res.sendFile("index.html");
+    res.sendFile(__dirname + '/Frontend' + '/public' + '/index.html');
 });
 
 app.listen(port, () => {
