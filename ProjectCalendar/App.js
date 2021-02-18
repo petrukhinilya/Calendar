@@ -13,7 +13,7 @@ mongoose.Promise = global.Promise;
 let db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
-app.use(express.static(__dirname + '/Frontend' + "/build"))
+app.use(express.static('Frontend/build'))
 
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
@@ -24,15 +24,16 @@ app.use((req, res, next) => {
 });
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use('/user', userModel);
-app.use('/event',eventModel)
+app.use('/event', eventModel)
 
 const port = process.env.PORT || 8000;
 
 app.get("*", (req, res) => {
-    res.sendFile(__dirname + '/Frontend' + "/build" + '/public' + '/index.html');
+    // res.sendFile(__dirname + 'Frontend' + "/build" + '/public' + '/index.html');
+    res.sendFile(path.resolve(__dirname + 'Frontend', '/build', 'index.html'));
 });
 
 app.listen(port, () => {
