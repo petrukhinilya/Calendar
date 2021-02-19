@@ -36,7 +36,7 @@ export const verifyUser = (email, password) => async (dispatch) => {
 
   try {
 
-    const response = await fetch('http://localhost:8000/user/authenticate', {
+    const response = await fetch(`${process.env.REACT_APP_BASE_URL}/user/authenticate`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json;charset=utf-8'
@@ -64,7 +64,7 @@ export const addUserEvent = (inputStartDate, inputEndDate, event) => async (disp
     const endDate = Number(new Date(inputEndDate).getTime());
 
     const token = getToken()
-    const response = await fetch('http://localhost:8000/event/add', {
+    const response = await fetch(`${process.env.REACT_APP_BASE_URL}/event/add`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json;charset=utf-8'
@@ -87,7 +87,7 @@ export const addUserEvent = (inputStartDate, inputEndDate, event) => async (disp
 export const getUserEvent = () => async (dispatch) => {
   try {
     const token = getToken()
-    const response = await fetch(`http://localhost:8000/event/get?token=${token}`, {
+    const response = await fetch(`${process.env.REACT_APP_BASE_URL}/event/get?token=${token}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json;charset=utf-8'
@@ -112,7 +112,7 @@ export const getUserEvent = () => async (dispatch) => {
 export const deleteUserEvent = (id) => async (dispatch) => {
   try {
     const token = getToken()
-    const response = await fetch(`http://localhost:8000/event/${id}/delete`, {
+    const response = await fetch(`${process.env.REACT_APP_BASE_URL}/event/${id}/delete`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json;charset=utf-8'
@@ -141,7 +141,7 @@ export const updateUserEvent = (id, inputStartDate, inputEndDate, event) => asyn
     const startDate = Number(new Date(inputStartDate).getTime());
     const endDate = Number(new Date(inputEndDate).getTime());
 
-    const response = await fetch(`http://localhost:8000/event/${id}/update`, {
+    const response = await fetch(`${process.env.REACT_APP_BASE_URL}/event/${id}/update`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json;charset=utf-8'
