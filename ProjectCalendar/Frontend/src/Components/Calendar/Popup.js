@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 
 import { addUserEvent, getUserEvent } from '../../Actions';
 
-// import './Popup.css';
+import './Popup.css';
 
 const Popup = ({ onClick }) => {
   const dispatch = useDispatch();

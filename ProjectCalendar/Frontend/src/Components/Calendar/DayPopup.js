@@ -4,7 +4,7 @@ import moment from 'moment';
 
 import { updateUserEvent, getUserEvent } from '../../Actions';
 
-// import './Popup.css';
+import './Popup.css';
 
 const ChangePopup = ({ onClick, event }) => {
   const eventTimeStart = moment(event.startDate).format('YYYY-MM-DD');
