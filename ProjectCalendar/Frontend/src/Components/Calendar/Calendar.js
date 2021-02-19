@@ -10,7 +10,7 @@ import CalendarDay from './CalendarDay';
 
 import { getUserEvent, deleteUserEvent, updateUserEvent } from '../../Actions';
 
-import './Calendar.css';
+// import './Calendar.css';
 
 const Calendar = () => {
   const dispatch = useDispatch();
