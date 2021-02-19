@@ -4,12 +4,12 @@ const userModel = require('./routes/user')
 const eventModel = require('./routes/events')
 const app = express();
 const path = require('path');
-
 const mongoose = require('mongoose');
-let dev_db_url = "mongodb+srv://Petrukhinilya:zagune92@cluster0.gfevo.mongodb.net/Users?retryWrites=true&w=majority"
+
+// let dev_db_url = "mongodb+srv://Petrukhinilya:zagune92@cluster0.gfevo.mongodb.net/Users?retryWrites=true&w=majority"
 // mongodb+srv://Petrukhinilya:<password>@cluster0.gfevo.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
-let mongoDB = process.env.MONGODB_URI || dev_db_url;
-mongoose.connect(mongoDB || process.env.MONGODB_URI);
+// let mongoDB = process.env.MONGODB_URI || dev_db_url;
+mongoose.connect("mongodb+srv://Petrukhinilya:zagune92@cluster0.gfevo.mongodb.net/Users?retryWrites=true&w=majority" || process.env.MONGODB_URI);
 mongoose.Promise = global.Promise;
 let db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
