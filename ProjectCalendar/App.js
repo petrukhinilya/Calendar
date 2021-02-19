@@ -33,7 +33,7 @@ const port = process.env.PORT || 8000;
 
 app.get("*", (req, res) => {
     // res.sendFile(__dirname + 'Frontend' + "/build" + '/public' + '/index.html');
-    res.sendFile(path.resolve(__dirname + 'Frontend', '/build', 'index.html'));
+    res.sendFile(path.join(__dirname, 'Frontend', '/build', 'index.html'));
 });
 
 app.listen(port, () => {
