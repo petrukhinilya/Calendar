@@ -3,7 +3,8 @@ import { saveToken, getToken } from '../utils/utils'
 
 export const addUser = (name, email, password) => async (dispatch) => {
   try {
-    const response = await fetch('http://localhost:8000/user/register', {
+    console.log(process.env.REACT_APP_BASE_URL)
+    const response = await fetch(`${process.env.REACT_APP_BASE_URL}/user/register`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json;charset=utf-8'
