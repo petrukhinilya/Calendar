@@ -33,7 +33,7 @@
     "build-css": "node-less-chokidar src",
     "watch-css": "node-less-chokidar src --watch"
   },
-  "proxy": "http://localhost:8000",
+  "proxy": "http://localhost:5000",
   "eslintConfig": {
     "extends": [
       "react-app",
