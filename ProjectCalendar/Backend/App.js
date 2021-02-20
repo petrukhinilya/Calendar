@@ -27,7 +27,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use('/user', userModel);
 app.use('/event',eventModel)
 
-let port = 1133;
+let port = 8000;
 
 app.listen(port, () => {
     console.log('Server is up and running on port numner ' + port);

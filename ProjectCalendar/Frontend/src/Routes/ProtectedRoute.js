@@ -10,7 +10,7 @@ import Loading from '../Components/Loading'
 const verifyToken = async () => {
     try {
         const token = localStorage.getItem('token');
-        const response = await fetch('http://localhost:1133/user/verify', {
+        const response = await fetch(`${process.env.REACT_APP_BASE_URL}/user/verify`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json;charset=utf-8'
