@@ -1,4 +1,5 @@
 import moment from 'moment';
+import './Calendar.css'
 
 const CalendarDay = ({day, allEvents, dayStyles, setValue, deleteEvent, setShowDayPopup, setEvent}) => {
   const events = [];
@@ -19,9 +20,9 @@ const CalendarDay = ({day, allEvents, dayStyles, setValue, deleteEvent, setShowD
   }
 
   return (
-    <div className='day' onClick={() => setValue(day)} >
-      <div id='number'>
-        <div className={dayStyles(day)}>{day.format('D').toString()}</div>
+    <div className='day' onClick={() => setValue(day)}>
+      <div>
+        <div id='number' className={dayStyles(day)}>{day.format('D').toString()}</div>
         <div>
           {events.map((event) => {
             return (

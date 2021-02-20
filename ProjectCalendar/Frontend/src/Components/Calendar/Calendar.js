@@ -83,7 +83,7 @@ const Calendar = () => {
   }
 
   return (
-    <div>
+    <div className='calendar-wrapper'>
       <div className='calendar'>
         <div className="calendar-head">
           <div>
