@@ -1,0 +1,33 @@
+.wrapper-popup{
+    position: absolute;
+    margin-top: -1000px;
+    z-index: 100;
+    background-color: grey;
+    width: 1800px;
+    height: 1000px;
+    opacity: 50%;
+}
+.popup{
+    position: fixed;
+    background-color: bisque;
+    z-index: 1000;
+    top: 33%;
+    left: 33%;
+    width: 600px;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+}
+.input1{
+    margin: 15px;
+}
+.input2{
+    margin: 15px;
+}
+.text{
+    margin: 10px 0;
+}
+
+.reset{
+margin-top: 50px;
+}

@@ -1,0 +1,51 @@
+
+.calendar-wrapper{
+    margin: 0 10px;
+}
+.calendar-head{
+    display: flex;
+    justify-content: space-around;
+    margin-right: 63px;
+    border: 1px solid black;
+}
+.calendar-head button{
+    margin: 0 5px;
+}
+.day-names{
+    display: flex;
+    justify-content: space-around;
+    margin-right: 63px;
+    border: 1px solid black;
+}
+.calendar .day {
+    width: calc(100% / 7);
+    height: 100px;
+    display: inline-flex;
+    flex-direction: column;
+    background-color: whitesmoke;
+    box-sizing: border-box;
+    width: 250px;
+    border: solid 1px black;
+}
+#number{
+    cursor: pointer;
+    text-align: end;
+}
+.before{
+    background-color: gray;
+}
+.selected{
+    background-color: orchid;
+}
+.today{
+    background-color: red;
+}
+.highlight{
+    display: flex;
+    justify-content: space-between;
+}
+.event{
+    background-color: blue;
+    border-radius: 20%;
+    border: 1px solid grey;
+}
