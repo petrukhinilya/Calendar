@@ -11,9 +11,9 @@ function Main() {
     const { login, registration, calendar } = paths
     return (
         <main>
-					<Redirect from='/' to={calendar}/>   
+			{/* <Redirect from='/' to={calendar}/>    */}
             <Switch>
-                <Route  path={login} component={LoginPage} />
+                <Route path={login} component={LoginPage} />
                 <Route path={registration} component={RegistrationPage} />
                 <ProtectedRoute path={calendar} component={Calendar} />
             </Switch>
