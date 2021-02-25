@@ -15,6 +15,9 @@ const FormRegister = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [error, setError] = useState('');
+  const [validEmail, setValidEmail] = useState(false);
+  const [validPassword, setValidPassword] = useState(false);
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -23,24 +26,42 @@ const FormRegister = () => {
       target: {
         children: {
           password: {
-            value: password 
+            value: password
           },
           confirmPassword: {
-            value: confirmPassword 
+            value: confirmPassword
           },
           name: {
-            value: name 
+            value: name
           },
           email: {
-            value: email 
-            },
-          }
+            value: email
+          },
         }
-      } = e;
+      }
+    } = e;
 
-    if (password === confirmPassword) {
-        dispatch(addUser(name, email, password));
-        history.push(paths.calendar);
+
+    let lastAtPos = email.lastIndexOf('@');
+    let lastDotPos = email.lastIndexOf('.');
+
+    if (!(lastAtPos < lastDotPos && lastAtPos > 0 && email.indexOf('@@') == -1 && lastDotPos > 2 && (email.length - lastDotPos) > 2)) {
+      setError('Email should have @ and .')
+    } else {
+      setValidEmail(true)
+    }
+
+    if (password && password.length <= 6) {
+      setError('Password should be more than 6')
+    } else {
+      setValidPassword(true)
+    }
+
+    if (password === confirmPassword && validEmail && validPassword) {
+      dispatch(addUser(name, email, password));
+      history.push(paths.calendar);
+    } else {
+      alert(error)
     }
   }
 
@@ -48,34 +69,35 @@ const FormRegister = () => {
     const { target: { name, value } } = event;
 
     switch (name) {
-        case 'name':
-            setName(value);
-            break;
-        case 'email':
-            setEmail(value);
-            break;
-        case 'password':
-            setPassword(value);
-            break;
-        case 'confirmPassword':
-            setConfirmPassword(value);
-            break;
-        default:
-            break;
-        }
+      case 'name':
+        setName(value);
+        break;
+      case 'email':
+        setEmail(value);
+        break;
+      case 'password':
+        setPassword(value);
+        break;
+      case 'confirmPassword':
+        setConfirmPassword(value);
+        break;
+      default:
+        break;
     }
+  }
 
   return (
-        <div>
-            <form onSubmit={onSubmit}>
-                <input onChange={onChange} type="text" placeholder="Name" name="name" value={name} />
-                <input onChange={onChange} type="text" placeholder="E-mail address" name="email" value={email} />
-                <input onChange={onChange} type="password" placeholder="Password" name="password" value={password} />
-                <input onChange={onChange} type="password" placeholder="Confirm password" name="confirmPassword" value={confirmPassword} />
-                <button type='submit'>Sign up </button>
-            </form>
-        </div>
-    )
+    <div>
+      <form onSubmit={onSubmit}>
+        <input onChange={onChange} type="text" placeholder="Name" name="name" value={name} />
+        <input onChange={onChange} type="text" placeholder="E-mail address" name="email" value={email} />
+        <input onChange={onChange} type="password" placeholder="Password" name="password" value={password} />
+        <input onChange={onChange} type="password" placeholder="Confirm password" name="confirmPassword" value={confirmPassword} />
+        <p>{error}</p>
+        <button type='submit'>Sign up </button>
+      </form>
+    </div>
+  )
 }
 
 export default FormRegister;

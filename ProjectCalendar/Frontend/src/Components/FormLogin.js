@@ -47,7 +47,7 @@ const FormLogin = () => {
     let lastAtPos = value.lastIndexOf('@');
     let lastDotPos = value.lastIndexOf('.');
 
-    if (!(lastAtPos < lastDotPos && lastAtPos > 0 && value.indexOf('@@') == -1 && lastDotPos > 2 && (value.length - lastDotPos) > 2)) {
+    if (!(lastAtPos < lastDotPos && lastAtPos > 0 && value.indexOf('@@') == -1 && lastDotPos > 2 && (value.length - lastDotPos) > 2) && value) {
       setError('Email should have @ and .')
     } else {
       setValidEmail(true)
@@ -65,7 +65,7 @@ const FormLogin = () => {
   const onChangePassword = (event) => {
     const { target: { name, value } } = event;
 
-    if (value.length <= 6) {
+    if (value && value.length <= 6) {
       setError('Password should be more than 6')
     } else {
       setValidPassword(true)
