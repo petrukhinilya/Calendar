@@ -1,9 +1,12 @@
 import moment from 'moment';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCalendarTimes } from '@fortawesome/free-solid-svg-icons'
+
 import './Calendar.css'
 
-const CalendarDay = ({day, allEvents, dayStyles, setValue, deleteEvent, setShowDayPopup, setEvent}) => {
+const CalendarDay = ({ day, allEvents, dayStyles, setValue, deleteEvent, setShowDayPopup, setEvent }) => {
   const events = [];
-  
+
   for (let i = 0; i < allEvents.length; i++) {
     let dayStart = day.format('MM DDD YYYY');
     let dayStartEvent = moment(allEvents[i].startDate).format('MM DDD YYYY');
@@ -13,7 +16,7 @@ const CalendarDay = ({day, allEvents, dayStyles, setValue, deleteEvent, setShowD
       events.push(allEvents[i]);
     }
   }
-  
+
   const updateEvents = (event) => {
     setEvent(event);
     setShowDayPopup(true);
@@ -28,7 +31,9 @@ const CalendarDay = ({day, allEvents, dayStyles, setValue, deleteEvent, setShowD
             return (
               <div className='highlight'>
                 <div className='event' onClick={() => updateEvents(event)}>{event.event}</div>
-                <button className='del' onClick={() => deleteEvent(event._id)}>Del</button>
+                <button className='del' onClick={() => deleteEvent(event._id)}>
+                  <FontAwesomeIcon icon={faCalendarTimes} />
+                </button>
               </div>
             )
           })}

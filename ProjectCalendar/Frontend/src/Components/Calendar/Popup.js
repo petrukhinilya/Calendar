@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import moment from 'moment';
 
 import { addUserEvent, getUserEvent } from '../../Actions';
 
@@ -7,7 +8,7 @@ import './Popup.css';
 
 const Popup = ({ onClick }) => {
   const dispatch = useDispatch();
-  const [startDate, setStartDate] = useState('');
+  const [startDate, setStartDate] = useState(moment().format('YYYY-MM-DD'));
   const [endDate, setEndDate] = useState('');
   const [text, setText] = useState('');
 
@@ -32,6 +33,7 @@ const Popup = ({ onClick }) => {
 
     dispatch(addUserEvent(startDate, endDate, text));
     dispatch(getUserEvent());
+    onClick();
   }
 
   const onChange = (event) => {

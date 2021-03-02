@@ -78,8 +78,11 @@ const Calendar = () => {
   }
 
   const deleteEvent = (id) => {
-    dispatch(deleteUserEvent(id));
-    dispatch(getUserEvent());
+    let deleteEvent = confirm('Delete event')
+    if (deleteEvent) {
+      dispatch(deleteUserEvent(id));
+      dispatch(getUserEvent());
+    } 
   }
 
   return (
@@ -126,7 +129,7 @@ const Calendar = () => {
         </div>
       </div>
       {showPopup && <Popup onClick={() => setShowPopup(false)} />}
-      {showDayPopup && <DayPopup onClick={() => setShowDayPopup(false)} event = {event}/>}
+      {showDayPopup && <DayPopup onClick={() => setShowDayPopup(false)} event={event} />}
     </div>
   )
 }

@@ -41,22 +41,6 @@ const FormRegister = () => {
       }
     } = e;
 
-
-    let lastAtPos = email.lastIndexOf('@');
-    let lastDotPos = email.lastIndexOf('.');
-
-    if (!(lastAtPos < lastDotPos && lastAtPos > 0 && email.indexOf('@@') == -1 && lastDotPos > 2 && (email.length - lastDotPos) > 2)) {
-      setError('Email should have @ and .')
-    } else {
-      setValidEmail(true)
-    }
-
-    if (password && password.length <= 6) {
-      setError('Password should be more than 6')
-    } else {
-      setValidPassword(true)
-    }
-
     if (password === confirmPassword && validEmail && validPassword) {
       dispatch(addUser(name, email, password));
       history.push(paths.calendar);
@@ -65,16 +49,37 @@ const FormRegister = () => {
     }
   }
 
-  const onChange = (event) => {
+  const onChangeEmail = (event) => {
     const { target: { name, value } } = event;
 
+    let lastAtPos = value.lastIndexOf('@');
+    let lastDotPos = value.lastIndexOf('.');
+
+    if (!(lastAtPos < lastDotPos && lastAtPos > 0 && value.indexOf('@@') == -1 && lastDotPos > 2 && (value.length - lastDotPos) > 2) && value) {
+      setError('Email should have @ and .')
+    } else {
+      setValidEmail(true)
+    }
+
     switch (name) {
-      case 'name':
-        setName(value);
-        break;
       case 'email':
         setEmail(value);
         break;
+      default:
+        break;
+    }
+  }
+  const onChangePassword = (event) => {
+    const { target: { name, value } } = event;
+
+    if (value && value.length <= 6) {
+      setError('Password should be more than 6')
+    } else {
+      setValidPassword(true)
+      setError('')
+    }
+
+    switch (name) {
       case 'password':
         setPassword(value);
         break;
@@ -86,13 +91,25 @@ const FormRegister = () => {
     }
   }
 
+  const onChange = (event) => {
+    const { target: { name, value } } = event;
+
+    switch (name) {
+      case 'name':
+        setName(value);
+        break;
+      default:
+        break;
+    }
+  }
+
   return (
     <div>
       <form onSubmit={onSubmit}>
         <input onChange={onChange} type="text" placeholder="Name" name="name" value={name} />
-        <input onChange={onChange} type="text" placeholder="E-mail address" name="email" value={email} />
-        <input onChange={onChange} type="password" placeholder="Password" name="password" value={password} />
-        <input onChange={onChange} type="password" placeholder="Confirm password" name="confirmPassword" value={confirmPassword} />
+        <input onChange={onChangeEmail} type="text" placeholder="E-mail address" name="email" value={email} />
+        <input onChange={onChangePassword} type="password" placeholder="Password" name="password" value={password} />
+        <input onChange={onChangePassword} type="password" placeholder="Confirm password" name="confirmPassword" value={confirmPassword} />
         <p>{error}</p>
         <button type='submit'>Sign up </button>
       </form>
