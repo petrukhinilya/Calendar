@@ -4,7 +4,6 @@
 .calendar-head{
     display: flex;
     justify-content: space-around;
-    margin-right: 63px;
     border: 1px solid black;
 }
 .calendar-head button{
@@ -13,7 +12,6 @@
 .day-names{
     display: flex;
     justify-content: space-around;
-    margin-right: 63px;
     border: 1px solid black;
 }
 .calendar .day {
@@ -22,7 +20,7 @@
     flex-direction: column;
     background-color: whitesmoke;
     box-sizing: border-box;
-    width: 250px;
+    width: calc(100%/7);
     border: solid 1px black;
 }
 #number{
