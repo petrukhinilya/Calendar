@@ -5,7 +5,6 @@ const initialEvents = {
 }
 
 const events = (state = initialEvents, action) => {
-    console.log(action.type)
     switch (action.type) {
         case 'SEND_EVENT':
             return {

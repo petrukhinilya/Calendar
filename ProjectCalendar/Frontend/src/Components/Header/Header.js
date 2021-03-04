@@ -1,9 +1,12 @@
 import React from 'react';
-import './styled.css';
-import { useSelector } from 'react-redux';
-import { deleteToken } from '../../utils/utils';
 import { useHistory } from "react-router-dom";
+import { useSelector } from 'react-redux';
+
+import { deleteToken } from '../../utils/utils';
+
 import paths from '../../Routes/paths';
+
+import './styled.css';
 
 const Header = () => {
   const history = useHistory();
@@ -11,10 +14,8 @@ const Header = () => {
   const { name } = useSelector(useName);
 
   const onLogout = () => {
-    deleteToken()
-    history.push(paths.login)
+    history.push(paths.login);
   }
-
 
   return (
     <div className='header'>
