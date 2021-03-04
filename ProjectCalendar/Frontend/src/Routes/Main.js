@@ -13,9 +13,9 @@ function Main() {
     return (
 
         <main>
-            <Route >
+            {/* <Route >
                 <Redirect from="/" to="/login" />
-            </Route>
+            </Route> */}
             <Switch>
                 <Route path={login} component={LoginPage} />
                 <Route path={registration} component={RegistrationPage} />

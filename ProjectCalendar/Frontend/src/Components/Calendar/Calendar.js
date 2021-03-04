@@ -6,7 +6,7 @@ import builtCalendar from './BuiltCalendar';
 import Popup from './Popup';
 import DayPopup from './DayPopup';
 import CalendarDay from './CalendarDay';
-
+import CurrentDayPopup from './CurrentDayPopup';
 
 import { getUserEvent, deleteUserEvent, updateUserEvent } from '../../Actions';
 
@@ -17,13 +17,18 @@ const Calendar = () => {
   const [calendar, setCalendar] = useState([]);
   const [value, setValue] = useState(moment());
   const [showPopup, setShowPopup] = useState(false);
-  const allEvents = useSelector(state => state.events.events);
   const [showDayPopup, setShowDayPopup] = useState(false);
   const [event, setEvent] = useState('');
+  const allEvents = useSelector(state => state.events.events);
+
+  const [showCurrentDayPopup, setShowCurrentDayPopup] = useState(false);
+  const [startOfEvent, setStartOfEvent] = useState('');
 
   useEffect(async () => {
     await setCalendar(builtCalendar(value))
   }, [value]);
+
+  console.log(useSelector(ev => ev))
 
   useEffect(() => {
     dispatch(getUserEvent())
@@ -82,7 +87,7 @@ const Calendar = () => {
     if (deleteEvent) {
       dispatch(deleteUserEvent(id));
       dispatch(getUserEvent());
-    } 
+    }
   }
 
   return (
@@ -120,6 +125,8 @@ const Calendar = () => {
                       deleteEvent={deleteEvent}
                       setShowDayPopup={setShowDayPopup}
                       setEvent={setEvent}
+                      setShowCurrentDayPopup={setShowCurrentDayPopup}
+                      setStartOfEvent={setStartOfEvent}
                     />
                   )
                 })}
@@ -129,7 +136,17 @@ const Calendar = () => {
         </div>
       </div>
       {showPopup && <Popup onClick={() => setShowPopup(false)} />}
-      {showDayPopup && <DayPopup onClick={() => setShowDayPopup(false)} event={event} />}
+      {showDayPopup &&
+        <DayPopup
+          onClick={() => setShowDayPopup(false)}
+          event={event}
+        />}
+      {showCurrentDayPopup &&
+        <CurrentDayPopup
+          onClick={() => setShowCurrentDayPopup(false)}
+          startOfEvent={startOfEvent}
+        />
+      }
     </div>
   )
 }

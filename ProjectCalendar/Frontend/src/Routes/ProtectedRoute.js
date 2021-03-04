@@ -16,10 +16,11 @@ const verifyToken = async () => {
             body: JSON.stringify({ token })
         })
         const body = await response.json();
-        console.log(body.auth);
+
         return body.auth
     } catch (e) {
         console.log(e)
+
         return false
     }
 }
@@ -44,13 +45,15 @@ const ProtectedRoute = (props) => {
         }
         if(isAuthenticated){
             const Component = props.component;
+
             return <Component/>
         } else {
             history.push(paths.login);
+
             return null
         }
     }, [isAuthenticated])
-    console.log('isAuthenticated',isAuthenticated)
+
     return getRenderData
 }
 

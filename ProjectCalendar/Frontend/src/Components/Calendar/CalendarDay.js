@@ -1,10 +1,11 @@
+import React from 'react';
 import moment from 'moment';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCalendarTimes } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCalendarTimes } from '@fortawesome/free-solid-svg-icons';
 
-import './Calendar.css'
+import './Calendar.css';
 
-const CalendarDay = ({ day, allEvents, dayStyles, setValue, deleteEvent, setShowDayPopup, setEvent }) => {
+const CalendarDay = ({ day, allEvents, dayStyles, setValue, deleteEvent, setShowDayPopup, setEvent, setShowCurrentDayPopup, setStartOfEvent }) => {
   const events = [];
 
   for (let i = 0; i < allEvents.length; i++) {
@@ -22,16 +23,31 @@ const CalendarDay = ({ day, allEvents, dayStyles, setValue, deleteEvent, setShow
     setShowDayPopup(true);
   }
 
+  const addEvent = (day) => {
+    setStartOfEvent(day)
+    setShowCurrentDayPopup(true)
+  }
+
   return (
-    <div className='day' onClick={() => setValue(day)}>
+    <div className='day' onClick={() => { addEvent(day) }}>
       <div>
-        <div id='number' className={dayStyles(day)}>{day.format('D').toString()}</div>
+        <div id='number' className={dayStyles(day)} >
+          {day.format('D').toString()}
+        </div>
         <div>
           {events.map((event) => {
             return (
               <div className='highlight'>
-                <div className='event' onClick={() => updateEvents(event)}>{event.event}</div>
-                <button className='del' onClick={() => deleteEvent(event._id)}>
+                <div className='event' onClick={(e) => {
+                  e.stopPropagation()
+                  updateEvents(event)
+                }}>
+                  {event.event}
+                </div>
+                <button className='del' onClick={(e) => {
+                  e.stopPropagation()
+                  deleteEvent(event._id)
+                }}>
                   <FontAwesomeIcon icon={faCalendarTimes} />
                 </button>
               </div>
