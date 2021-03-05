@@ -29,10 +29,10 @@ const CalendarDay = ({ day, allEvents, dayStyles, setValue, deleteEvent, setShow
   }
 
   return (
-    <div className='day' onClick={() => { addEvent(day) }}>
+    <div className='day' onClick={() => {addEvent(day)}}>
       <div>
-        <div id='number' className={dayStyles(day)} >
-          {day.format('D').toString()}
+        <div id='number'>
+          <span className={dayStyles(day)}>{day.format('D').toString()}</span>
         </div>
         <div>
           {events.map((event) => {

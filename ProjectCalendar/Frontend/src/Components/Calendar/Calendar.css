@@ -3,46 +3,60 @@
 }
 .calendar-head{
     display: flex;
-    justify-content: space-around;
-    border: 1px solid black;
+    justify-content: space-between;
+    align-items: center;
+    border: thin solid grey;
+    font-size: 22px;
 }
-.calendar-head button{
-    margin: 0 5px;
+.head-wrapper{
+    display: flex;
+    align-items: center;
 }
+.head-wrapper div{
+    margin: 0 15px;
+}
+
+.today{
+    margin: 3px;
+    padding: 10px 15px;
+}
+
 .day-names{
     display: flex;
     justify-content: space-around;
-    border: 1px solid black;
 }
 .day {
-    height: 100px;
+    height: 150px;
     display: inline-flex;
     flex-direction: column;
     background-color: whitesmoke;
     box-sizing: border-box;
     width: calc(100%/7);
-    border: solid 1px black;
+    border:thin solid grey;
 }
 #number{
+    margin-top: 5px;
     cursor: pointer;
-    text-align: end;
+    text-align: center;
 }
+
 .before{
-    background-color: gray;
+    opacity: 50%;
 }
 .selected{
-    background-color: orchid;
-}
-.today{
-    background-color: red;
+    background-color: blue;
+    padding: 3px 8px;
+    border-radius: 50%;
+    color: white;
+    
 }
 .highlight{
     display: flex;
     justify-content: space-between;
-}
-.event{
-    background-color: blue;
+    background-color:lightblue;
     border-radius: 20%;
     border: 1px solid grey;
+}
+.event{
     cursor: pointer;
 }

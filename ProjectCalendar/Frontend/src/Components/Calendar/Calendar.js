@@ -8,6 +8,9 @@ import DayPopup from './DayPopup';
 import CalendarDay from './CalendarDay';
 import CurrentDayPopup from './CurrentDayPopup';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
+
 import { getUserEvent, deleteUserEvent, updateUserEvent } from '../../Actions';
 
 import './Calendar.css';
@@ -27,8 +30,6 @@ const Calendar = () => {
   useEffect(async () => {
     await setCalendar(builtCalendar(value))
   }, [value]);
-
-  console.log(useSelector(ev => ev))
 
   useEffect(() => {
     dispatch(getUserEvent())
@@ -94,12 +95,16 @@ const Calendar = () => {
     <div className='calendar-wrapper'>
       <div className='calendar'>
         <div className="calendar-head">
-          <div>
-            <button onClick={() => setValue(moment())}>Today</button>
-            <button onClick={() => setValue(prevMonth())}>Back</button>
-            <button onClick={() => setValue(nextMonth())}>Next</button>
+          <div className='head-wrapper'>
+            <button className='today' onClick={() => setValue(moment())}>Today</button>
+            <div onClick={() => setValue(prevMonth())}>
+              <FontAwesomeIcon icon={faChevronLeft} />
+            </div>
+            <div onClick={() => setValue(nextMonth())}>
+              <FontAwesomeIcon icon={faChevronRight} />
+            </div>
+            {currMonthName()}  {currYearName()}
           </div>
-          <div>{currMonthName()}  {currYearName()}</div>
           <div>
             <button onClick={() => setShowPopup(true)}>Add Event</button>
           </div>
