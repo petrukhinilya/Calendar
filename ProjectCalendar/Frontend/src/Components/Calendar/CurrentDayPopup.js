@@ -4,7 +4,7 @@ import moment from 'moment';
 
 import { addUserEvent, getUserEvent } from '../../Actions';
 
-import './CurrentDay.css';
+import './Popup.css';
 
 const CurrentDayPopup = ({ onClick, startOfEvent}) => {
 const dispatch = useDispatch();
@@ -58,18 +58,18 @@ const dispatch = useDispatch();
 
   return (
       <div className='main'>
-          <div className='wrapper-popup1' onClick={onClick}>
+          <div className='wrapper-popup' onClick={onClick}>
           </div>
         <div>
-          <form className="popup1" onSubmit={sendEvent}>
-            <input type='date' className='input1' onChange={onChange} value={startDate} name="startDate"></input>
-            <input type='date' className='input2' onChange={onChange} value={endDate} name="endDate"></input>
-            <div>
+          <form className="popup" onSubmit={sendEvent}>
+            <input type='datetime-local' className='input1' onChange={onChange} value={startDate} name="startDate"></input>
+            <input type='datetime-local' className='input2' onChange={onChange} value={endDate} name="endDate"></input>
+            {/* <div>
             <input className='hour1' type="datetime-local"/>
             <input className='hour1' type="datetime-local"/>
-            </div>
+            </div> */}
             <input type='text' className='text' placeholder='Add event to date' onChange={onChange} value={text} name="text"></input>
-            <button type='submit' className='add-btn'>Add event</button>
+            <button type='submit' className='addevent-btn'>Add event</button>
             <input type='reset' onClick={onClick} className='reset'></input>
           </form>
         </div>

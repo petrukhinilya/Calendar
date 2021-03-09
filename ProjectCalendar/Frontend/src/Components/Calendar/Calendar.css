@@ -16,9 +16,41 @@
     margin: 0 15px;
 }
 
-.today{
+.today-btn{
     margin: 3px;
     padding: 10px 15px;
+    text-decoration: none;
+    color: white;
+    border-radius: 10px;
+    font-family: 'Montserrat', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    background-image: linear-gradient(to right, #9EEFE1 0%, #4830F0 51%, #9EEFE1 100%);
+    background-size: 200% auto;
+    box-shadow: 0 0 20px rgba(0, 0, 0, .1);
+    transition: .5s;
+}
+
+.today-btn:hover {
+    background-position: right center;
+}
+
+.add-btn{
+    text-decoration: none;
+    display: inline-block;
+    padding: 10px 15px;
+    border-radius: 10px;
+    box-shadow: 0 0 40px 40px #F137A6 inset, 0 0 0 0 #F137A6;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    letter-spacing: 2px;
+    color: white;
+    transition: .15s ease-in-out;
+}
+
+.add-btn:hover{
+    box-shadow: 0 0 10px 0 #F137A6 inset, 0 0 10px 4px #F137A6;
+    color: #F137A6;
 }
 
 .day-names{
@@ -32,7 +64,10 @@
     background-color: whitesmoke;
     box-sizing: border-box;
     width: calc(100%/7);
-    border:thin solid grey;
+    border: thin solid grey;
+}
+.week{
+    border: thin solid grey;
 }
 #number{
     margin-top: 5px;

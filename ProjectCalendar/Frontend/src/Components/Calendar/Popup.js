@@ -63,7 +63,7 @@ const Popup = ({ onClick }) => {
             <input type='date' className='input1' onChange={onChange} value={startDate} name="startDate"></input>
             <input type='date' className='input2' onChange={onChange} value={endDate} name="endDate"></input>
             <input type='text' className='text' placeholder='Add event to date' onChange={onChange} value={text} name="text"></input>
-            <button type='submit' className='add-btn'>Add event</button>
+            <button type='submit' className='addevent-btn'>Add event</button>
             <input type='reset' onClick={onClick} className='reset'></input>
           </form>
         </div>

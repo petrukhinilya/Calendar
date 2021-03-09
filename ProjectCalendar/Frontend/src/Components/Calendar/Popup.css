@@ -3,13 +3,12 @@
     margin-top: -1000px;
     z-index: 100;
     background-color: grey;
-    width: 1800px;
+    width: 1820px;
     height: 1000px;
     opacity: 50%;
 }
 .popup{
     position: fixed;
-    background-color: bisque;
     z-index: 1000;
     top: 33%;
     left: 33%;
@@ -17,17 +16,61 @@
     height: 300px;
     display: flex;
     flex-direction: column;
+    background:linear-gradient(to right, hsl(210, 30%, 20%), hsl(255, 30%, 25%));
+    align-items: center;
 }
 .input1{
-    margin: 15px;
+    margin-top: 15px;
 }
 .input2{
     margin: 15px;
 }
 .text{
     margin: 10px 0;
+    font-family: inherit;
+    width: 90%;
+    border: 0;
+    border-bottom: 2px solid #9b9b9b;
+    outline: 0;
+    font-size: 1.3rem;
+    color: #fff;
+    padding: 7px 0;
+    background: transparent;
+    transition: border-color 0.2s;
+}
+.text:focus{
+    border-color: green;
+}
+
+.addevent-btn{
+    border: 1px solid red;
+    border-radius: 100rem;
+    background: transparent;
+    font-size: 1.4rem;
+    letter-spacing: .2rem;
+    transition: .2s;
+    cursor: pointer;
+    color: white;
 }
 
 .reset{
-margin-top: 50px;
+    margin-top: 40px;
+    padding: 5px 40px;
+    border: 1px solid red;
+    border-radius: 100rem;
+    background: transparent;
+    font-size: 1.4rem;
+    letter-spacing: .2rem;
+    transition: .2s;
+    cursor: pointer;
+    color: white;
 }
+
+.addevent-btn:hover,
+.reset:hover{ 
+    background: hsl(210, 90%, 50%);
+    border-color: hsl(210, 90%, 50%);
+    transform: translateY(-.2rem);
+}
+
+

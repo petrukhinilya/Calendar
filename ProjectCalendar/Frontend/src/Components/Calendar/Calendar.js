@@ -96,7 +96,7 @@ const Calendar = () => {
       <div className='calendar'>
         <div className="calendar-head">
           <div className='head-wrapper'>
-            <button className='today' onClick={() => setValue(moment())}>Today</button>
+            <button className='today-btn' onClick={() => setValue(moment())}>Today</button>
             <div onClick={() => setValue(prevMonth())}>
               <FontAwesomeIcon icon={faChevronLeft} />
             </div>
@@ -106,7 +106,7 @@ const Calendar = () => {
             {currMonthName()}  {currYearName()}
           </div>
           <div>
-            <button onClick={() => setShowPopup(true)}>Add Event</button>
+            <button onClick={() => setShowPopup(true)} className='add-btn'>Add Event</button>
           </div>
         </div>
         <div className='body'>
