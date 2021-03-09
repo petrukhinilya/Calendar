@@ -5,7 +5,17 @@ import { faCalendarTimes } from '@fortawesome/free-solid-svg-icons';
 
 import './Calendar.css';
 
-const CalendarDay = ({ day, allEvents, dayStyles, setValue, deleteEvent, setShowDayPopup, setEvent, setShowCurrentDayPopup, setStartOfEvent }) => {
+const CalendarDay = ({ 
+  day,
+  allEvents,
+  dayStyles,
+  setValue,
+  deleteEvent,
+  setShowDayPopup,
+  setEvent,
+  setShowCurrentDayPopup,
+  setStartOfEvent,
+}) => {
   const events = [];
 
   for (let i = 0; i < allEvents.length; i++) {
@@ -29,7 +39,7 @@ const CalendarDay = ({ day, allEvents, dayStyles, setValue, deleteEvent, setShow
   }
 
   return (
-    <div className='day' onClick={() => {addEvent(day)}}>
+    <div className='day' onClick={() => { addEvent(day) }}>
       <div>
         <div id='number'>
           <span className={dayStyles(day)}>{day.format('D').toString()}</span>
@@ -42,7 +52,7 @@ const CalendarDay = ({ day, allEvents, dayStyles, setValue, deleteEvent, setShow
                   e.stopPropagation()
                   updateEvents(event)
                 }}>
-                  {event.event}
+                  {moment(event.startDate).format('hh:mm')} {event.event}
                 </div>
                 <button className='del' onClick={(e) => {
                   e.stopPropagation()

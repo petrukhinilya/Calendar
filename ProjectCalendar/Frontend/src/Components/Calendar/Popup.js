@@ -11,6 +11,7 @@ const Popup = ({ onClick }) => {
   const [startDate, setStartDate] = useState(moment().format('YYYY-MM-DD'));
   const [endDate, setEndDate] = useState('');
   const [text, setText] = useState('');
+  const [checked, setChecked] = useState(true);
 
   const sendEvent = (e) => {
     e.preventDefault();
@@ -20,13 +21,13 @@ const Popup = ({ onClick }) => {
         children: {
           startDate: {
             value: startDate
-            },
-            endDate: {
-                value: endDate
-            },
-            text: {
-                value: text
-            },
+          },
+          endDate: {
+            value: endDate
+          },
+          text: {
+            value: text
+          },
         }
       }
     } = e;
@@ -49,25 +50,41 @@ const Popup = ({ onClick }) => {
       case 'text':
         setText(value);
         break;
-    default:
+      default:
         break;
     }
   }
 
+  const onHours = () => {
+    if (checked) {
+      setChecked(false)
+    } else {
+      setChecked(true)
+    }
+  }
+
   return (
-      <div className='main'>
-          <div className='wrapper-popup' onClick={onClick}>
-          </div>
-        <div>
-          <form className="popup" onSubmit={sendEvent}>
+    <div className='main'>
+      <div className='wrapper-popup' onClick={onClick}>
+      </div>
+      <div>
+        <form className="popup" onSubmit={sendEvent}>
+          {checked && <>
             <input type='date' className='input1' onChange={onChange} value={startDate} name="startDate"></input>
             <input type='date' className='input2' onChange={onChange} value={endDate} name="endDate"></input>
-            <input type='text' className='text' placeholder='Add event to date' onChange={onChange} value={text} name="text"></input>
-            <button type='submit' className='addevent-btn'>Add event</button>
-            <input type='reset' onClick={onClick} className='reset'></input>
-          </form>
-        </div>
+          </>}
+          {!checked && <>
+            <input type='datetime-local' className='input1' onChange={onChange} value={startDate} name="startDate"></input>
+            <input type='datetime-local' className='input2' onChange={onChange} value={endDate} name="endDate"></input>
+          </>}
+          <input type='checkbox' name="hour" onClick={onHours} checked={checked}></input>
+          <label for="hour">Whole day</label>
+          <input type='text' className='text' placeholder='Add event to date' onChange={onChange} value={text} name="text"></input>
+          <button type='submit' className='addevent-btn'>Add event</button>
+          <input type='reset' onClick={onClick} className='reset'></input>
+        </form>
       </div>
-    )
+    </div>
+  )
 }
 export default Popup;
