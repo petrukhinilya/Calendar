@@ -69,10 +69,13 @@
 .week{
     border: thin solid grey;
 }
+
 #number{
     margin-top: 5px;
     cursor: pointer;
     text-align: center;
+    font-size: 12px;
+    font-weight: 600;
 }
 
 .before{
@@ -80,7 +83,7 @@
 }
 .selected{
     background-color: blue;
-    padding: 3px 8px;
+    padding: 1px 4px;
     border-radius: 50%;
     color: white;
     

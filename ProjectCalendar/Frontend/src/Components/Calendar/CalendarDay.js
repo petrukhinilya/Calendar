@@ -5,7 +5,7 @@ import { faCalendarTimes } from '@fortawesome/free-solid-svg-icons';
 
 import './Calendar.css';
 
-const CalendarDay = ({ 
+const CalendarDay = ({
   day,
   allEvents,
   dayStyles,
@@ -38,6 +38,8 @@ const CalendarDay = ({
     setShowCurrentDayPopup(true)
   }
 
+
+
   return (
     <div className='day' onClick={() => { addEvent(day) }}>
       <div>
@@ -45,24 +47,28 @@ const CalendarDay = ({
           <span className={dayStyles(day)}>{day.format('D').toString()}</span>
         </div>
         <div>
-          {events.map((event) => {
-            return (
-              <div className='highlight'>
-                <div className='event' onClick={(e) => {
-                  e.stopPropagation()
-                  updateEvents(event)
-                }}>
-                  {moment(event.startDate).format('hh:mm')} {event.event}
+          {events.sort(function (a, b) {
+            return a.startDate - b.startDate
+          })
+            .map((event) => {
+              return (
+                <div className='highlight'>
+                  <div className='event' onClick={(e) => {
+                    e.stopPropagation()
+                    updateEvents(event)
+                  }}>
+                    {moment(event.startDate).format('HH:MM') !== "03:03" 
+                    && moment(event.startDate).format('HH:MM')} {event.event}
+                  </div>
+                  <button className='del' onClick={(e) => {
+                    e.stopPropagation()
+                    deleteEvent(event._id)
+                  }}>
+                    <FontAwesomeIcon icon={faCalendarTimes} />
+                  </button>
                 </div>
-                <button className='del' onClick={(e) => {
-                  e.stopPropagation()
-                  deleteEvent(event._id)
-                }}>
-                  <FontAwesomeIcon icon={faCalendarTimes} />
-                </button>
-              </div>
-            )
-          })}
+              )
+            })}
         </div>
       </div>
     </div>

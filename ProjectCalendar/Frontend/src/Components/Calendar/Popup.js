@@ -9,7 +9,7 @@ import './Popup.css';
 const Popup = ({ onClick }) => {
   const dispatch = useDispatch();
   const [startDate, setStartDate] = useState(moment().format('YYYY-MM-DD'));
-  const [endDate, setEndDate] = useState('');
+  const [endDate, setEndDate] = useState(moment().format('YYYY-MM-DD'));
   const [text, setText] = useState('');
   const [checked, setChecked] = useState(true);
 
@@ -69,16 +69,16 @@ const Popup = ({ onClick }) => {
       </div>
       <div>
         <form className="popup" onSubmit={sendEvent}>
-          {checked && <>
-            <input type='date' className='input1' onChange={onChange} value={startDate} name="startDate"></input>
-            <input type='date' className='input2' onChange={onChange} value={endDate} name="endDate"></input>
+        {checked && <>
+            <input type='date' className='input1' onChange={onChange} value={startDate} name="startDate"/>
+            <input type='date' className='input2' onChange={onChange} value={endDate} name="endDate"/>
           </>}
           {!checked && <>
-            <input type='datetime-local' className='input1' onChange={onChange} value={startDate} name="startDate"></input>
-            <input type='datetime-local' className='input2' onChange={onChange} value={endDate} name="endDate"></input>
+            <input type='datetime-local' className='input1' onChange={onChange} value={startDate} name="startDate"/>
+            <input type='datetime-local' className='input2' onChange={onChange} value={endDate} name="endDate"/>
           </>}
-          <input type='checkbox' name="hour" onClick={onHours} checked={checked}></input>
-          <label for="hour">Whole day</label>
+          <input type='checkbox' name="hour" onClick={onHours} checked={checked}/>
+          <label className = 'hour' for="hour"> Whole day</label>
           <input type='text' className='text' placeholder='Add event to date' onChange={onChange} value={text} name="text"></input>
           <button type='submit' className='addevent-btn'>Add event</button>
           <input type='reset' onClick={onClick} className='reset'></input>

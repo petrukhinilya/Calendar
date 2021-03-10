@@ -16,7 +16,7 @@
     height: 300px;
     display: flex;
     flex-direction: column;
-    background:linear-gradient(to right, hsl(210, 30%, 20%), hsl(255, 30%, 25%));
+    background:linear-gradient(to top, lightblue, blue);
     align-items: center;
 }
 .input1{
@@ -27,19 +27,20 @@
 }
 .text{
     margin: 10px 0;
-    font-family: inherit;
     width: 90%;
     border: 0;
     border-bottom: 2px solid #9b9b9b;
     outline: 0;
     font-size: 1.3rem;
-    color: #fff;
+    color: red;
     padding: 7px 0;
     background: transparent;
     transition: border-color 0.2s;
 }
-.text:focus{
+.text:focus,
+.text::placeholder{
     border-color: green;
+    color: black;
 }
 
 .addevent-btn{
@@ -54,8 +55,8 @@
 }
 
 .reset{
-    margin-top: 40px;
-    padding: 5px 40px;
+    margin-top: 20px;
+    padding: 5px 20px;
     border: 1px solid red;
     border-radius: 100rem;
     background: transparent;
@@ -71,6 +72,11 @@
     background: hsl(210, 90%, 50%);
     border-color: hsl(210, 90%, 50%);
     transform: translateY(-.2rem);
+    box-shadow: 0 0 10px 0 #F137A6 inset, 0 0 10px 4px #F137A6;
+}
+
+.hour{
+    font-family: fantasy;
 }
 
 

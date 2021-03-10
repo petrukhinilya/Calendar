@@ -34,8 +34,6 @@ const ChangePopup = ({ onClick, event }) => {
       }
     } = e;
 
-    console.log('Start',Number(new Date(startDate).getTime()))
-    console.log('Start',Number(new Date(endDate).getTime()))
     dispatch(updateUserEvent(event._id, startDate, endDate, text));
     dispatch(getUserEvent());
   }
@@ -72,15 +70,15 @@ const ChangePopup = ({ onClick, event }) => {
       <div>
         <form className="popup" onSubmit={updateEvent}>
           {checked && <>
-            <input type='date' className='input1' onChange={onChange} value={startDate} name="startDate"></input>
-            <input type='date' className='input2' onChange={onChange} value={endDate} name="endDate"></input>
+            <input type='date' className='input1' onChange={onChange} value={startDate} name="startDate"/>
+            <input type='date' className='input2' onChange={onChange} value={endDate} name="endDate"/>
           </>}
           {!checked && <>
-            <input type='datetime-local' className='input1' onChange={onChange} value={startDate} name="startDate"></input>
-            <input type='datetime-local' className='input2' onChange={onChange} value={endDate} name="endDate"></input>
+            <input type='datetime-local' className='input1' onChange={onChange} value={startDate} name="startDate"/>
+            <input type='datetime-local' className='input2' onChange={onChange} value={endDate} name="endDate"/>
           </>}
-          <input type='checkbox' name="hour" onClick={onHours} checked={checked}></input>
-          <label for="hour">Whole day</label>
+          <input type='checkbox' name="hour" onClick={onHours} checked={checked}/>
+          <label className = 'hour' for="hour"> Whole day</label>
           <input type='text' className='text' placeholder='Add event to date' onChange={onChange} value={text} name="text" />
           <button type='submit' className='addevent-btn'>Change this event</button>
           <input type='reset' onClick={onClick} className='reset' />
