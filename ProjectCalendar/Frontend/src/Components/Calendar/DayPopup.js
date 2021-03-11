@@ -14,7 +14,7 @@ const ChangePopup = ({ onClick, event }) => {
   const [endDate, setEndDate] = useState(eventTimeEnd);
   const [text, setText] = useState(event.event);
   const [checked, setChecked] = useState(true);
-
+  
   const updateEvent = (e) => {
     e.preventDefault();
 
@@ -34,8 +34,14 @@ const ChangePopup = ({ onClick, event }) => {
       }
     } = e;
 
-    dispatch(updateUserEvent(event._id, startDate, endDate, text));
-    dispatch(getUserEvent());
+
+    if(text && text.length >= 0){
+      dispatch(updateUserEvent(event._id, startDate, endDate, text));
+      dispatch(getUserEvent());
+      onClick();
+    } else {
+      alert('Fill event')
+    }
   }
 
   const onChange = (events) => {

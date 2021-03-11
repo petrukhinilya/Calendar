@@ -32,9 +32,13 @@ const Popup = ({ onClick }) => {
       }
     } = e;
 
-    dispatch(addUserEvent(startDate, endDate, text));
-    dispatch(getUserEvent());
-    onClick();
+    if(text && text.length >= 0){
+      dispatch(addUserEvent(startDate, endDate, text));
+      dispatch(getUserEvent());
+      onClick();
+    } else {
+      alert('Fill event')
+    }
   }
 
   const onChange = (event) => {

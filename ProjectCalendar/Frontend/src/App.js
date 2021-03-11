@@ -1,14 +1,17 @@
-import React from 'react'
+import React from 'react';
+import { Route, Redirect } from 'react-router-dom';
 
-import './App.css'
+import Main from './Routes/Main';
 
-import Main from './Routes/Main'
+import './App.css';
 
 function App() {
   return (
-
-    <Main />
+    <>
+      <Redirect from='/' to='/calendar'></Redirect>
+      <Main />
+    </>
   )
 }
 
-export default App
+export default App;

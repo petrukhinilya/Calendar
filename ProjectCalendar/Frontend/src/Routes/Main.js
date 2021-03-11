@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
 import paths from './paths';
@@ -11,11 +11,8 @@ import ProtectedRoute from './ProtectedRoute';
 function Main() {
     const { login, registration, calendar } = paths;
     return (
-
         <main>
-            {/* <Route >
-                <Redirect from="/" to="/login" />
-            </Route> */}
+            {/* <Redirect from='/' to='/login'></Redirect> */}
             <Switch>
                 <Route path={login} component={LoginPage} />
                 <Route path={registration} component={RegistrationPage} />

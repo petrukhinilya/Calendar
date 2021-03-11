@@ -33,12 +33,13 @@ const CurrentDayPopup = ({ onClick, startOfEvent }) => {
       }
     } = e;
 
-    console.log('Start',startDate)
-    console.log('Start',endDate)
-
-    dispatch(addUserEvent(startDate, endDate, text));
-    dispatch(getUserEvent());
-    onClick();
+    if(text && text.length >= 0){
+      dispatch(addUserEvent(startDate, endDate, text));
+      dispatch(getUserEvent());
+      onClick();
+    } else {
+      alert('Fill event')
+    }
   }
 
   const onChange = (event) => {
@@ -84,7 +85,7 @@ const CurrentDayPopup = ({ onClick, startOfEvent }) => {
           </>}
           <input type='checkbox' name="hour" onClick={onHours} checked={checked}/>
           <label className = 'hour' for="hour"> Whole day</label>
-          <input type='text' className='text' placeholder='Add event to date' onChange={onChange} value={text} name="text"></input>
+          <input type='text' className='text' placeholder='Add event to date' onChange={onChange} value={text} name="text"/>
           <button type='submit' className='addevent-btn'>Add event</button>
           <input type='reset' onClick={onClick} className='reset'></input>
         </form>
