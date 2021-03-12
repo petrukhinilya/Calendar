@@ -16,7 +16,7 @@
     height: 300px;
     display: flex;
     flex-direction: column;
-    background:linear-gradient(to top, lightblue, blue);
+    background:linear-gradient(to top, rgb(173, 182, 230), rgba(0, 0, 255, 0.774));
     align-items: center;
 }
 .input1{
