@@ -8,7 +8,7 @@ import './App.css';
 function App() {
   return (
     <>
-      <Redirect from='/' to='/calendar'></Redirect>
+      {/* <Redirect from='/' to='/login'/> */}
       <Main />
     </>
   )
