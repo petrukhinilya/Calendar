@@ -22,5 +22,8 @@
     -webkit-transition: all 0.3 ease;
     transition: all 0.3 ease;
     cursor: pointer;
-  }
-  
+}
+.form button:hover{
+  color: black;
+  background-color: blue;
+}

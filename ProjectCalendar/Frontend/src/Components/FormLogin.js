@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useDispatch } from 'react-redux';
 
 import paths from '../Routes/paths';
 
 import { verifyUser } from '../Actions';
+
+import { FormControl, Input, FormHelperText, Button, TextField } from '@material-ui/core';
 
 import './Login.css';
 
@@ -13,32 +15,42 @@ const FormLogin = () => {
   const dispatch = useDispatch();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('Empty email or password');
+  const [error, setError] = useState('');
   const [validEmail, setValidEmail] = useState(false);
   const [validPassword, setValidPassword] = useState(false);
+
+  const inputEmail = useRef('')
+  const inputPassword = useRef('')
 
   const onLogin = (e) => {
     e.preventDefault();
 
-    const {
-      target: {
-        children: {
-          password: {
-            value: password
-          },
-          email: {
-            value: email
-          },
-        }
-      }
-    } = e;
+    console.log(e.target.children)
+    console.log(inputEmail.current.value)
+    console.log(inputPassword.current.value)
 
-    if (validEmail && validPassword) {
-      dispatch(verifyUser(email, password));
-      history.push(paths.calendar);
-    } else {
-      alert('Handle error')
-    }
+    // const {
+    //   target: {
+    //     children: {
+    //       password: {
+    //         value: password
+    //       },
+    //       email: {
+    //         value: email
+    //       },
+    //     }
+    //   }
+    // } = e;
+
+    dispatch(verifyUser(inputEmail.current.value, inputPassword.current.value));
+    history.push(paths.calendar);
+
+    // if (validEmail && validPassword) {
+    //   dispatch(verifyUser(email, password));
+    //   history.push(paths.calendar);
+    // } else {
+    //   alert('Handle error')
+    // }
   }
 
   const onChangeEmail = (event) => {
@@ -84,10 +96,17 @@ const FormLogin = () => {
   return (
     <div>
       <form className="login-form" onSubmit={onLogin}>
-        <input onChange={onChangeEmail} type="text" placeholder="E-mail adress" name="email" value={email} />
-        <input onChange={onChangePassword} type="password" placeholder="Password" name="password" value={password} />
+        <FormControl fullWidth required>
+          <FormHelperText>E-mail</FormHelperText>
+          <Input onChange={onChangeEmail} type="text" placeholder="E-mail adress" name="email" value={email} inputRef={inputEmail} />
+        </FormControl>
+        {/* <TextField onChange={onChangeEmail} type="text" placeholder="E-mail adress" name="email" value={email} fullWidth required label="email" /> */}
+        <FormControl fullWidth required>
+          <FormHelperText>Password</FormHelperText>
+          <Input onChange={onChangePassword} type="password" placeholder="Password" name="password" value={password} inputRef={inputPassword} />
+        </FormControl>
         <p>{error}</p>
-        <button type="submit">Sign in</button>
+        <Button type="submit">Sign in</Button>
       </form>
     </div>
   )

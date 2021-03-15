@@ -15,7 +15,8 @@ const Loginpage = () => {
           <Link to='/registration' className='adress'><p>Registration</p></Link>
         </div>
       </div>
-    </div>)
+    </div>
+  )
 }
 
 export default Loginpage;

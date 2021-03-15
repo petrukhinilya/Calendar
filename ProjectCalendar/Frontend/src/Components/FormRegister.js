@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useHistory } from "react-router-dom";
 import { useDispatch } from 'react-redux';
 
@@ -6,7 +6,9 @@ import { addUser } from '../Actions';
 
 import paths from '../Routes/paths';
 
-import './Registration.css';
+import { FormControl, Input, FormHelperText, Button } from '@material-ui/core';
+
+import './Login.css';
 
 const FormRegister = () => {
   const history = useHistory();
@@ -19,34 +21,47 @@ const FormRegister = () => {
   const [validEmail, setValidEmail] = useState(false);
   const [validPassword, setValidPassword] = useState(false);
 
+  const inputName = useRef('')
+  const inputEmail = useRef('')
+  const inputPassword = useRef('')
+  const inputPassword2 = useRef('')
+
+
   const onSubmit = (e) => {
     e.preventDefault();
 
-    const {
-      target: {
-        children: {
-          password: {
-            value: password
-          },
-          confirmPassword: {
-            value: confirmPassword
-          },
-          name: {
-            value: name
-          },
-          email: {
-            value: email
-          },
-        }
-      }
-    } = e;
+    console.log(e.target.children)
 
-    if (password === confirmPassword && validEmail && validPassword) {
-      dispatch(addUser(name, email, password));
-      history.push(paths.calendar);
-    } else {
-      alert(error)
-    }
+    // const {
+    //   target: {
+    //     children: {
+    //       password: {
+    //         value: password
+    //       },
+    //       confirmPassword: {
+    //         value: confirmPassword
+    //       },
+    //       name: {
+    //         value: name
+    //       },
+    //       email: {
+    //         value: email
+    //       },
+    //     }
+    //   }
+    // } = e;
+
+
+    dispatch(addUser(inputName.current.value, inputEmail.current.value, inputPassword.current.value));
+    history.push(paths.calendar);
+
+
+    // if (password === confirmPassword && validEmail && validPassword) {
+    //   dispatch(addUser(name, email, password));
+    //   history.push(paths.calendar);
+    // } else {
+    //   alert(error)
+    // }
   }
 
   const onChangeEmail = (event) => {
@@ -106,14 +121,26 @@ const FormRegister = () => {
   return (
     <div>
       <form onSubmit={onSubmit}>
-        <input onChange={onChange} type="text" placeholder="Name" name="name" value={name} />
-        <input onChange={onChangeEmail} type="text" placeholder="E-mail address" name="email" value={email} />
-        <input onChange={onChangePassword} type="password" placeholder="Password" name="password" value={password} />
-        <input onChange={onChangePassword} type="password" placeholder="Confirm password" name="confirmPassword" value={confirmPassword} />
+        <FormControl fullWidth required >
+          <FormHelperText>Name</FormHelperText>
+          <Input onChange={onChange} type="text" placeholder="Name" name="name" value={name} inputRef={inputName}/>
+        </FormControl>
+        <FormControl fullWidth required>
+          <FormHelperText>E-mail</FormHelperText>
+          <Input onChange={onChangeEmail} type="text" placeholder="E-mail address" name="email" value={email} inputRef={inputEmail}/>
+        </FormControl>
+        <FormControl fullWidth required>
+          <FormHelperText>Password</FormHelperText>
+          <Input onChange={onChangePassword} type="password" placeholder="Password" name="password" value={password} inputRef={inputPassword}/>
+        </FormControl>
+        <FormControl fullWidth required>
+          <FormHelperText>Password</FormHelperText>
+          <Input onChange={onChangePassword} type="password" placeholder="Confirm password" name="confirmPassword" value={confirmPassword} inputRef={inputPassword2}/>
+        </FormControl>
         <p>{error}</p>
         <button type='submit'>Sign up </button>
       </form>
-    </div>
+    </div >
   )
 }
 
