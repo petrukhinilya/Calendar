@@ -1,58 +1,61 @@
-import React, {useEffect, useState, useMemo} from 'react'
+import React, {useEffect, useState, useMemo} from 'react';
 
-import paths from './paths'
+import paths from './paths';
 import { useHistory } from "react-router-dom";
 
-import Loading from '../Components/Loading'
-
-
+import Loading from '../Components/Loading';
 
 const verifyToken = async () => {
     try {
         const token = localStorage.getItem('token');
-        const response = await fetch('http://localhost:1133/user/verify', {
+        const response = await fetch(`${process.env.REACT_APP_BASE_URL}/user/verify`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json;charset=utf-8'
             },
             body: JSON.stringify({ token })
         })
-        const body = await response.json()
-        console.log(body.auth)
+        const body = await response.json();
+
         return body.auth
     } catch (e) {
         console.log(e)
+
         return false
     }
-
 }
 
 const ProtectedRoute = (props) => {
-    const [isAuthenticated, setIsAuthenticated] = useState(null);
     const history = useHistory();
+    const [isAuthenticated, setIsAuthenticated] = useState(null);
+
     useEffect(() => {
-        const test1 = async() =>{
+        const checkVerify = async() =>{
             const result = await verifyToken();
             setIsAuthenticated(result);
         }
-        test1();
+        checkVerify();
     }, [])
-    const { login, registration, calendar } = paths
+
+    const { login, registration, calendar } = paths;
+
     const getRenderData = useMemo(() => {
         if(isAuthenticated === null){
             return <div><Loading></Loading></div>
         }
         if(isAuthenticated){
             const Component = props.component;
+
             return <Component/>
         } else {
-            history.push(paths.login)
+            history.push(paths.login);
+
             return null
         }
     }, [isAuthenticated])
-    console.log('isAuthenticated',isAuthenticated)
-    return getRenderData;
+
+    return getRenderData
 }
 
-export default ProtectedRoute
+export default ProtectedRoute;
 

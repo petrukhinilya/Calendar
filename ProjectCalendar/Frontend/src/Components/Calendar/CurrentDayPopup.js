@@ -2,20 +2,19 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import moment from 'moment';
 
-import { updateUserEvent, getUserEvent } from '../../Actions';
+import { addUserEvent, getUserEvent } from '../../Actions';
 
 import './Popup.css';
 
-const ChangePopup = ({ onClick, event }) => {
-  const eventTimeStart = moment(event.startDate).format('YYYY-MM-DD');
-  const eventTimeEnd = moment(event.endDate).format('YYYY-MM-DD');
+const CurrentDayPopup = ({ onClick, startOfEvent }) => {
   const dispatch = useDispatch();
-  const [startDate, setStartDate] = useState(eventTimeStart);
-  const [endDate, setEndDate] = useState(eventTimeEnd);
-  const [text, setText] = useState(event.event);
+  const startDayEvent = moment(startOfEvent).format('YYYY-MM-DD');
+  const [startDate, setStartDate] = useState(startDayEvent);
+  const [endDate, setEndDate] = useState(startDayEvent);
+  const [text, setText] = useState('');
   const [checked, setChecked] = useState(true);
-  
-  const updateEvent = (e) => {
+
+  const sendEvent = (e) => {
     e.preventDefault();
 
     const {
@@ -34,9 +33,8 @@ const ChangePopup = ({ onClick, event }) => {
       }
     } = e;
 
-
     if(text && text.length >= 0){
-      dispatch(updateUserEvent(event._id, startDate, endDate, text));
+      dispatch(addUserEvent(startDate, endDate, text));
       dispatch(getUserEvent());
       onClick();
     } else {
@@ -44,8 +42,8 @@ const ChangePopup = ({ onClick, event }) => {
     }
   }
 
-  const onChange = (events) => {
-    const { target: { name, value } } = events;
+  const onChange = (event) => {
+    const { target: { name, value } } = event;
 
     switch (name) {
       case 'startDate':
@@ -69,13 +67,15 @@ const ChangePopup = ({ onClick, event }) => {
       setChecked(true)
     }
   }
+  // moment(value).format("YYYY-MM-DDTHH:mm:ss") вероятно для инпута
 
   return (
     <div className='main'>
-      <div className='wrapper-popup' onClick={onClick} />
+      <div className='wrapper-popup' onClick={onClick}>
+      </div>
       <div>
-        <form className="popup" onSubmit={updateEvent}>
-          {checked && <>
+        <form className="popup" onSubmit={sendEvent}>
+        {checked && <>
             <input type='date' className='input1' onChange={onChange} value={startDate} name="startDate"/>
             <input type='date' className='input2' onChange={onChange} value={endDate} name="endDate"/>
           </>}
@@ -85,12 +85,13 @@ const ChangePopup = ({ onClick, event }) => {
           </>}
           <input type='checkbox' name="hour" onClick={onHours} checked={checked}/>
           <label className = 'hour' for="hour"> Whole day</label>
-          <input type='text' className='text' placeholder='Add event to date' onChange={onChange} value={text} name="text" />
-          <button type='submit' className='addevent-btn'>Change this event</button>
-          <input type='reset' onClick={onClick} className='reset' />
+          <input type='text' className='text' placeholder='Add event to date' onChange={onChange} value={text} name="text"/>
+          <button type='submit' className='addevent-btn'>Add event</button>
+          <input type='reset' onClick={onClick} className='reset'></input>
         </form>
       </div>
     </div>
   )
 }
-export default ChangePopup;
+
+export default CurrentDayPopup;

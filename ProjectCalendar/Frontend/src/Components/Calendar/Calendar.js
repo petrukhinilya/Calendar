@@ -6,7 +6,10 @@ import builtCalendar from './BuiltCalendar';
 import Popup from './Popup';
 import DayPopup from './DayPopup';
 import CalendarDay from './CalendarDay';
+import CurrentDayPopup from './CurrentDayPopup';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 
 import { getUserEvent, deleteUserEvent, updateUserEvent } from '../../Actions';
 
@@ -17,9 +20,12 @@ const Calendar = () => {
   const [calendar, setCalendar] = useState([]);
   const [value, setValue] = useState(moment());
   const [showPopup, setShowPopup] = useState(false);
-  const allEvents = useSelector(state => state.events.events);
   const [showDayPopup, setShowDayPopup] = useState(false);
   const [event, setEvent] = useState('');
+  const allEvents = useSelector(state => state.events.events);
+
+  const [showCurrentDayPopup, setShowCurrentDayPopup] = useState(false);
+  const [startOfEvent, setStartOfEvent] = useState('');
 
   useEffect(async () => {
     await setCalendar(builtCalendar(value))
@@ -78,22 +84,29 @@ const Calendar = () => {
   }
 
   const deleteEvent = (id) => {
-    dispatch(deleteUserEvent(id));
-    dispatch(getUserEvent());
+    let deleteEvent = confirm('Delete event')
+    if (deleteEvent) {
+      dispatch(deleteUserEvent(id));
+      dispatch(getUserEvent());
+    }
   }
 
   return (
     <div className='calendar-wrapper'>
       <div className='calendar'>
         <div className="calendar-head">
-          <div>
-            <button onClick={() => setValue(moment())}>Today</button>
-            <button onClick={() => setValue(prevMonth())}>Back</button>
-            <button onClick={() => setValue(nextMonth())}>Next</button>
+          <div className='head-wrapper'>
+            <button className='today-btn' onClick={() => setValue(moment())}>Today</button>
+            <div onClick={() => setValue(prevMonth())}>
+              <FontAwesomeIcon icon={faChevronLeft} />
+            </div>
+            <div onClick={() => setValue(nextMonth())}>
+              <FontAwesomeIcon icon={faChevronRight} />
+            </div>
+            {currMonthName()}  {currYearName()}
           </div>
-          <div>{currMonthName()}  {currYearName()}</div>
           <div>
-            <button onClick={() => setShowPopup(true)}>Add Event</button>
+            <button onClick={() => setShowPopup(true)} className='add-btn'>Add Event</button>
           </div>
         </div>
         <div className='body'>
@@ -117,6 +130,8 @@ const Calendar = () => {
                       deleteEvent={deleteEvent}
                       setShowDayPopup={setShowDayPopup}
                       setEvent={setEvent}
+                      setShowCurrentDayPopup={setShowCurrentDayPopup}
+                      setStartOfEvent={setStartOfEvent}
                     />
                   )
                 })}
@@ -126,7 +141,17 @@ const Calendar = () => {
         </div>
       </div>
       {showPopup && <Popup onClick={() => setShowPopup(false)} />}
-      {showDayPopup && <DayPopup onClick={() => setShowDayPopup(false)} event = {event}/>}
+      {showDayPopup &&
+        <DayPopup
+          onClick={() => setShowDayPopup(false)}
+          event={event}
+        />}
+      {showCurrentDayPopup &&
+        <CurrentDayPopup
+          onClick={() => setShowCurrentDayPopup(false)}
+          startOfEvent={startOfEvent}
+        />
+      }
     </div>
   )
 }
