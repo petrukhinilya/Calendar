@@ -41,7 +41,7 @@ const CalendarDay = ({
 
 
   return (
-    <div className='day' onClick={() => { addEvent(day) }}>
+    <td className='day' onClick={() => { addEvent(day) }}>
       <div>
         <div id='number'>
           <span className={dayStyles(day)}>{day.format('D').toString()}</span>
@@ -57,8 +57,8 @@ const CalendarDay = ({
                     e.stopPropagation()
                     updateEvents(event)
                   }}>
-                    {moment(event.startDate).format('HH:MM') !== "03:03" 
-                    && moment(event.startDate).format('HH:MM')} {event.event}
+                    {moment(event.startDate).format('HH:mm a') !== '03:00 am' &&
+                      moment(event.startDate).format('HH:mm a')}  {event.event}
                   </div>
                   <button className='del' onClick={(e) => {
                     e.stopPropagation()
@@ -71,7 +71,7 @@ const CalendarDay = ({
             })}
         </div>
       </div>
-    </div>
+    </td>
   )
 }
 

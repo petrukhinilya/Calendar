@@ -3,7 +3,7 @@
     margin-top: -1000px;
     z-index: 100;
     background-color: grey;
-    width: 1820px;
+    width: 1830px;
     height: 1000px;
     opacity: 50%;
 }
@@ -19,12 +19,7 @@
     background:linear-gradient(to top, rgb(173, 182, 230), rgba(0, 0, 255, 0.774));
     align-items: center;
 }
-.input1{
-    margin-top: 15px;
-}
-.input2{
-    margin: 15px;
-}
+
 .text{
     margin: 10px 0;
     width: 90%;
@@ -43,40 +38,5 @@
     color: black;
 }
 
-.addevent-btn{
-    border: 1px solid red;
-    border-radius: 100rem;
-    background: transparent;
-    font-size: 1.4rem;
-    letter-spacing: .2rem;
-    transition: .2s;
-    cursor: pointer;
-    color: white;
-}
-
-.reset{
-    margin-top: 20px;
-    padding: 5px 20px;
-    border: 1px solid red;
-    border-radius: 100rem;
-    background: transparent;
-    font-size: 1.4rem;
-    letter-spacing: .2rem;
-    transition: .2s;
-    cursor: pointer;
-    color: white;
-}
-
-.addevent-btn:hover,
-.reset:hover{ 
-    background: hsl(210, 90%, 50%);
-    border-color: hsl(210, 90%, 50%);
-    transform: translateY(-.2rem);
-    box-shadow: 0 0 10px 0 #F137A6 inset, 0 0 10px 4px #F137A6;
-}
-
-.hour{
-    font-family: fantasy;
-}
 
 

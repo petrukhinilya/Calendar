@@ -2,6 +2,19 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import moment from 'moment';
 
+import {
+  MuiPickersUtilsProvider,
+  KeyboardTimePicker,
+  KeyboardDatePicker,
+  DateTimePicker,
+  DatePicker,
+  TimePicker
+} from '@material-ui/pickers';
+import { TextField, Button, FormControlLabel, Checkbox } from '@material-ui/core'
+
+import DateFnsUtils from '@date-io/date-fns';
+import DateMomentUtils from '@date-io/moment'
+
 import { addUserEvent, getUserEvent } from '../../Actions';
 
 import './Popup.css';
@@ -16,22 +29,6 @@ const Popup = ({ onClick }) => {
   const sendEvent = (e) => {
     e.preventDefault();
 
-    const {
-      target: {
-        children: {
-          startDate: {
-            value: startDate
-          },
-          endDate: {
-            value: endDate
-          },
-          text: {
-            value: text
-          },
-        }
-      }
-    } = e;
-
     if(text && text.length >= 0){
       dispatch(addUserEvent(startDate, endDate, text));
       dispatch(getUserEvent());
@@ -41,22 +38,24 @@ const Popup = ({ onClick }) => {
     }
   }
 
-  const onChange = (event) => {
+  const onChangeText = (event) => {
     const { target: { name, value } } = event;
 
     switch (name) {
-      case 'startDate':
-        setStartDate(value);
-        break;
-      case 'endDate':
-        setEndDate(value);
-        break;
       case 'text':
         setText(value);
         break;
       default:
         break;
     }
+  }
+
+  const onChangeStartDate = (event) => {
+    setStartDate(event)
+  }
+
+  const onChangeEndDate = (event) => {
+    setEndDate(event)
   }
 
   const onHours = () => {
@@ -67,6 +66,16 @@ const Popup = ({ onClick }) => {
     }
   }
 
+  const styles = {
+    marginTop: '20px',
+    border: '1px solid red',
+    borderRadius: '10rem',
+    background: 'transparent',
+    transition: '.2s',
+    cursor: 'pointer',
+    color: 'black'
+  }
+
   return (
     <div className='main'>
       <div className='wrapper-popup' onClick={onClick}>
@@ -74,18 +83,33 @@ const Popup = ({ onClick }) => {
       <div>
         <form className="popup" onSubmit={sendEvent}>
         {checked && <>
-            <input type='date' className='input1' onChange={onChange} value={startDate} name="startDate"/>
-            <input type='date' className='input2' onChange={onChange} value={endDate} name="endDate"/>
+            <MuiPickersUtilsProvider utils={DateMomentUtils}>
+              <DatePicker format="MM/DD/yyyy" className='input1' onChange={onChangeStartDate} value={startDate}
+                disablePast='true'
+              />
+              <DatePicker format="MM/DD/yyyy" className='input2' onChange={onChangeEndDate} value={endDate}
+                disablePast='true' />
+            </MuiPickersUtilsProvider>
           </>}
           {!checked && <>
-            <input type='datetime-local' className='input1' onChange={onChange} value={startDate} name="startDate"/>
-            <input type='datetime-local' className='input2' onChange={onChange} value={endDate} name="endDate"/>
+            <MuiPickersUtilsProvider utils={DateMomentUtils}>
+              <DateTimePicker className='input1' onChange={onChangeStartDate} value={startDate} name="startDate"
+                disablePast='true' /> 
+              <DateTimePicker className='input2' onChange={onChangeEndDate} value={endDate} name="endDate"
+                disablePast='true' />
+            </MuiPickersUtilsProvider>
           </>}
-          <input type='checkbox' name="hour" onClick={onHours} checked={checked}/>
-          <label className = 'hour' for="hour"> Whole day</label>
-          <input type='text' className='text' placeholder='Add event to date' onChange={onChange} value={text} name="text"></input>
-          <button type='submit' className='addevent-btn'>Add event</button>
-          <input type='reset' onClick={onClick} className='reset'></input>
+          <FormControlLabel control={
+            <Checkbox
+              checked={checked}
+              onChange={onHours}
+              name="hour"    
+            />
+          }
+            label="All Day" />
+          <TextField type='text' className='text' placeholder='Add event to date' onChange={onChangeText} value={text} name="text" required />
+          <Button type='submit' style={styles}>Add event</Button>
+          <Button type='reset' onClick={onClick} style={styles}>Cancel</Button>
         </form>
       </div>
     </div>

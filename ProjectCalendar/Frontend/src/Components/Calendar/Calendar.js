@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import moment from 'moment';
 import { useDispatch, useSelector } from 'react-redux';
+import { Button } from '@material-ui/core';
 
 import builtCalendar from './BuiltCalendar';
 import Popup from './Popup';
@@ -96,7 +97,7 @@ const Calendar = () => {
       <div className='calendar'>
         <div className="calendar-head">
           <div className='head-wrapper'>
-            <button className='today-btn' onClick={() => setValue(moment())}>Today</button>
+            <Button className='today-btn' onClick={() => setValue(moment())}>Today</Button>
             <div onClick={() => setValue(prevMonth())}>
               <FontAwesomeIcon icon={faChevronLeft} />
             </div>
@@ -105,21 +106,21 @@ const Calendar = () => {
             </div>
             {currMonthName()}  {currYearName()}
           </div>
-          <div>
-            <button onClick={() => setShowPopup(true)} className='add-btn'>Add Event</button>
-          </div>
+          <div></div>
+          <Button onClick={() => setShowPopup(true)} className='add-btn'>Add Event</Button>
+
         </div>
-        <div className='body'>
-          <div className='day-names'>
-            {
-              ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(d => (
-                <div>{d}</div>
-              ))
-            }
-          </div>
-          <div className='week'>
+        <table className='body'>
+          <tbody>
+            <tr className='day-names'>
+              {
+                ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(d => (
+                  <td>{d}</td>
+                ))
+              }
+            </tr>
             {calendar.map((week) => (
-              <div className='day-wrapper'>
+              <tr className='day-wrapper'>
                 {week.map((day) => {
                   return (
                     <CalendarDay
@@ -135,10 +136,10 @@ const Calendar = () => {
                     />
                   )
                 })}
-              </div>
+              </tr>
             ))}
-          </div>
-        </div>
+          </tbody>
+        </table>
       </div>
       {showPopup && <Popup onClick={() => setShowPopup(false)} />}
       {showDayPopup &&
