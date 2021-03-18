@@ -46,30 +46,28 @@ const CalendarDay = ({
         <div id='number'>
           <span className={dayStyles(day)}>{day.format('D').toString()}</span>
         </div>
-        <div>
-          {events.sort(function (a, b) {
-            return a.startDate - b.startDate
-          })
-            .map((event) => {
-              return (
-                <div className='highlight'>
-                  <div className='event' onClick={(e) => {
-                    e.stopPropagation()
-                    updateEvents(event)
-                  }}>
-                    {moment(event.startDate).format('HH:mm a') !== '03:00 am' &&
-                      moment(event.startDate).format('HH:mm a')}  {event.event}
-                  </div>
-                  <button className='del' onClick={(e) => {
-                    e.stopPropagation()
-                    deleteEvent(event._id)
-                  }}>
-                    <FontAwesomeIcon icon={faCalendarTimes} />
-                  </button>
+        {events.sort(function (a, b) {
+          return a.startDate - b.startDate
+        })
+          .map((event) => {
+            return (
+              <div className='highlight'>
+                <div className='event' onClick={(e) => {
+                  e.stopPropagation()
+                  updateEvents(event)
+                }}>
+                  {moment(event.startDate).format('HH:mm a') !== '03:00 am' &&
+                    moment(event.startDate).format('HH:mm a')}  {event.event}
                 </div>
-              )
-            })}
-        </div>
+                <button className='del' onClick={(e) => {
+                  e.stopPropagation()
+                  deleteEvent(event._id)
+                }}>
+                  <FontAwesomeIcon icon={faCalendarTimes} />
+                </button>
+              </div>
+            )
+          })}
       </div>
     </td>
   )

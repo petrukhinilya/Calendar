@@ -76,6 +76,8 @@ table{
     width: calc(100%/7);
     border-bottom: thin solid grey;
     border-right: thin solid grey;
+    overflow-wrap: anywhere;
+    overflow: auto;
 }
 
 .day:first-child {
@@ -91,7 +93,7 @@ table{
 }
 
 .before{
-    opacity: 50%;
+    color: grey;
 }
 .selected{
     background-color: blue;
