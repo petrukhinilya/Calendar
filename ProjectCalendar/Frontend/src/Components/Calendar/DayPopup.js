@@ -34,6 +34,7 @@ const ChangePopup = ({ onClick, event }) => {
     if(text && text.length >= 0){
       dispatch(updateUserEvent(event._id, startDate, endDate, text));
       dispatch(getUserEvent());
+      setOpenSnackAdd()
       onClick();
     } else {
       alert('Fill event')

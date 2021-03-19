@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import moment from 'moment';
 import { useDispatch, useSelector } from 'react-redux';
-import { Button } from '@material-ui/core';
+
+import { Button, Snackbar } from '@material-ui/core';
+import { Alert } from '@material-ui/lab'
 
 import builtCalendar from './BuiltCalendar';
 import Popup from './Popup';
@@ -28,6 +30,9 @@ const Calendar = () => {
   const [showCurrentDayPopup, setShowCurrentDayPopup] = useState(false);
   const [startOfEvent, setStartOfEvent] = useState('');
 
+  const [openSnackDelete, setOpenSnackDelete] = useState(false);
+  const [openSnackAdd, setOpenSnackAdd] = useState(false);
+
   useEffect(async () => {
     await setCalendar(builtCalendar(value))
   }, [value]);
@@ -53,7 +58,10 @@ const Calendar = () => {
   }
 
   const isToday = (day) => {
-    return day.isSame(new Date(), 'day');
+    if (value.isSame(day, 'day') && value.isSame(day, 'month')) {
+      return true
+    }
+    return false
   }
 
   const dayStyles = (day) => {
@@ -61,9 +69,7 @@ const Calendar = () => {
 
     if (nextToday(day)) return 'before';
 
-    if (isSelected(day)) return 'selected';
-
-    if (isToday(day)) return 'today';
+    if (isToday(day)) return 'selected';
 
     return '';
   }
@@ -89,7 +95,16 @@ const Calendar = () => {
     if (deleteEvent) {
       dispatch(deleteUserEvent(id));
       dispatch(getUserEvent());
+      setOpenSnackDelete(true);
     }
+  }
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpenSnackDelete(false);
+    setOpenSnackAdd(false);
   }
 
   return (
@@ -108,7 +123,6 @@ const Calendar = () => {
           </div>
           <div></div>
           <Button onClick={() => setShowPopup(true)} className='add-btn'>Add Event</Button>
-
         </div>
         <table className='body'>
           <tbody>
@@ -141,16 +155,28 @@ const Calendar = () => {
           </tbody>
         </table>
       </div>
-      {showPopup && <Popup onClick={() => setShowPopup(false)} />}
+      <Snackbar autoHideDuration={2000} open={openSnackDelete} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="success">Event was deleted</Alert>
+      </Snackbar>
+      <Snackbar autoHideDuration={2000} open={openSnackAdd} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="success">Event was added</Alert>
+      </Snackbar>
+      {showPopup && 
+      <Popup 
+      onClick={() => setShowPopup(false)}
+      setOpenSnackAdd={() => setOpenSnackAdd(true)}
+       />}
       {showDayPopup &&
         <DayPopup
           onClick={() => setShowDayPopup(false)}
           event={event}
+          setOpenSnackAdd={() => setOpenSnackAdd(true)}
         />}
       {showCurrentDayPopup &&
         <CurrentDayPopup
           onClick={() => setShowCurrentDayPopup(false)}
           startOfEvent={startOfEvent}
+          setOpenSnackAdd={() => setOpenSnackAdd(true)}
         />
       }
     </div>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import moment from 'moment';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendarTimes } from '@fortawesome/free-solid-svg-icons';
@@ -38,8 +38,6 @@ const CalendarDay = ({
     setShowCurrentDayPopup(true)
   }
 
-
-
   return (
     <td className='day' onClick={() => { addEvent(day) }}>
       <div>
@@ -57,7 +55,7 @@ const CalendarDay = ({
                   updateEvents(event)
                 }}>
                   {moment(event.startDate).format('HH:mm a') !== '03:00 am' &&
-                    moment(event.startDate).format('HH:mm a')}  {event.event}
+                    moment(event.startDate).format('HH:mm')} {event.event}
                 </div>
                 <button className='del' onClick={(e) => {
                   e.stopPropagation()

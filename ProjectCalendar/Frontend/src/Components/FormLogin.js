@@ -6,7 +6,8 @@ import paths from '../Routes/paths';
 
 import { verifyUser } from '../Actions';
 
-import { FormControl, Input, FormHelperText, Button, TextField } from '@material-ui/core';
+import { FormControl, Input, FormHelperText, Button, Snackbar } from '@material-ui/core';
+import { Alert } from '@material-ui/lab';
 
 import './Login.css';
 
@@ -18,6 +19,7 @@ const FormLogin = () => {
   const [error, setError] = useState('');
   const [validEmail, setValidEmail] = useState(false);
   const [validPassword, setValidPassword] = useState(false);
+  const [open, setOpen] = useState(false);
 
   const onLogin = (e) => {
     e.preventDefault();
@@ -26,7 +28,7 @@ const FormLogin = () => {
       dispatch(verifyUser(email, password));
       history.push(paths.calendar);
     } else {
-      alert('Handle error')
+      setOpen(true);
     }
   }
 
@@ -58,7 +60,7 @@ const FormLogin = () => {
       setValidPassword(true)
       setError('')
     } else {
-      setError('Password should be more than 6')
+      setError('Password less than 6')
     }
 
     switch (name) {
@@ -68,6 +70,14 @@ const FormLogin = () => {
       default:
         break;
     }
+  }
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
   }
 
   return (
@@ -81,7 +91,11 @@ const FormLogin = () => {
           <FormHelperText>Password</FormHelperText>
           <Input onChange={onChangePassword} type="password" placeholder="Password" name="password" value={password} />
         </FormControl>
-        <p>{error}</p>
+        <Snackbar autoHideDuration={3000} open={open} onClose={handleClose}>
+          <Alert onClose={handleClose} severity="warning">
+            {error}
+          </Alert>
+        </Snackbar>
         <Button type="submit">Sign in</Button>
       </form>
     </div>

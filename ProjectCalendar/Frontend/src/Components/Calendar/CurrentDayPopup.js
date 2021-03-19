@@ -2,15 +2,9 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import moment from 'moment';
 
-import {
-  MuiPickersUtilsProvider,
-  KeyboardTimePicker,
-  KeyboardDatePicker,
-  DateTimePicker,
-  DatePicker,
-  TimePicker,
-} from '@material-ui/pickers';
-import { TextField, Button, FormControlLabel, Checkbox } from '@material-ui/core'
+import { MuiPickersUtilsProvider, DateTimePicker, DatePicker, } from '@material-ui/pickers';
+import { Alert } from '@material-ui/lab'
+import { TextField, Button, FormControlLabel, Checkbox, Snackbar } from '@material-ui/core'
 
 import DateFnsUtils from '@date-io/date-fns';
 import DateMomentUtils from '@date-io/moment';
@@ -19,7 +13,7 @@ import { addUserEvent, getUserEvent } from '../../Actions';
 
 import './Popup.css';
 
-const CurrentDayPopup = ({ onClick, startOfEvent }) => {
+const CurrentDayPopup = ({ onClick, startOfEvent, setOpenSnackAdd }) => {
   const dispatch = useDispatch();
   const startDayEvent = moment(startOfEvent).format('YYYY-MM-DD');
   const [startDate, setStartDate] = useState(startDayEvent);
@@ -29,14 +23,10 @@ const CurrentDayPopup = ({ onClick, startOfEvent }) => {
 
   const sendEvent = (e) => {
     e.preventDefault();
-
-    if (text && text.length >= 0) {
-      dispatch(addUserEvent(startDate, endDate, text));
-      dispatch(getUserEvent());
-      onClick();
-    } else {
-      alert('Fill event')
-    }
+    dispatch(addUserEvent(startDate, endDate, text));
+    dispatch(getUserEvent());
+    setOpenSnackAdd()
+    onClick();
   }
 
   const onChangeText = (event) => {
@@ -104,7 +94,7 @@ const CurrentDayPopup = ({ onClick, startOfEvent }) => {
             <Checkbox
               checked={checked}
               onChange={onHours}
-              name="hour"    
+              name="hour"
             />
           }
             label="All Day" />

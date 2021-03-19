@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import { useHistory } from "react-router-dom";
 import { useDispatch } from 'react-redux';
 
@@ -6,7 +6,8 @@ import { addUser } from '../Actions';
 
 import paths from '../Routes/paths';
 
-import { FormControl, Input, FormHelperText, Button, TextField } from '@material-ui/core';
+import { FormControl, Input, FormHelperText, Button, Snackbar } from '@material-ui/core';
+import { Alert } from '@material-ui/lab';
 
 import './Login.css';
 
@@ -20,76 +21,20 @@ const FormRegister = () => {
   const [error, setError] = useState('');
   const [validEmail, setValidEmail] = useState(false);
   const [validPassword, setValidPassword] = useState(false);
-
-  const inputName = useRef('')
-  const inputEmail = useRef('')
-  const inputPassword = useRef('')
-  const inputPassword2 = useRef('')
-
+  const [open, setOpen] = useState(false);
 
   const onSubmit = (e) => {
     e.preventDefault();
-
-    // let nameInput = inputName.current.value;
-    // let emailInput = emailInput.current.value;
-    // let passwordInput = passwordInput.current.value;
-    // let passwordInput2 = passwordInput2.current.value;
-
-    // let lastAtPos = emailInput.lastIndexOf('@');
-    // let lastDotPos = emailInput.lastIndexOf('.');
-
-    // if (!(lastAtPos < lastDotPos && lastAtPos > 0 && value.indexOf('@@') == -1 && lastDotPos > 2 && (emailInput.length - lastDotPos) > 2) && emailInput) {
-    //   setError('Email should have @ and .')
-    // } else {
-    //   setValidEmail(true)
-    //   setError('')
-    // }
-
-    // if (passwordInput && passwordInput.length > 6) {
-    //   if (passwordInput === passwordInput2) {
-    //     setValidPassword(true)
-    //     setError('')
-    //   } else {
-    //     setError('Passwords not same')
-    //   }
-    // } else {
-    //   setError('Password should be more than 6')
-
-    // }
-
-    // if (validEmail && validPassword)
-    //   dispatch(addUser(nameInput, emailInput, passwordInput));
-    // history.push(paths.calendar);
-
-    // console.log(e.target.children.email.value)
-    // const {
-    //   target: {
-    //     children: {
-    //       password: {
-    //         value: password
-    //       },
-    //       confirmPassword: {
-    //         value: confirmPassword
-    //       },
-    //       name: {
-    //         value: name
-    //       },
-    //       email: {
-    //         value: email
-    //       },
-    //     }
-    //   }
-    // } = e;
     console.log(name)
     console.log(email)
     console.log(password)
 
     if (validEmail && validPassword && password === confirmPassword) {
+      setOpen(false)
       dispatch(addUser(name, email, password));
       history.push(paths.calendar);
     } else {
-      setError('Password not equal')
-      alert('Handle error')
+      setOpen(true);
     }
   }
 
@@ -118,13 +63,6 @@ const FormRegister = () => {
   const onChangePassword = (event) => {
     const { target: { name, value } } = event;
 
-    if (value && value.length > 6) {
-      setValidPassword(true)
-      setError('')
-    } else {
-      setError('Password should be more than 6')
-    }
-
     switch (name) {
       case 'password':
         setPassword(value);
@@ -134,6 +72,13 @@ const FormRegister = () => {
         break;
       default:
         break;
+    }
+
+    if (value && value.length > 6) {
+      setValidPassword(true)
+      setError('')
+    } else {
+      setError('Password less than 6')
     }
   }
 
@@ -149,26 +94,38 @@ const FormRegister = () => {
     }
   }
 
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  }
+
   return (
     <div>
       <form onSubmit={onSubmit}>
         <FormControl fullWidth required >
           <FormHelperText>Name</FormHelperText>
-          <Input onChange={onChange} type="text" placeholder="Name" name="name" value={name} inputRef={inputName} />
+          <Input onChange={onChange} type="text" placeholder="Name" name="name" value={name} />
         </FormControl>
         <FormControl fullWidth required>
           <FormHelperText>E-mail</FormHelperText>
-          <Input onChange={onChangeEmail} type="text" placeholder="E-mail address" name="email" value={email} inputRef={inputEmail} />
+          <Input onChange={onChangeEmail} type="text" placeholder="E-mail address" name="email" value={email} />
         </FormControl>
         <FormControl fullWidth required>
           <FormHelperText>Password</FormHelperText>
-          <Input onChange={onChangePassword} type="password" placeholder="Password" name="password" value={password} inputRef={inputPassword} />
+          <Input onChange={onChangePassword} type="password" placeholder="Password" name="password" value={password} />
         </FormControl>
         <FormControl fullWidth required>
           <FormHelperText>Password</FormHelperText>
-          <Input onChange={onChangePassword} type="password" placeholder="Confirm password" name="confirmPassword" value={confirmPassword} inputRef={inputPassword2} />
+          <Input onChange={onChangePassword} type="password" placeholder="Confirm password" name="confirmPassword" value={confirmPassword} />
         </FormControl>
-        <p>{error}</p>
+        <Snackbar autoHideDuration={3000} open={open} onClose={handleClose}>
+          <Alert onClose={handleClose} severity="warning">
+            {error}
+          </Alert>
+        </Snackbar>
         <button type='submit'>Sign up </button>
       </form>
     </div >

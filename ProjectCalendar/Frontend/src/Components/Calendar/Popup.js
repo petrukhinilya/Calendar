@@ -29,13 +29,10 @@ const Popup = ({ onClick }) => {
   const sendEvent = (e) => {
     e.preventDefault();
 
-    if(text && text.length >= 0){
-      dispatch(addUserEvent(startDate, endDate, text));
-      dispatch(getUserEvent());
-      onClick();
-    } else {
-      alert('Fill event')
-    }
+    dispatch(addUserEvent(startDate, endDate, text));
+    dispatch(getUserEvent());
+    setOpenSnackAdd()
+    onClick();
   }
 
   const onChangeText = (event) => {
@@ -82,7 +79,7 @@ const Popup = ({ onClick }) => {
       </div>
       <div>
         <form className="popup" onSubmit={sendEvent}>
-        {checked && <>
+          {checked && <>
             <MuiPickersUtilsProvider utils={DateMomentUtils}>
               <DatePicker format="MM/DD/yyyy" className='input1' onChange={onChangeStartDate} value={startDate}
                 disablePast='true'
@@ -94,7 +91,7 @@ const Popup = ({ onClick }) => {
           {!checked && <>
             <MuiPickersUtilsProvider utils={DateMomentUtils}>
               <DateTimePicker className='input1' onChange={onChangeStartDate} value={startDate} name="startDate"
-                disablePast='true' /> 
+                disablePast='true' />
               <DateTimePicker className='input2' onChange={onChangeEndDate} value={endDate} name="endDate"
                 disablePast='true' />
             </MuiPickersUtilsProvider>
@@ -103,7 +100,7 @@ const Popup = ({ onClick }) => {
             <Checkbox
               checked={checked}
               onChange={onHours}
-              name="hour"    
+              name="hour"
             />
           }
             label="All Day" />
