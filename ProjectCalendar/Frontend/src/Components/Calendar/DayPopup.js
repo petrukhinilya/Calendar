@@ -27,18 +27,14 @@ const ChangePopup = ({ onClick, event }) => {
   const [endDate, setEndDate] = useState(eventTimeEnd);
   const [text, setText] = useState(event.event);
   const [checked, setChecked] = useState(true);
-  
+
   const updateEvent = (e) => {
     e.preventDefault();
 
-    if(text && text.length >= 0){
-      dispatch(updateUserEvent(event._id, startDate, endDate, text));
-      dispatch(getUserEvent());
-      setOpenSnackAdd()
-      onClick();
-    } else {
-      alert('Fill event')
-    }
+    dispatch(updateUserEvent(event._id, startDate, endDate, text));
+    dispatch(getUserEvent());
+    setOpenSnackAdd()
+    onClick();
   }
 
   const onChangeText = (event) => {
@@ -70,13 +66,25 @@ const ChangePopup = ({ onClick, event }) => {
   }
 
   const styles = {
-    marginTop: '20px',
-    border: '1px solid red',
-    borderRadius: '10rem',
-    background: 'transparent',
-    transition: '.2s',
-    cursor: 'pointer',
-    color: 'black'
+    add: {
+      'marginTop': '20px',
+      'borderRadius': '10rem',
+      'background': 'blue',
+      'transition': '.2s',
+      'cursor': 'pointer',
+      'color': 'black',
+      'font-weight':'600'
+    },
+    cancel: {
+      'marginTop': '40px',
+      'border': '1px solid red',
+      'borderRadius': '10rem',
+      'background': 'red',
+      'transition': '.2s',
+      'cursor': 'pointer',
+      'color': 'black',
+      'font-weight':'600'
+    },
   }
 
   return (
@@ -84,7 +92,7 @@ const ChangePopup = ({ onClick, event }) => {
       <div className='wrapper-popup' onClick={onClick} />
       <div>
         <form className="popup" onSubmit={updateEvent}>
-        {checked && <>
+          {checked && <>
             <MuiPickersUtilsProvider utils={DateMomentUtils}>
               <DatePicker format="MM/DD/yyyy" className='input1' onChange={onChangeStartDate} value={startDate}
                 disablePast='true'
@@ -96,7 +104,7 @@ const ChangePopup = ({ onClick, event }) => {
           {!checked && <>
             <MuiPickersUtilsProvider utils={DateMomentUtils}>
               <DateTimePicker className='input1' onChange={onChangeStartDate} value={startDate} name="startDate"
-                disablePast='true' /> 
+                disablePast='true' />
               <DateTimePicker className='input2' onChange={onChangeEndDate} value={endDate} name="endDate"
                 disablePast='true' />
             </MuiPickersUtilsProvider>
@@ -105,13 +113,13 @@ const ChangePopup = ({ onClick, event }) => {
             <Checkbox
               checked={checked}
               onChange={onHours}
-              name="hour"    
+              name="hour"
             />
           }
             label="All Day" />
           <TextField type='text' className='text' placeholder='Add event to date' onChange={onChangeText} value={text} name="text" required />
-          <Button type='submit' style={styles}>Add event</Button>
-          <Button type='reset' onClick={onClick} style={styles}>Cancel</Button>
+          <Button type='submit' style={styles.add} variant='contained'>Add event</Button>
+          <Button type='reset' onClick={onClick} style={styles.cancel} variant='contained' color='secondary'>Cancel</Button>
         </form>
       </div>
     </div>

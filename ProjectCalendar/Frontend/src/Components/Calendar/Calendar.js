@@ -2,9 +2,11 @@ import React, { useState, useEffect } from 'react';
 import moment from 'moment';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { Button, Snackbar } from '@material-ui/core';
-import { Alert } from '@material-ui/lab'
+import { Button, Snackbar, Popover, Typography } from '@material-ui/core';
+import { Alert } from '@material-ui/lab';
+import { makeStyles } from '@material-ui/core/styles';
 
+import Header from '../Header/Header';
 import builtCalendar from './BuiltCalendar';
 import Popup from './Popup';
 import DayPopup from './DayPopup';
@@ -12,7 +14,7 @@ import CalendarDay from './CalendarDay';
 import CurrentDayPopup from './CurrentDayPopup';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
+import { faChevronLeft, faChevronRight, faWeight } from '@fortawesome/free-solid-svg-icons';
 
 import { getUserEvent, deleteUserEvent, updateUserEvent } from '../../Actions';
 
@@ -107,22 +109,28 @@ const Calendar = () => {
     setOpenSnackAdd(false);
   }
 
+  const styles = {
+    buttons: {
+      'fontWeight': '700',
+    }
+  }
+
   return (
     <div className='calendar-wrapper'>
       <div className='calendar'>
         <div className="calendar-head">
           <div className='head-wrapper'>
-            <Button className='today-btn' onClick={() => setValue(moment())}>Today</Button>
+            <Button onClick={() => setValue(moment())} variant="outlined" style={styles.buttons}>Today</Button>
             <div onClick={() => setValue(prevMonth())}>
               <FontAwesomeIcon icon={faChevronLeft} />
             </div>
             <div onClick={() => setValue(nextMonth())}>
               <FontAwesomeIcon icon={faChevronRight} />
             </div>
-            {currMonthName()}  {currYearName()}
+            <div>{currMonthName()}  {currYearName()}</div>
+            <Button onClick={() => setShowPopup(true)} variant="contained" color='primary' style={styles.buttons}>Add Event</Button>
           </div>
-          <div></div>
-          <Button onClick={() => setShowPopup(true)} className='add-btn'>Add Event</Button>
+          <Header />
         </div>
         <table className='body'>
           <tbody>
@@ -161,11 +169,12 @@ const Calendar = () => {
       <Snackbar autoHideDuration={2000} open={openSnackAdd} onClose={handleClose}>
         <Alert onClose={handleClose} severity="success">Event was added</Alert>
       </Snackbar>
-      {showPopup && 
-      <Popup 
-      onClick={() => setShowPopup(false)}
-      setOpenSnackAdd={() => setOpenSnackAdd(true)}
-       />}
+      {showPopup &&
+        <Popup
+          onClick={() => setShowPopup(false)}
+          setOpenSnackAdd={() => setOpenSnackAdd(true)}
+        />
+      }
       {showDayPopup &&
         <DayPopup
           onClick={() => setShowDayPopup(false)}

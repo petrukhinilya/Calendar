@@ -4,6 +4,8 @@ import { useSelector } from 'react-redux';
 
 import { deleteToken } from '../../utils/utils';
 
+import { Button } from '@material-ui/core';
+
 import paths from '../../Routes/paths';
 
 import './styled.css';
@@ -17,10 +19,16 @@ const Header = () => {
     history.push(paths.login);
   }
 
+  const styles = {
+    buttons: {
+      'font-weight': '700'
+    }
+  }
+
   return (
-    <div className='header'>
-      <p>{name}</p>
-      <button onClick={onLogout}>Logout</button>
+    <div>
+      {/* <p>{name}</p> */}
+      <Button onClick={onLogout} variant="contained" color="primary" style={styles.buttons}>Logout</Button>
     </div>
   )
 }

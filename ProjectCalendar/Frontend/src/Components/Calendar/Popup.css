@@ -5,19 +5,20 @@
     background-color: grey;
     width: 1830px;
     height: 1000px;
-    opacity: 50%;
+    opacity: 80%;
 }
 .popup{
     position: fixed;
     z-index: 1000;
-    top: 33%;
-    left: 33%;
-    width: 600px;
-    height: 300px;
+    top: 23%;
+    left: 39%;
+    width: 350px;
+    height: 350px;
     display: flex;
     flex-direction: column;
-    background:linear-gradient(to top, rgb(173, 182, 230), rgba(0, 0, 255, 0.774));
+    background:whitesmoke;
     align-items: center;
+    border-radius: 10%;
 }
 
 .text{

@@ -2,11 +2,10 @@
     margin: 10px 10px 0 10px;
 }
 .calendar-head{
-
     display: flex;
     justify-content: space-between;
-    align-items: center;
     font-size: 22px;
+    margin: 0 15px;
 }
 .head-wrapper{
     display: flex;
@@ -14,43 +13,6 @@
 }
 .head-wrapper div{
     margin: 0 15px;
-}
-
-.today-btn{
-    margin: 0 10px;
-    text-decoration: none;
-    color: white;
-    border-radius: 10px;
-    font-family: 'Montserrat', sans-serif;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    background-image: linear-gradient(to right, #4830F0 0%, #9EEFE1 51%, #4830F0 100%);
-    background-size: 200% auto;
-    box-shadow: 0 0 20px rgba(0, 0, 0, .1);
-    transition: .5s;
-}
-
-.today-btn:hover {
-    background-position: right center;
-}
-
-.add-btn{
-    margin: 0 10px;
-    text-decoration: none;
-    display: inline-block;
-    padding: 10px 15px;
-    border-radius: 10px;
-    box-shadow: 0 0 40px 40px #F137A6 inset, 0 0 0 0 #F137A6;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: bold;
-    letter-spacing: 2px;
-    color: white;
-    transition: .15s ease-in-out;
-}
-
-.add-btn:hover{
-    box-shadow: 0 0 10px 0 #F137A6 inset, 0 0 10px 4px #F137A6;
-    color: #F137A6;
 }
 
 .body {

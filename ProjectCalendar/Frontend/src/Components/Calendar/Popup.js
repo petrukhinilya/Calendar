@@ -64,13 +64,25 @@ const Popup = ({ onClick }) => {
   }
 
   const styles = {
-    marginTop: '20px',
-    border: '1px solid red',
-    borderRadius: '10rem',
-    background: 'transparent',
-    transition: '.2s',
-    cursor: 'pointer',
-    color: 'black'
+    add: {
+      'marginTop': '20px',
+      'borderRadius': '10rem',
+      'background': 'blue',
+      'transition': '.2s',
+      'cursor': 'pointer',
+      'color': 'black',
+      'font-weight':'600'
+    },
+    cancel: {
+      'marginTop': '40px',
+      'border': '1px solid red',
+      'borderRadius': '10rem',
+      'background': 'red',
+      'transition': '.2s',
+      'cursor': 'pointer',
+      'color': 'black',
+      'font-weight':'600'
+    },
   }
 
   return (
@@ -105,8 +117,8 @@ const Popup = ({ onClick }) => {
           }
             label="All Day" />
           <TextField type='text' className='text' placeholder='Add event to date' onChange={onChangeText} value={text} name="text" required />
-          <Button type='submit' style={styles}>Add event</Button>
-          <Button type='reset' onClick={onClick} style={styles}>Cancel</Button>
+          <Button type='submit' style={styles.add} variant='contained'>Add event</Button>
+          <Button type='reset' onClick={onClick} style={styles.cancel} variant='contained' color='secondary'>Cancel</Button>
         </form>
       </div>
     </div>

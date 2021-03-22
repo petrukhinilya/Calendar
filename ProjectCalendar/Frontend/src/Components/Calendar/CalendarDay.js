@@ -39,7 +39,7 @@ const CalendarDay = ({
   }
 
   return (
-    <td className='day' onClick={() => { addEvent(day) }}>
+    <td className='day' onClick={() => {addEvent(day)}}>
       <div>
         <div id='number'>
           <span className={dayStyles(day)}>{day.format('D').toString()}</span>
