@@ -30,7 +30,7 @@ const ProtectedRoute = (props) => {
     const [isAuthenticated, setIsAuthenticated] = useState(null);
 
     useEffect(() => {
-        const checkVerify = async() =>{
+        const checkVerify = async() => {
             const result = await verifyToken();
             setIsAuthenticated(result);
         }

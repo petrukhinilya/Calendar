@@ -1,12 +1,12 @@
 import React, { useRef, useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import { useDispatch } from 'react-redux';
 
 import paths from '../Routes/paths';
 
 import { verifyUser } from '../Actions';
 
-import { FormControl, Input, FormHelperText, Button, Snackbar } from '@material-ui/core';
+import { FormControl, Input, FormHelperText, Button, Snackbar, TextField } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
 
 import './Login.css';
@@ -81,24 +81,27 @@ const FormLogin = () => {
   }
 
   return (
-    <div>
+    <>
       <form className="login-form" onSubmit={onLogin}>
-        <FormControl fullWidth required>
-          <FormHelperText>E-mail</FormHelperText>
-          <Input onChange={onChangeEmail} type="text" placeholder="E-mail adress" name="email" value={email} />
-        </FormControl>
-        <FormControl fullWidth required>
-          <FormHelperText>Password</FormHelperText>
-          <Input onChange={onChangePassword} type="password" placeholder="Password" name="password" value={password} />
-        </FormControl>
+        <div>
+          <FormControl fullWidth required>
+            <Input onChange={onChangeEmail} type="text" placeholder="E-mail adress" name="email" value={email} />
+          </FormControl>
+        </div>
+        <div>
+          <FormControl fullWidth required>
+            <Input onChange={onChangePassword} type="password" placeholder="Password" name="password" value={password} />
+          </FormControl>
+        </div>
         <Snackbar autoHideDuration={3000} open={open} onClose={handleClose}>
           <Alert onClose={handleClose} severity="warning">
             {error}
           </Alert>
         </Snackbar>
-        <Button type="submit" variant='contained'>Sign in</Button>
+        <Button type="submit" variant='contained' color='primary' size=''>Sign in</Button>
+        <Link to='/registration' className='adress'><p>Registration</p></Link>
       </form>
-    </div>
+    </>
   )
 }
 

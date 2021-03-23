@@ -28,7 +28,7 @@ const Header = () => {
   return (
     <div>
       {/* <p>{name}</p> */}
-      <Button onClick={onLogout} variant="contained" color="primary" style={styles.buttons}>Logout</Button>
+      <Button onClick={onLogout} variant="contained"  style={styles.buttons}>Logout</Button>
     </div>
   )
 }

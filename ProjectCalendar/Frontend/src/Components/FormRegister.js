@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import { useDispatch } from 'react-redux';
 
 import { addUser } from '../Actions';
@@ -103,32 +103,37 @@ const FormRegister = () => {
   }
 
   return (
-    <div>
-      <form onSubmit={onSubmit}>
-        <FormControl fullWidth required >
-          <FormHelperText>Name</FormHelperText>
-          <Input onChange={onChange} type="text" placeholder="Name" name="name" value={name} />
-        </FormControl>
-        <FormControl fullWidth required>
-          <FormHelperText>E-mail</FormHelperText>
-          <Input onChange={onChangeEmail} type="text" placeholder="E-mail address" name="email" value={email} />
-        </FormControl>
-        <FormControl fullWidth required>
-          <FormHelperText>Password</FormHelperText>
-          <Input onChange={onChangePassword} type="password" placeholder="Password" name="password" value={password} />
-        </FormControl>
-        <FormControl fullWidth required>
-          <FormHelperText>Password</FormHelperText>
-          <Input onChange={onChangePassword} type="password" placeholder="Confirm password" name="confirmPassword" value={confirmPassword} />
-        </FormControl>
+    <>
+      <form onSubmit={onSubmit} className="login-form">
+        <div>
+          <FormControl fullWidth required >
+            <Input onChange={onChange} type="text" placeholder="Name" name="name" value={name} />
+          </FormControl>
+        </div>
+        <div>
+          <FormControl fullWidth required>
+            <Input onChange={onChangeEmail} type="text" placeholder="E-mail address" name="email" value={email} />
+          </FormControl>
+        </div>
+        <div>
+          <FormControl fullWidth required>
+            <Input onChange={onChangePassword} type="password" placeholder="Password" name="password" value={password} />
+          </FormControl>
+        </div>
+        <div>
+          <FormControl fullWidth required>
+            <Input onChange={onChangePassword} type="password" placeholder="Confirm password" name="confirmPassword" value={confirmPassword} />
+          </FormControl>
+        </div>
         <Snackbar autoHideDuration={3000} open={open} onClose={handleClose}>
           <Alert onClose={handleClose} severity="warning">
             {error}
           </Alert>
         </Snackbar>
-        <Button type='submit' variant='outlined'>Sign up </Button>
+        <Button type='submit' variant='contained' color='primary'> Sign up </Button>
+        <Link to='/login' className='adress'><p>Registration</p></Link>
       </form>
-    </div >
+    </ >
   )
 }
 

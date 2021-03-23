@@ -1,9 +1,10 @@
 .wrapper-popup{
     position: absolute;
     margin-top: -1000px;
+    margin-left: -100px;
     z-index: 100;
     background-color: grey;
-    width: 1830px;
+    width: 1930px;
     height: 1000px;
     opacity: 0.7;
 }
@@ -13,7 +14,6 @@
     top: 23%;
     left: 39%;
     width: 350px;
-    height: 350px;
     display: flex;
     flex-direction: column;
     background:whitesmoke;
@@ -22,21 +22,21 @@
 }
 
 .text{
-    margin: 10px 0;
     width: 90%;
     border: 0;
-    border-bottom: 2px solid #9b9b9b;
     outline: 0;
-    font-size: 1.3rem;
-    color: red;
-    padding: 7px 0;
-    background: transparent;
-    transition: border-color 0.2s;
 }
 .text:focus,
 .text::placeholder{
     border-color: green;
     color: black;
+}
+
+.popup-btn-wrapper{
+    display: flex;
+    flex-direction: column;
+    margin-top: 80px;
+    margin-bottom: 5px;
 }
 
 

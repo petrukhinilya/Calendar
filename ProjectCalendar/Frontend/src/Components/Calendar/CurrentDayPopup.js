@@ -59,23 +59,13 @@ const CurrentDayPopup = ({ onClick, startOfEvent, setOpenSnackAdd }) => {
 
   const styles = {
     add: {
-      'marginTop': '20px',
-      'borderRadius': '10rem',
-      'background': 'blue',
-      'transition': '.2s',
       'cursor': 'pointer',
-      'color': 'black',
-      'font-weight':'600'
+      'font-weight': '600'
     },
     cancel: {
-      'marginTop': '40px',
-      'border': '1px solid red',
-      'borderRadius': '10rem',
-      'background': 'red',
-      'transition': '.2s',
+      'margin-top': '10px',
       'cursor': 'pointer',
-      'color': 'black',
-      'font-weight':'600'
+      'font-weight': '600'
     },
   }
 
@@ -85,23 +75,23 @@ const CurrentDayPopup = ({ onClick, startOfEvent, setOpenSnackAdd }) => {
       </div>
       <div>
         <form className="popup" onSubmit={sendEvent}>
-          {checked && <>
-            <MuiPickersUtilsProvider utils={DateMomentUtils}>
-              <DatePicker format="MM/DD/yyyy" className='input1' onChange={onChangeStartDate} value={startDate}
-                disablePast='true'
-              />
-              <DatePicker format="MM/DD/yyyy" className='input2' onChange={onChangeEndDate} value={endDate}
-                disablePast='true' />
-            </MuiPickersUtilsProvider>
-          </>}
-          {!checked && <>
-            <MuiPickersUtilsProvider utils={DateMomentUtils}>
-              <DateTimePicker className='input1' onChange={onChangeStartDate} value={startDate} name="startDate"
-                disablePast='true' />
-              <DateTimePicker className='input2' onChange={onChangeEndDate} value={endDate} name="endDate"
-                disablePast='true' />
-            </MuiPickersUtilsProvider>
-          </>}
+            {checked && <>
+              <MuiPickersUtilsProvider utils={DateMomentUtils}>
+                <DatePicker format="MM/DD/yyyy" className='input1' onChange={onChangeStartDate} value={startDate}
+                  disablePast='true'
+                />
+                <DatePicker format="MM/DD/yyyy" className='input2' onChange={onChangeEndDate} value={endDate}
+                  disablePast='true' />
+              </MuiPickersUtilsProvider>
+            </>}
+            {!checked && <>
+              <MuiPickersUtilsProvider utils={DateMomentUtils}>
+                <DateTimePicker className='input1' onChange={onChangeStartDate} value={startDate} name="startDate"
+                  disablePast='true' />
+                <DateTimePicker className='input2' onChange={onChangeEndDate} value={endDate} name="endDate"
+                  disablePast='true' />
+              </MuiPickersUtilsProvider>
+            </>}
           <FormControlLabel control={
             <Checkbox
               checked={checked}
@@ -111,8 +101,10 @@ const CurrentDayPopup = ({ onClick, startOfEvent, setOpenSnackAdd }) => {
           }
             label="All Day" />
           <TextField type='text' className='text' placeholder='Add event to date' onChange={onChangeText} value={text} name="text" required />
-          <Button type='submit' style={styles.add} variant='contained'>Add event</Button>
-          <Button type='reset' onClick={onClick} style={styles.cancel} variant='contained' color='secondary'>Cancel</Button>
+          <div className='popup-btn-wrapper'>
+            <Button type='submit' style={styles.add} variant='contained' color='primary'>Add event</Button>
+            <Button type='reset' onClick={onClick} style={styles.cancel} variant='contained' color='secondary'>Cancel</Button>
+          </div>
         </form>
       </div>
     </div>

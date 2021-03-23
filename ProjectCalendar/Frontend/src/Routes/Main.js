@@ -11,14 +11,14 @@ import ProtectedRoute from './ProtectedRoute';
 function Main() {
     const { login, registration, calendar } = paths;
     return (
-        <main>
-            {/* <Redirect from='/' to='/login'></Redirect> */}
+        <>
             <Switch>
                 <Route path={login} component={LoginPage} />
                 <Route path={registration} component={RegistrationPage} />
                 <ProtectedRoute path={calendar} component={Calendar} />
+                {/* <ProtectedRoute path='/ component={Calendar} /> */}
             </Switch>
-        </main>
+        </>
     )
 }
 

@@ -14,7 +14,9 @@ import CalendarDay from './CalendarDay';
 import CurrentDayPopup from './CurrentDayPopup';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronLeft, faChevronRight, faWeight } from '@fortawesome/free-solid-svg-icons';
+import { faChevronLeft, faChevronRight, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+
+import { ChevronLeftOutlined, ChevronRightOutlined } from '@material-ui/icons';
 
 import { getUserEvent, deleteUserEvent, updateUserEvent } from '../../Actions';
 
@@ -121,11 +123,11 @@ const Calendar = () => {
         <div className="calendar-head">
           <div className='head-wrapper'>
             <Button onClick={() => setValue(moment())} variant="outlined" style={styles.buttons}>Today</Button>
-            <div onClick={() => setValue(prevMonth())}>
-              <FontAwesomeIcon icon={faChevronLeft} />
+            <div onClick={() => setValue(prevMonth())} className='arrow'>
+              <ChevronLeftOutlined />
             </div>
-            <div onClick={() => setValue(nextMonth())}>
-              <FontAwesomeIcon icon={faChevronRight} />
+            <div onClick={() => setValue(nextMonth())} className='arrow'>
+              <ChevronRightOutlined/>
             </div>
             <div>{currMonthName()}  {currYearName()}</div>
             <Button onClick={() => setShowPopup(true)} variant="contained" color='primary' style={styles.buttons}>Add Event</Button>
