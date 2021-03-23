@@ -96,7 +96,7 @@ const FormLogin = () => {
             {error}
           </Alert>
         </Snackbar>
-        <Button type="submit">Sign in</Button>
+        <Button type="submit" variant='contained'>Sign in</Button>
       </form>
     </div>
   )

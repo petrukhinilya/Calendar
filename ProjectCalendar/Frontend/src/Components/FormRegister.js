@@ -126,7 +126,7 @@ const FormRegister = () => {
             {error}
           </Alert>
         </Snackbar>
-        <button type='submit'>Sign up </button>
+        <Button type='submit' variant='outlined'>Sign up </Button>
       </form>
     </div >
   )
