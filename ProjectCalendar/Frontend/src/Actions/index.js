@@ -27,22 +27,18 @@ export const addUser = (name, email, password) => async (dispatch) => {
       payload: { error }
     })
   }
-
-
 }
 
 export const verifyUser = (email, password) => async (dispatch) => {
-
   try {
-
-    const response = await fetch(`${process.env.REACT_APP_BASE_URL}/user/authenticate`, {
+    const response1 = await fetch(`${process.env.REACT_APP_BASE_URL}/user/authenticate`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json;charset=utf-8'
       },
       body: JSON.stringify({ email, password })
     })
-    const body = await response.json()
+    const body = await response1.json()
 
     console.log(body)
 
@@ -56,6 +52,32 @@ export const verifyUser = (email, password) => async (dispatch) => {
     console.log(error)
   }
 }
+
+// export const verifyTokenRoute = (token) => async (dispatch) => {
+//   try {
+//     // const token = localStorage.getItem('token');
+//     const response = await fetch(`${process.env.REACT_APP_BASE_URL}/user/verify`, {
+//       method: 'POST',
+//       headers: {
+//         'Content-Type': 'application/json;charset=utf-8'
+//       },
+//       body: JSON.stringify({ token })
+//     })
+//     const body = await response.json();
+//     const verify = body.auth
+
+//     dispatch({
+//       type: 'VERTIFY_USERS_SUCCESS',
+//       payload: { verify }
+//     })
+//   } catch (e) {
+//     console.log(e)
+//     dispatch({
+//       type: 'VERTIFY_USERS_ERROR',
+//       payload: { error }
+//     })
+//   }
+// }
 
 export const addUserEvent = (inputStartDate, inputEndDate, event) => async (dispatch) => {
   try {
@@ -116,7 +138,7 @@ export const deleteUserEvent = (id) => async (dispatch) => {
       headers: {
         'Content-Type': 'application/json;charset=utf-8'
       },
-      body:JSON.stringify({id, token})
+      body: JSON.stringify({ id, token })
     })
 
     const events = await response.json();
@@ -145,7 +167,7 @@ export const updateUserEvent = (id, inputStartDate, inputEndDate, event) => asyn
       headers: {
         'Content-Type': 'application/json;charset=utf-8'
       },
-      body:JSON.stringify({id, startDate, endDate, event, token})
+      body: JSON.stringify({ id, startDate, endDate, event, token })
     })
 
     const events = await response.json();

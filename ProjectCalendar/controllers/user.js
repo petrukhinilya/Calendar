@@ -1,16 +1,10 @@
 const userModel = require('../models/user');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken')
-exports.test = function (req, res) {
-
-  res.send('Greetings from the Test controller!');
-};
 
 const createToken = (id) => {
   return jwt.sign({ id }, 'secretKey', { expiresIn: '24h' });
-
 }
-
 
 module.exports = {
   create: function (req, res, next) {
@@ -21,6 +15,7 @@ module.exports = {
         next(err);
       }
       else {
+        console.log('result', result)
         const token = createToken(result._id)
         res.status(200).send({ status: "success", message: "User added successfully!!!", data: { token } });
       }
@@ -39,9 +34,9 @@ module.exports = {
 
           if (bcryptAddit) {
             const token = createToken(userInfo._id)
-            res.status(200).send({ status: "success", message: "user found!!!", data: { user: userInfo, token } });
             console.log("responseBody", userInfo)
-
+            console.log(token)
+            res.status(200).send({ status: "success", message: "user found!!!", data: { user: userInfo, token } });
           } else {
             res.json({ status: "error", message: "Invalid password!!!", data: null });
           }
@@ -52,16 +47,17 @@ module.exports = {
   verify_token: function (req, res, next) {
     const { token } = req.body
     console.log('Token', token)
+
     jwt.verify(token, 'secretKey', (err, decoded) => {
       if (err) {
         console.log('xxx', err)
         res.status(401).send({ auth: false, message: "Failed to auth" })
-      } else {
-        console.log('Accept')
-        req.body.id = decoded.id
-        res.status(200).send({ status: "success", message: "TOKEN found!!!", auth: true })
-        next()
       }
+      req.body.id = decoded.id
+      console.log(decoded)
+      res.status(200).send({ status: "success", message: "TOKEN found!!!", auth: true })
+      next()
+
     })
   }
 }

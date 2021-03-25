@@ -13,10 +13,12 @@ function Main() {
     return (
         <>
             <Switch>
+                {/* <Route path='/*'>
+                    <div>404 Page Not Found</div>
+                </Route> */}
                 <Route path={login} component={LoginPage} />
                 <Route path={registration} component={RegistrationPage} />
-                <ProtectedRoute path={calendar} component={Calendar} />
-                {/* <ProtectedRoute path='/ component={Calendar} /> */}
+                <ProtectedRoute path='/' component={Calendar} />
             </Switch>
         </>
     )

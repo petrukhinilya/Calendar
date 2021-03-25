@@ -16,6 +16,7 @@ const Header = () => {
   const { name } = useSelector(useName);
 
   const onLogout = () => {
+    deleteToken()
     history.push(paths.login);
   }
 

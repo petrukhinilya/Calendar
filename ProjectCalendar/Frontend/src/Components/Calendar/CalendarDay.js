@@ -25,6 +25,7 @@ const CalendarDay = ({
 
     if (dayStart >= dayStartEvent && dayStart <= dayEndEvent) {
       events.push(allEvents[i]);
+      console.log(allEvents[i])
     }
   }
 

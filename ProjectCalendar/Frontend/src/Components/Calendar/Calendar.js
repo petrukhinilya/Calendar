@@ -37,8 +37,8 @@ const Calendar = () => {
   const [openSnackDelete, setOpenSnackDelete] = useState(false);
   const [openSnackAdd, setOpenSnackAdd] = useState(false);
 
-  useEffect(async () => {
-    await setCalendar(builtCalendar(value))
+  useEffect(() => {
+    setCalendar(builtCalendar(value))
   }, [value]);
 
   useEffect(() => {

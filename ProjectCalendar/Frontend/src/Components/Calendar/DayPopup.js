@@ -19,7 +19,7 @@ import { updateUserEvent, getUserEvent } from '../../Actions';
 
 import './Popup.css';
 
-const ChangePopup = ({ onClick, event }) => {
+const ChangePopup = ({ onClick, event, setOpenSnackAdd }) => {
   const eventTimeStart = moment(event.startDate).format('YYYY-MM-DD');
   const eventTimeEnd = moment(event.endDate).format('YYYY-MM-DD');
   const dispatch = useDispatch();
@@ -68,12 +68,12 @@ const ChangePopup = ({ onClick, event }) => {
   const styles = {
     add: {
       'cursor': 'pointer',
-      'font-weight':'600'
+      'font-weight': '600'
     },
     cancel: {
-      'margin-top':'10px',
+      'margin-top': '10px',
       'cursor': 'pointer',
-      'font-weight':'600'
+      'font-weight': '600'
     },
   }
 
@@ -109,8 +109,8 @@ const ChangePopup = ({ onClick, event }) => {
             label="All Day" />
           <TextField type='text' className='text' placeholder='Add event to date' onChange={onChangeText} value={text} name="text" required />
           <div className='popup-btn-wrapper'>
-          <Button type='submit' style={styles.add} variant='contained' color='primary'>Add event</Button>
-          <Button type='reset' onClick={onClick} style={styles.cancel} variant='contained' color='secondary'>Cancel</Button>
+            <Button type='submit' style={styles.add} variant='contained' color='primary'>Add event</Button>
+            <Button type='reset' onClick={onClick} style={styles.cancel} variant='contained' color='secondary'>Cancel</Button>
           </div>
         </form>
       </div>

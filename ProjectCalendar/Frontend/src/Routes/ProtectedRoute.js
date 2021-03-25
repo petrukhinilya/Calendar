@@ -1,11 +1,13 @@
-import React, {useEffect, useState, useMemo} from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 
 import paths from './paths';
 import { useHistory } from "react-router-dom";
+import { useDispatch } from 'react-redux';
 
 import Loading from '../Components/Loading';
+// import { verifyTokenRoute } from '../Actions';
 
-const verifyToken = async () => {
+const verifyTokenRoute = async () => {
     try {
         const token = localStorage.getItem('token');
         const response = await fetch(`${process.env.REACT_APP_BASE_URL}/user/verify`, {
@@ -26,12 +28,21 @@ const verifyToken = async () => {
 }
 
 const ProtectedRoute = (props) => {
+    const token = localStorage.getItem('token');
     const history = useHistory();
     const [isAuthenticated, setIsAuthenticated] = useState(null);
+    // const dispatch = useDispatch()
+    // useEffect(() => {
+    //     const checkVerify = async () => {
+    //         dispatch(verifyTokenRoute(token))
+    //         setIsAuthenticated(result);
+    //     }
+    //     checkVerify();
+    // }, [])
 
     useEffect(() => {
         const checkVerify = async() => {
-            const result = await verifyToken();
+            const result = await verifyTokenRoute();
             setIsAuthenticated(result);
         }
         checkVerify();
@@ -40,13 +51,13 @@ const ProtectedRoute = (props) => {
     const { login, registration, calendar } = paths;
 
     const getRenderData = useMemo(() => {
-        if(isAuthenticated === null){
+        if (isAuthenticated === null) {
             return <div><Loading></Loading></div>
         }
-        if(isAuthenticated){
+        if (isAuthenticated) {
             const Component = props.component;
 
-            return <Component/>
+            return <Component />
         } else {
             history.push(paths.login);
 

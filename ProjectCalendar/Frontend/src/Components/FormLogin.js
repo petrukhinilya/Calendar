@@ -26,6 +26,7 @@ const FormLogin = () => {
 
     if (validEmail && validPassword) {
       dispatch(verifyUser(email, password));
+      console.log(email)
       history.push(paths.calendar);
     } else {
       setOpen(true);
