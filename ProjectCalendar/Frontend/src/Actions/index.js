@@ -15,9 +15,11 @@ export const addUser = (name, email, password) => async (dispatch) => {
     const { data: { token } } = body
     saveToken(token)
 
+    const { auth } = body
     dispatch({
       type: 'ADD_USERS_SUCCESS',
-      payload: { name }
+      payload: { name },
+      // verify: { auth }
     })
 
   } catch (error) {
@@ -45,17 +47,20 @@ export const verifyUser = (email, password) => async (dispatch) => {
     const { data: { token } } = body
     saveToken(token)
 
+    const { auth } = body
+
     dispatch({
-      type: 'LOGIN_USERS_SUCCESS'
+      type: 'LOGIN_USERS_SUCCESS',
+      // verify: { auth }
     })
   } catch (error) {
     console.log(error)
   }
 }
 
-// export const verifyTokenRoute = (token) => async (dispatch) => {
+// export const verifyTokenRoute = () => async (dispatch) => {
 //   try {
-//     // const token = localStorage.getItem('token');
+//     const token = localStorage.getItem('token');
 //     const response = await fetch(`${process.env.REACT_APP_BASE_URL}/user/verify`, {
 //       method: 'POST',
 //       headers: {
@@ -64,20 +69,28 @@ export const verifyUser = (email, password) => async (dispatch) => {
 //       body: JSON.stringify({ token })
 //     })
 //     const body = await response.json();
-//     const verify = body.auth
+
+//     const { auth } = body
+//     console.log(auth)
 
 //     dispatch({
 //       type: 'VERTIFY_USERS_SUCCESS',
-//       payload: { verify }
+//       verify: { auth }
 //     })
 //   } catch (e) {
 //     console.log(e)
 //     dispatch({
 //       type: 'VERTIFY_USERS_ERROR',
-//       payload: { error }
+//       payload: { error },
+//       verify: { auth }
 //     })
 //   }
 // }
+
+export const logOutUser = () => async (dispatch) => {
+  const auth = false ;
+  dispatch({ type: 'LOGOUT_USER', verify: { auth } })
+}
 
 export const addUserEvent = (inputStartDate, inputEndDate, event) => async (dispatch) => {
   try {

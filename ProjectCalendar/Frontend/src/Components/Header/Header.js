@@ -9,6 +9,7 @@ import { Button } from '@material-ui/core';
 import paths from '../../Routes/paths';
 
 import './styled.css';
+import { logOutUser } from '../../Actions';
 
 const Header = () => {
   const history = useHistory();
@@ -17,6 +18,7 @@ const Header = () => {
 
   const onLogout = () => {
     deleteToken()
+    logOutUser()
     history.push(paths.login);
   }
 

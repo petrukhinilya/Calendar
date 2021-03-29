@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import { useHistory, Link } from "react-router-dom";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import paths from '../Routes/paths';
 
@@ -26,7 +26,6 @@ const FormLogin = () => {
 
     if (validEmail && validPassword) {
       dispatch(verifyUser(email, password));
-      console.log(email)
       history.push(paths.calendar);
     } else {
       setOpen(true);
@@ -80,6 +79,18 @@ const FormLogin = () => {
 
     setOpen(false);
   }
+  
+  // let selector = useSelector(e => e.users.verify);
+  // console.log(selector)
+  // const [showAuth, setShowAuth] = useState(selector);
+
+  // const handleClosed = (event, reason) => {
+  //   if (reason === 'clickaway') {
+  //     return;
+  //   }
+
+  //   setShowAuth(false);
+  // }
 
   return (
     <>
@@ -99,6 +110,11 @@ const FormLogin = () => {
             {error}
           </Alert>
         </Snackbar>
+        {/* <Snackbar autoHideDuration={3000} open={showAuth} onClose={handleClosed}>
+          <Alert onClose={handleClosed} severity="info">
+            <div>You are log in</div>
+          </Alert>
+        </Snackbar> */}
         <Button type="submit" variant='contained' color='primary' size=''>Sign in</Button>
         <Link to='/registration' className='adress'><p>Registration</p></Link>
       </form>

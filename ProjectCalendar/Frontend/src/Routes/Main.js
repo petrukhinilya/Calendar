@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
 import paths from './paths';
@@ -9,7 +9,7 @@ import RegistrationPage from '../Pages/RegistrationPage';
 import ProtectedRoute from './ProtectedRoute';
 
 function Main() {
-    const { login, registration, calendar } = paths;
+    const {login, registration, calendar} = paths
     return (
         <>
             <Switch>

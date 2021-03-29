@@ -9,15 +9,18 @@ const createToken = (id) => {
 module.exports = {
   create: function (req, res, next) {
 
+
+
     userModel.create({ name: req.body.name, email: req.body.email, password: req.body.password }, function (err, result) {
       if (err) {
         console.log("error", err)
+        res.status(401).send({status: err.message })
         next(err);
       }
       else {
         console.log('result', result)
         const token = createToken(result._id)
-        res.status(200).send({ status: "success", message: "User added successfully!!!", data: { token } });
+        res.status(200).send({ status: "success", message: "User added successfully!!!", data: { token }, auth: true });
       }
     });
   },
@@ -36,9 +39,9 @@ module.exports = {
             const token = createToken(userInfo._id)
             console.log("responseBody", userInfo)
             console.log(token)
-            res.status(200).send({ status: "success", message: "user found!!!", data: { user: userInfo, token } });
+            res.status(200).send({ status: "success", message: "user found!!!", data: { user: userInfo, token }, auth: true });
           } else {
-            res.json({ status: "error", message: "Invalid password!!!", data: null });
+            res.json({ status: "error", message: "Invalid password!!!", data: null, auth: false });
           }
         }
       }
@@ -51,7 +54,7 @@ module.exports = {
     jwt.verify(token, 'secretKey', (err, decoded) => {
       if (err) {
         console.log('xxx', err)
-        res.status(401).send({ auth: false, message: "Failed to auth" })
+        res.status(401).send({ auth: false, message: "Failed to auth", auth: false })
       }
       req.body.id = decoded.id
       console.log(decoded)
@@ -59,6 +62,18 @@ module.exports = {
       next()
 
     })
+  },
+  find_user: function (req, res, next) {
+    userModel.find({ email: req.body.email }, function (err, userInfo) {
+
+      if (err) {
+        console.log(err)
+        return next(err)
+      }
+      console.log(userInfo)
+      res.status(200).send({status: 'success', message: "This email has already used", exist: true})
+    })
+
   }
 }
 

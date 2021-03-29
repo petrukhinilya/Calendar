@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory, Link } from "react-router-dom";
 import { useDispatch } from 'react-redux';
 
@@ -10,6 +10,25 @@ import { FormControl, Input, FormHelperText, Button, Snackbar } from '@material-
 import { Alert } from '@material-ui/lab';
 
 import './Login.css';
+
+// const findUser = async (email) => {
+//   try {
+//     console.log(email)
+//     const response = await fetch(`${process.env.REACT_APP_BASE_URL}/user/find`, {
+//       method: 'POST',
+//       headers: {
+//         'Content-Type': 'application/json;charset=utf-8'
+//       },
+//       body: JSON.stringify({ email })
+//     })
+//     const body = await response.json();
+
+//     console.log(body)
+//     return body.exist
+//   } catch (e) {
+//     console.log(e)
+//   }
+// }
 
 const FormRegister = () => {
   const history = useHistory();
@@ -23,11 +42,16 @@ const FormRegister = () => {
   const [validPassword, setValidPassword] = useState(false);
   const [open, setOpen] = useState(false);
 
-  const onSubmit = (e) => {
+//   useEffect(() => {
+//     const checkPassword = async() => {
+//         const result = await findUser(email);
+//         console.log(result)
+//     }
+//     checkPassword();
+// }, [email])
+
+  const onSubmit = async (e) => {
     e.preventDefault();
-    console.log(name)
-    console.log(email)
-    console.log(password)
 
     if (validEmail && validPassword && password === confirmPassword) {
       setOpen(false)
@@ -40,6 +64,8 @@ const FormRegister = () => {
 
   const onChangeEmail = (event) => {
     const { target: { name, value } } = event;
+    // const isUserExist = findUser(email);
+    // console.log(isUserExist)
 
     let lastAtPos = value.lastIndexOf('@');
     let lastDotPos = value.lastIndexOf('.');
@@ -125,11 +151,11 @@ const FormRegister = () => {
             <Input onChange={onChangePassword} type="password" placeholder="Confirm password" name="confirmPassword" value={confirmPassword} />
           </FormControl>
         </div>
-        <Snackbar autoHideDuration={3000} open={open} onClose={handleClose}>
+        {/* <Snackbar autoHideDuration={3000} open={open} onClose={handleClose}>
           <Alert onClose={handleClose} severity="warning">
             {error}
           </Alert>
-        </Snackbar>
+        </Snackbar> */}
         <Button type='submit' variant='contained' color='primary'> Sign up </Button>
         <Link to='/login' className='adress'><p>Registration</p></Link>
       </form>
