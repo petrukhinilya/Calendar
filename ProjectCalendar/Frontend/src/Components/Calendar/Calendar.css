@@ -1,50 +1,84 @@
 .calendar-wrapper{
-    margin: 0 10px;
+    margin: 10px 10px 0 10px;
 }
 .calendar-head{
     display: flex;
-    justify-content: space-around;
-    margin-right: 63px;
-    border: 1px solid black;
+    justify-content: space-between;
+    font-size: 22px;
+    margin: 0 15px;
 }
-.calendar-head button{
-    margin: 0 5px;
+.head-wrapper{
+    display: flex;
+    align-items: center;
 }
+.head-wrapper div{
+    margin: 0 10px;
+}
+
+.arrow{
+    padding: 0 2px;
+}
+
+.arrow:hover{
+    background-color: lightgray;
+    border-radius: 50%;
+}
+
+.body {
+    width: 100%;
+}
+
+table{
+    border-spacing: 0;
+    margin-top: 10px;
+}
+
 .day-names{
     display: flex;
     justify-content: space-around;
-    margin-right: 63px;
-    border: 1px solid black;
+    border: thin solid grey;
 }
-.calendar .day {
-    width: calc(100% / 7);
-    height: 100px;
+.day {
+    height: 18.3vh;
     display: inline-flex;
     flex-direction: column;
-    background-color: whitesmoke;
     box-sizing: border-box;
-    width: 250px;
-    border: solid 1px black;
+    width: calc(100%/7);
+    border-bottom: thin solid grey;
+    border-right: thin solid grey;
+    overflow-wrap: anywhere;
+    overflow: auto;
 }
+
+.day:first-child {
+    border-left:thin solid grey;
+}
+
 #number{
+    margin: 5px 0;
     cursor: pointer;
-    text-align: end;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 600;
 }
+
 .before{
-    background-color: gray;
+    color: grey;
 }
 .selected{
-    background-color: orchid;
-}
-.today{
-    background-color: red;
+    background-color: blue;
+    padding: 3px;
+    border-radius: 50%;
+    color: white;
 }
 .highlight{
     display: flex;
     justify-content: space-between;
+    background-color:rgb(0, 153, 255);
+    border-radius: 10%;
+    margin: 0 2px 1px 0;
+    color: white;
 }
 .event{
-    background-color: blue;
-    border-radius: 20%;
-    border: 1px solid grey;
+    cursor: pointer;
 }

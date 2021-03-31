@@ -2,11 +2,21 @@ import React, { useState, useEffect } from 'react';
 import moment from 'moment';
 import { useDispatch, useSelector } from 'react-redux';
 
+import { Button, Snackbar, Popover, Typography } from '@material-ui/core';
+import { Alert } from '@material-ui/lab';
+import { makeStyles } from '@material-ui/core/styles';
+
+import Header from '../Header/Header';
 import builtCalendar from './BuiltCalendar';
 import Popup from './Popup';
 import DayPopup from './DayPopup';
 import CalendarDay from './CalendarDay';
+import CurrentDayPopup from './CurrentDayPopup';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronLeft, faChevronRight, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+
+import { ChevronLeftOutlined, ChevronRightOutlined } from '@material-ui/icons';
 
 import { getUserEvent, deleteUserEvent, updateUserEvent } from '../../Actions';
 
@@ -17,12 +27,18 @@ const Calendar = () => {
   const [calendar, setCalendar] = useState([]);
   const [value, setValue] = useState(moment());
   const [showPopup, setShowPopup] = useState(false);
-  const allEvents = useSelector(state => state.events.events);
   const [showDayPopup, setShowDayPopup] = useState(false);
   const [event, setEvent] = useState('');
+  const allEvents = useSelector(state => state.events.events);
 
-  useEffect(async () => {
-    await setCalendar(builtCalendar(value))
+  const [showCurrentDayPopup, setShowCurrentDayPopup] = useState(false);
+  const [startOfEvent, setStartOfEvent] = useState('');
+
+  const [openSnackDelete, setOpenSnackDelete] = useState(false);
+  const [openSnackAdd, setOpenSnackAdd] = useState(false);
+
+  useEffect(() => {
+    setCalendar(builtCalendar(value))
   }, [value]);
 
   useEffect(() => {
@@ -46,7 +62,10 @@ const Calendar = () => {
   }
 
   const isToday = (day) => {
-    return day.isSame(new Date(), 'day');
+    if (value.isSame(day, 'day') && value.isSame(day, 'month')) {
+      return true
+    }
+    return false
   }
 
   const dayStyles = (day) => {
@@ -54,9 +73,7 @@ const Calendar = () => {
 
     if (nextToday(day)) return 'before';
 
-    if (isSelected(day)) return 'selected';
-
-    if (isToday(day)) return 'today';
+    if (isToday(day)) return 'selected';
 
     return '';
   }
@@ -78,35 +95,56 @@ const Calendar = () => {
   }
 
   const deleteEvent = (id) => {
-    dispatch(deleteUserEvent(id));
-    dispatch(getUserEvent());
+    let deleteEvent = confirm('Delete event')
+    if (deleteEvent) {
+      dispatch(deleteUserEvent(id));
+      dispatch(getUserEvent());
+      setOpenSnackDelete(true);
+    }
+  }
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpenSnackDelete(false);
+    setOpenSnackAdd(false);
+  }
+
+  const styles = {
+    buttons: {
+      'fontWeight': '700',
+    }
   }
 
   return (
     <div className='calendar-wrapper'>
       <div className='calendar'>
         <div className="calendar-head">
-          <div>
-            <button onClick={() => setValue(moment())}>Today</button>
-            <button onClick={() => setValue(prevMonth())}>Back</button>
-            <button onClick={() => setValue(nextMonth())}>Next</button>
+          <div className='head-wrapper'>
+            <Button onClick={() => setValue(moment())} variant="outlined" style={styles.buttons}>Today</Button>
+            <div onClick={() => setValue(prevMonth())} className='arrow'>
+              <ChevronLeftOutlined />
+            </div>
+            <div onClick={() => setValue(nextMonth())} className='arrow'>
+              <ChevronRightOutlined/>
+            </div>
+            <div>{currMonthName()}  {currYearName()}</div>
+            <Button onClick={() => setShowPopup(true)} variant="contained" color='primary' style={styles.buttons}>Add Event</Button>
           </div>
-          <div>{currMonthName()}  {currYearName()}</div>
-          <div>
-            <button onClick={() => setShowPopup(true)}>Add Event</button>
-          </div>
+          <Header />
         </div>
-        <div className='body'>
-          <div className='day-names'>
-            {
-              ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(d => (
-                <div>{d}</div>
-              ))
-            }
-          </div>
-          <div className='week'>
+        <table className='body'>
+          <tbody>
+            <tr className='day-names'>
+              {
+                ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(d => (
+                  <td>{d}</td>
+                ))
+              }
+            </tr>
             {calendar.map((week) => (
-              <div className='day-wrapper'>
+              <tr className='day-wrapper'>
                 {week.map((day) => {
                   return (
                     <CalendarDay
@@ -117,16 +155,41 @@ const Calendar = () => {
                       deleteEvent={deleteEvent}
                       setShowDayPopup={setShowDayPopup}
                       setEvent={setEvent}
+                      setShowCurrentDayPopup={setShowCurrentDayPopup}
+                      setStartOfEvent={setStartOfEvent}
                     />
                   )
                 })}
-              </div>
+              </tr>
             ))}
-          </div>
-        </div>
+          </tbody>
+        </table>
       </div>
-      {showPopup && <Popup onClick={() => setShowPopup(false)} />}
-      {showDayPopup && <DayPopup onClick={() => setShowDayPopup(false)} event = {event}/>}
+      <Snackbar autoHideDuration={2000} open={openSnackDelete} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="success">Event was deleted</Alert>
+      </Snackbar>
+      <Snackbar autoHideDuration={2000} open={openSnackAdd} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="success">Event was added</Alert>
+      </Snackbar>
+      {showPopup &&
+        <Popup
+          onClick={() => setShowPopup(false)}
+          setOpenSnackAdd={() => setOpenSnackAdd(true)}
+        />
+      }
+      {showDayPopup &&
+        <DayPopup
+          onClick={() => setShowDayPopup(false)}
+          event={event}
+          setOpenSnackAdd={() => setOpenSnackAdd(true)}
+        />}
+      {showCurrentDayPopup &&
+        <CurrentDayPopup
+          onClick={() => setShowCurrentDayPopup(false)}
+          startOfEvent={startOfEvent}
+          setOpenSnackAdd={() => setOpenSnackAdd(true)}
+        />
+      }
     </div>
   )
 }

@@ -3,7 +3,7 @@ import { saveToken, getToken } from '../utils/utils'
 
 export const addUser = (name, email, password) => async (dispatch) => {
   try {
-    const response = await fetch('http://localhost:1133/user/register', {
+    const response = await fetch(`${process.env.REACT_APP_BASE_URL}/user/register`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json;charset=utf-8'
@@ -15,9 +15,11 @@ export const addUser = (name, email, password) => async (dispatch) => {
     const { data: { token } } = body
     saveToken(token)
 
+    const { auth } = body
     dispatch({
       type: 'ADD_USERS_SUCCESS',
-      payload: { name }
+      payload: { name },
+      // verify: { auth }
     })
 
   } catch (error) {
@@ -27,34 +29,67 @@ export const addUser = (name, email, password) => async (dispatch) => {
       payload: { error }
     })
   }
-
-
 }
 
 export const verifyUser = (email, password) => async (dispatch) => {
-
   try {
-
-    const response = await fetch('http://localhost:1133/user/authenticate', {
+    const response1 = await fetch(`${process.env.REACT_APP_BASE_URL}/user/authenticate`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json;charset=utf-8'
       },
       body: JSON.stringify({ email, password })
     })
-    const body = await response.json()
+    const body = await response1.json()
 
     console.log(body)
 
     const { data: { token } } = body
     saveToken(token)
 
+    const { auth } = body
+
     dispatch({
-      type: 'LOGIN_USERS_SUCCESS'
+      type: 'LOGIN_USERS_SUCCESS',
+      // verify: { auth }
     })
   } catch (error) {
     console.log(error)
   }
+}
+
+// export const verifyTokenRoute = () => async (dispatch) => {
+//   try {
+//     const token = localStorage.getItem('token');
+//     const response = await fetch(`${process.env.REACT_APP_BASE_URL}/user/verify`, {
+//       method: 'POST',
+//       headers: {
+//         'Content-Type': 'application/json;charset=utf-8'
+//       },
+//       body: JSON.stringify({ token })
+//     })
+//     const body = await response.json();
+
+//     const { auth } = body
+//     console.log(auth)
+
+//     dispatch({
+//       type: 'VERTIFY_USERS_SUCCESS',
+//       verify: { auth }
+//     })
+//   } catch (e) {
+//     console.log(e)
+//     dispatch({
+//       type: 'VERTIFY_USERS_ERROR',
+//       payload: { error },
+//       verify: { auth }
+//     })
+//   }
+// }
+
+export const logOutUser = () => async (dispatch) => {
+  const auth = false ;
+  dispatch({ type: 'LOGOUT_USER', verify: { auth } })
 }
 
 export const addUserEvent = (inputStartDate, inputEndDate, event) => async (dispatch) => {
@@ -63,7 +98,7 @@ export const addUserEvent = (inputStartDate, inputEndDate, event) => async (disp
     const endDate = Number(new Date(inputEndDate).getTime());
 
     const token = getToken()
-    const response = await fetch('http://localhost:1133/event/add', {
+    const response = await fetch(`${process.env.REACT_APP_BASE_URL}/event/add`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json;charset=utf-8'
@@ -86,7 +121,7 @@ export const addUserEvent = (inputStartDate, inputEndDate, event) => async (disp
 export const getUserEvent = () => async (dispatch) => {
   try {
     const token = getToken()
-    const response = await fetch(`http://localhost:1133/event/get?token=${token}`, {
+    const response = await fetch(`${process.env.REACT_APP_BASE_URL}/event/get?token=${token}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json;charset=utf-8'
@@ -111,12 +146,12 @@ export const getUserEvent = () => async (dispatch) => {
 export const deleteUserEvent = (id) => async (dispatch) => {
   try {
     const token = getToken()
-    const response = await fetch(`http://localhost:1133/event/${id}/delete`, {
+    const response = await fetch(`${process.env.REACT_APP_BASE_URL}/event/${id}/delete`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json;charset=utf-8'
       },
-      body:JSON.stringify({id, token})
+      body: JSON.stringify({ id, token })
     })
 
     const events = await response.json();
@@ -140,12 +175,12 @@ export const updateUserEvent = (id, inputStartDate, inputEndDate, event) => asyn
     const startDate = Number(new Date(inputStartDate).getTime());
     const endDate = Number(new Date(inputEndDate).getTime());
 
-    const response = await fetch(`http://localhost:1133/event/${id}/update`, {
+    const response = await fetch(`${process.env.REACT_APP_BASE_URL}/event/${id}/update`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json;charset=utf-8'
       },
-      body:JSON.stringify({id, startDate, endDate, event, token})
+      body: JSON.stringify({ id, startDate, endDate, event, token })
     })
 
     const events = await response.json();

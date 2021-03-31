@@ -1,33 +1,43 @@
 .wrapper-popup{
     position: absolute;
     margin-top: -1000px;
+    margin-left: -100px;
     z-index: 100;
     background-color: grey;
-    width: 1800px;
+    width: 1930px;
     height: 1000px;
-    opacity: 50%;
+    opacity: 0.7;
 }
 .popup{
     position: fixed;
-    background-color: bisque;
     z-index: 1000;
-    top: 33%;
-    left: 33%;
-    width: 600px;
-    height: 300px;
+    top: 23%;
+    left: 39%;
+    width: 350px;
     display: flex;
     flex-direction: column;
-}
-.input1{
-    margin: 15px;
-}
-.input2{
-    margin: 15px;
-}
-.text{
-    margin: 10px 0;
+    background:whitesmoke;
+    align-items: center;
+    border-radius: 10%;
 }
 
-.reset{
-margin-top: 50px;
+.text{
+    width: 90%;
+    border: 0;
+    outline: 0;
 }
+.text:focus,
+.text::placeholder{
+    border-color: green;
+    color: black;
+}
+
+.popup-btn-wrapper{
+    display: flex;
+    flex-direction: column;
+    margin-top: 80px;
+    margin-bottom: 5px;
+}
+
+
+

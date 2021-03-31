@@ -1,12 +1,34 @@
-import React, { useState } from 'react';
-import { useHistory } from "react-router-dom";
+import React, { useEffect, useState } from 'react';
+import { useHistory, Link } from "react-router-dom";
 import { useDispatch } from 'react-redux';
 
 import { addUser } from '../Actions';
 
 import paths from '../Routes/paths';
 
-import './Registration.css';
+import { FormControl, Input, FormHelperText, Button, Snackbar } from '@material-ui/core';
+import { Alert } from '@material-ui/lab';
+
+import './Login.css';
+
+// const findUser = async (email) => {
+//   try {
+//     console.log(email)
+//     const response = await fetch(`${process.env.REACT_APP_BASE_URL}/user/find`, {
+//       method: 'POST',
+//       headers: {
+//         'Content-Type': 'application/json;charset=utf-8'
+//       },
+//       body: JSON.stringify({ email })
+//     })
+//     const body = await response.json();
+
+//     console.log(body)
+//     return body.exist
+//   } catch (e) {
+//     console.log(e)
+//   }
+// }
 
 const FormRegister = () => {
   const history = useHistory();
@@ -15,32 +37,74 @@ const FormRegister = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [error, setError] = useState('');
+  const [validEmail, setValidEmail] = useState(false);
+  const [validPassword, setValidPassword] = useState(false);
+  const [open, setOpen] = useState(false);
 
-  const onSubmit = (e) => {
+//   useEffect(() => {
+//     const checkPassword = async() => {
+//         const result = await findUser(email);
+//         console.log(result)
+//     }
+//     checkPassword();
+// }, [email])
+
+  const onSubmit = async (e) => {
     e.preventDefault();
 
-    const {
-      target: {
-        children: {
-          password: {
-            value: password 
-          },
-          confirmPassword: {
-            value: confirmPassword 
-          },
-          name: {
-            value: name 
-          },
-          email: {
-            value: email 
-            },
-          }
-        }
-      } = e;
+    if (validEmail && validPassword && password === confirmPassword) {
+      setOpen(false)
+      dispatch(addUser(name, email, password));
+      history.push(paths.calendar);
+    } else {
+      setOpen(true);
+    }
+  }
 
-    if (password === confirmPassword) {
-        dispatch(addUser(name, email, password));
-        history.push(paths.calendar);
+  const onChangeEmail = (event) => {
+    const { target: { name, value } } = event;
+    // const isUserExist = findUser(email);
+    // console.log(isUserExist)
+
+    let lastAtPos = value.lastIndexOf('@');
+    let lastDotPos = value.lastIndexOf('.');
+
+    if (!(lastAtPos < lastDotPos && lastAtPos > 0 && value.indexOf('@@') == -1 && lastDotPos > 2 && (value.length - lastDotPos) > 2) && value) {
+      setError('Email should have @ and .')
+    } else {
+      setValidEmail(true)
+      setError('')
+    }
+
+    switch (name) {
+      case 'email':
+        setEmail(value);
+        break;
+      default:
+        break;
+    }
+  }
+
+  const onChangePassword = (event) => {
+    const { target: { name, value } } = event;
+
+    switch (name) {
+      case 'password':
+        setPassword(value);
+        break;
+      case 'confirmPassword':
+        setConfirmPassword(value);
+        break;
+      default:
+        break;
+    }
+
+    if (value && value.length > 6) {
+      setValidPassword(true)
+      setError('')
+    } else {
+      setError('Password less than 6')
     }
   }
 
@@ -48,34 +112,55 @@ const FormRegister = () => {
     const { target: { name, value } } = event;
 
     switch (name) {
-        case 'name':
-            setName(value);
-            break;
-        case 'email':
-            setEmail(value);
-            break;
-        case 'password':
-            setPassword(value);
-            break;
-        case 'confirmPassword':
-            setConfirmPassword(value);
-            break;
-        default:
-            break;
-        }
+      case 'name':
+        setName(value);
+        break;
+      default:
+        break;
+    }
+  }
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
     }
 
+    setOpen(false);
+  }
+
   return (
+    <>
+      <form onSubmit={onSubmit} className="login-form">
         <div>
-            <form onSubmit={onSubmit}>
-                <input onChange={onChange} type="text" placeholder="Name" name="name" value={name} />
-                <input onChange={onChange} type="text" placeholder="E-mail address" name="email" value={email} />
-                <input onChange={onChange} type="password" placeholder="Password" name="password" value={password} />
-                <input onChange={onChange} type="password" placeholder="Confirm password" name="confirmPassword" value={confirmPassword} />
-                <button type='submit'>Sign up </button>
-            </form>
+          <FormControl fullWidth required >
+            <Input onChange={onChange} type="text" placeholder="Name" name="name" value={name} />
+          </FormControl>
         </div>
-    )
+        <div>
+          <FormControl fullWidth required>
+            <Input onChange={onChangeEmail} type="text" placeholder="E-mail address" name="email" value={email} />
+          </FormControl>
+        </div>
+        <div>
+          <FormControl fullWidth required>
+            <Input onChange={onChangePassword} type="password" placeholder="Password" name="password" value={password} />
+          </FormControl>
+        </div>
+        <div>
+          <FormControl fullWidth required>
+            <Input onChange={onChangePassword} type="password" placeholder="Confirm password" name="confirmPassword" value={confirmPassword} />
+          </FormControl>
+        </div>
+        {/* <Snackbar autoHideDuration={3000} open={open} onClose={handleClose}>
+          <Alert onClose={handleClose} severity="warning">
+            {error}
+          </Alert>
+        </Snackbar> */}
+        <Button type='submit' variant='contained' color='primary'> Sign up </Button>
+        <Link to='/login' className='adress'><p>Registration</p></Link>
+      </form>
+    </ >
+  )
 }
 
 export default FormRegister;

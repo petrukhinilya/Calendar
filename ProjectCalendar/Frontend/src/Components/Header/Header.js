@@ -1,25 +1,39 @@
-import React from 'react'
-import './styled.css'
-import {useSelector} from 'react-redux'
-import { deleteToken } from '../../utils/utils';
+import React from 'react';
 import { useHistory } from "react-router-dom";
-import paths from '../../Routes/paths'
+import { useSelector } from 'react-redux';
+
+import { deleteToken } from '../../utils/utils';
+
+import { Button } from '@material-ui/core';
+
+import paths from '../../Routes/paths';
+
+import './styled.css';
+import { logOutUser } from '../../Actions';
 
 const Header = () => {
   const history = useHistory();
-  const useName = ({users}) => (users)
-  const {name} = useSelector(useName);
+  const useName = ({ users }) => (users);
+  const { name } = useSelector(useName);
 
   const onLogout = () => {
     deleteToken()
-    history.push(paths.registration)
+    logOutUser()
+    history.push(paths.login);
   }
 
-
-    return (<div className= 'header'>
-      <p>{name}</p>
-      <button onClick={onLogout}>Logout</button>
-    </div>)
+  const styles = {
+    buttons: {
+      'font-weight': '700'
+    }
   }
 
-export default Header
+  return (
+    <div>
+      {/* <p>{name}</p> */}
+      <Button onClick={onLogout} variant="contained"  style={styles.buttons}>Logout</Button>
+    </div>
+  )
+}
+
+export default Header;

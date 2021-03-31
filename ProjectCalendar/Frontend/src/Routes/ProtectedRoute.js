@@ -1,58 +1,73 @@
-import React, {useEffect, useState, useMemo} from 'react'
+import React, { useEffect, useState, useMemo } from 'react';
 
-import paths from './paths'
+import paths from './paths';
 import { useHistory } from "react-router-dom";
+import { useDispatch, useSelector } from 'react-redux';
 
-import Loading from '../Components/Loading'
+import Loading from '../Components/Loading';
+// import { verifyTokenRoute } from '../Actions';
 
-
-
-const verifyToken = async () => {
+const verifyTokenRoute = async () => {
     try {
         const token = localStorage.getItem('token');
-        const response = await fetch('http://localhost:1133/user/verify', {
+        const response = await fetch(`${process.env.REACT_APP_BASE_URL}/user/verify`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json;charset=utf-8'
             },
             body: JSON.stringify({ token })
         })
-        const body = await response.json()
-        console.log(body.auth)
+        const body = await response.json();
+
         return body.auth
     } catch (e) {
         console.log(e)
+
         return false
     }
-
 }
 
 const ProtectedRoute = (props) => {
-    const [isAuthenticated, setIsAuthenticated] = useState(null);
     const history = useHistory();
+    const [isAuthenticated, setIsAuthenticated] = useState(null);
+    // const dispatch = useDispatch()
+    // const selector = useSelector(el => el.users.verify)
+
+    // useEffect(() => {
+    //     const checkVerify = () => {
+    //         dispatch(verifyTokenRoute())
+    //         setIsAuthenticated(selector);
+    //     }
+    //     checkVerify();
+    // }, [])
+
     useEffect(() => {
-        const test1 = async() =>{
-            const result = await verifyToken();
+        const checkVerify = async() => {
+            const result = await verifyTokenRoute();
             setIsAuthenticated(result);
         }
-        test1();
+        checkVerify();
     }, [])
-    const { login, registration, calendar } = paths
+
     const getRenderData = useMemo(() => {
-        if(isAuthenticated === null){
+        if (isAuthenticated === null) {
             return <div><Loading></Loading></div>
         }
-        if(isAuthenticated){
+        if (isAuthenticated) {
             const Component = props.component;
-            return <Component/>
+
+            return <Component />
         } else {
-            history.push(paths.login)
+            history.push(paths.login);
+
             return null
         }
     }, [isAuthenticated])
-    console.log('isAuthenticated',isAuthenticated)
-    return getRenderData;
+
+    console.log(isAuthenticated)
+
+    return getRenderData
 }
 
-export default ProtectedRoute
+export default ProtectedRoute;
 
